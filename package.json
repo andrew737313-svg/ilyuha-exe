@@ -1,0 +1,37 @@
+{
+  "name": "ilyuha-exe",
+  "private": true,
+  "version": "32.0.0",
+  "type": "module",
+  "description": "ИЛЮХА.EXE — Патч 32.0. Персональная ретро-RPG-игра.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "build:pages": "tsc --noEmit && vite build --base=/ilyuha-exe/",
+    "preview": "vite preview --port 4173 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "verify": "npm run build && node tools/verify.mjs",
+    "verify:only": "node tools/verify.mjs",
+    "texts": "node tools/texts-check.mjs",
+    "devcheck": "node tools/devcheck.mjs",
+    "typo": "npm run build && node tools/typo-check.mjs",
+    "audio": "node tools/render-audio.ts",
+    "assets": "node tools/fetch-fonts.mjs && python tools/prepare_media.py",
+    "shots": "python tools/inspect-shots.py"
+  },
+  "engines": {
+    "node": ">=22.6"
+  },
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.1.0",
+    "playwright": "^1.64.1",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.5"
+  }
+}

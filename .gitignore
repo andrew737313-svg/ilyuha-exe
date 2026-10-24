@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.tools/
+*.tsbuildinfo
+
+# analysis artefacts (regenerate with tools/*.py)
+tools/faces/
+tools/screenshots/
+tools/asset-analysis.json
+tools/asset-analysis.txt
+tools/face-report.json
+tools/face-report.txt
+tools/_*.py
+tools/_*.ts
+tools/_*.mjs
+tools/typo-report.json

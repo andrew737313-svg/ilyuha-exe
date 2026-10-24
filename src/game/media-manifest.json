@@ -1,0 +1,112 @@
+[
+  {
+    "stem": "park-friends",
+    "source": "assets/Ретро-фотография в пиксельном парке.png",
+    "width": 1200,
+    "height": 900,
+    "aspect": 1.3333,
+    "crop_pct": null,
+    "original_size": [
+      1448,
+      1086
+    ],
+    "webp_kb": 296,
+    "edge_luma": 56.2,
+    "inner_luma": 69.2
+  },
+  {
+    "stem": "classroom",
+    "source": "assets/Пиксельные одноклассники в солнечном классе.png",
+    "width": 1200,
+    "height": 900,
+    "aspect": 1.3333,
+    "crop_pct": null,
+    "original_size": [
+      1448,
+      1086
+    ],
+    "webp_kb": 191,
+    "edge_luma": 47.4,
+    "inner_luma": 79.1
+  },
+  {
+    "stem": "night-room-retro",
+    "source": "assets/Ночная игровая комната в стиле ретро.png",
+    "width": 1200,
+    "height": 900,
+    "aspect": 1.3333,
+    "crop_pct": null,
+    "original_size": [
+      1448,
+      1086
+    ],
+    "webp_kb": 244,
+    "edge_luma": 47.7,
+    "inner_luma": 86.7
+  },
+  {
+    "stem": "night-room-cozy",
+    "source": "assets/Ночная пиксельная игровая уютная комната.png",
+    "width": 1200,
+    "height": 800,
+    "aspect": 1.5,
+    "crop_pct": null,
+    "original_size": [
+      1536,
+      1024
+    ],
+    "webp_kb": 247,
+    "edge_luma": 49.0,
+    "inner_luma": 76.6
+  },
+  {
+    "stem": "family-portrait",
+    "source": "assets/Тёплый семейный портрет в пиксель-арте(2).png",
+    "width": 1200,
+    "height": 800,
+    "aspect": 1.5,
+    "crop_pct": null,
+    "original_size": [
+      1536,
+      1024
+    ],
+    "webp_kb": 262,
+    "edge_luma": 73.1,
+    "inner_luma": 98.4
+  },
+  {
+    "stem": "gamer-full",
+    "source": "assets/Пиксельный геймер с лисой чашкой.png",
+    "width": 1200,
+    "height": 1200,
+    "aspect": 1.0,
+    "crop_pct": null,
+    "original_size": [
+      1254,
+      1254
+    ],
+    "webp_kb": 219,
+    "edge_luma": 52.7,
+    "inner_luma": 90.0
+  },
+  {
+    "stem": "portrait-ilyuha",
+    "source": "assets/Пиксельный геймер с лисой чашкой.png",
+    "width": 702,
+    "height": 703,
+    "aspect": 0.9986,
+    "crop_pct": [
+      20.0,
+      8.0,
+      76.0,
+      64.0
+    ],
+    "original_size": [
+      1254,
+      1254
+    ],
+    "webp_kb": 113,
+    "edge_luma": 52.7,
+    "inner_luma": 90.0
+  }
+]
