@@ -94,8 +94,7 @@ export function ProfileScreen({ dispatch, go }: ScreenProps) {
               <span className="perk__kicker">Пассивная способность</span>
               <strong>Пивной баф</strong>
               <span className="perk__text">
-                +5 к уверенности, −2 к скорости. Открывается автоматически после тридцати.
-                Отключению не подлежит.
+                +5 к уверенности, −2 к скорости. Выдаётся автоматически после тридцати. Отключению не подлежит.
               </span>
             </span>
           </div>

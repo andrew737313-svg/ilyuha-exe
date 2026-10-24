@@ -144,8 +144,7 @@ export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
             <span className="award-panel__kicker">Достижение</span>
             <strong>Не удалил сейв с детства</strong>
             <p>
-              Шесть нажатий, ноль сожалений. За окном светает, а сохранение на месте —
-              как и в детстве.
+              Шесть нажатий, ноль сожалений. За окном светает, а сейв на месте.
             </p>
           </div>
         </div>

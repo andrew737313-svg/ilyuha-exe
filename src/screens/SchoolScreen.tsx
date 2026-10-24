@@ -20,7 +20,7 @@ export function SchoolScreen({ state, dispatch, go }: ScreenProps) {
           chapter="03"
           kicker="ШКОЛА · ОДНА ПАРТА НА ДВОИХ"
           title="Два стула, одна парта"
-          lead="Один класс, одна парта и очень много свободного времени."
+          lead="Один класс, одна парта и слишком много свободного времени."
         />
       }
       nav={
@@ -35,7 +35,7 @@ export function SchoolScreen({ state, dispatch, go }: ScreenProps) {
               go("minigame");
             }}
           >
-            {active ? "Глава 04: ночная сессия →" : "Сначала выбери вариант"}
+            {active ? "Глава 04: ночная сессия →" : "Сначала выбери, каким ты был"}
           </PixelButton>
         </div>
       }
@@ -46,7 +46,7 @@ export function SchoolScreen({ state, dispatch, go }: ScreenProps) {
           caption={
             <>
               <span className="art__tag">2000-е</span>
-              Один класс, две фамилии в журнале, одна парта. Солнце в окно — как в тот самый день.
+              Один класс, две фамилии в журнале, одна парта. Солнце в окно — как тогда.
             </>
           }
         />

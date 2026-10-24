@@ -7,9 +7,9 @@ import { useAudio } from "../audio/AudioProvider";
 import { ChapterLayout, type ScreenProps } from "./types";
 
 const BOOT_LINES = [
-  "Проверка жёсткого диска: жив.",
+  "Проверка жёсткого диска: жив. Держится.",
   "Поиск сохранения „Детство“: найдено.",
-  "Проверка взрослости: в процессе.",
+  "Проверка взрослости: зависла на семидесяти процентах.",
   "Илюха обнаружен. 32 года. Всё ещё свой.",
 ];
 
@@ -77,7 +77,7 @@ export function BootScreen({ state, dispatch, go }: ScreenProps) {
           chapter="01"
           kicker="СИСТЕМА · ЗАПУСК"
           title="ИЛЮХА.EXE"
-          lead="Патч 32.0 — вроде стабильная сборка."
+          lead="Патч 32.0. Сделан вручную, в одном экземпляре."
         />
       }
       nav={
@@ -86,7 +86,7 @@ export function BootScreen({ state, dispatch, go }: ScreenProps) {
             {phase === "idle"
               ? "Звук включится после нажатия — так требуют браузеры."
               : ready
-                ? "Проверка завершена. Можно входить."
+                ? "Проверка завершена. Вход свободный."
                 : "Идёт проверка системы…"}
           </span>
           {ready ? (
@@ -165,7 +165,7 @@ export function BootScreen({ state, dispatch, go }: ScreenProps) {
             caption={
               <>
                 <span className="art__tag">РЕТРО</span>
-                Ночная комната, тёплая лампа и гудящий комп.
+                Ночь, лампа и гудящий комп. Всё как надо.
               </>
             }
           />
