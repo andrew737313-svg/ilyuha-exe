@@ -53,6 +53,14 @@ const wavPath = path.join(root, "tools", "screenshots", "test-track.wav");
 try {
   const context = await browser.newContext({ viewport: { width: 1440, height: 960 }, locale: "ru-RU" });
   const page = await context.newPage();
+  // Ускоряем ночную смену (мини-игру) для сквозного прохождения.
+  await page.addInitScript(() => {
+    try {
+      window.localStorage.setItem("ilyuha-night-fast", "1");
+    } catch {
+      /* ignore */
+    }
+  });
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   page.on("console", (message) => {
@@ -239,7 +247,15 @@ try {
     await page.getByRole("button", { name: /глава 03/i }).click();
     await page.getByRole("button", { name: /спокойно/i }).click();
     await page.getByRole("button", { name: /глава 04/i }).click();
-    for (let i = 0; i < 6; i += 1) await page.locator(".night__crt .btn").click();
+    await page.getByRole("button", { name: /начать смену/i }).click();
+    for (let i = 0; i < 600; i += 1) {
+      if (await page.locator(".night__verdict").count()) break;
+      const task = page.locator(".night__task.is-live .btn");
+      if (await task.count()) await task.first().click({ timeout: 400 }).catch(() => {});
+      const boost = page.locator(".night__boost:not([disabled])");
+      if (await boost.count()) await boost.first().click({ timeout: 400 }).catch(() => {});
+      await page.waitForTimeout(100);
+    }
     await page.getByRole("button", { name: /глава 05/i }).click();
     await page.getByRole("button", { name: /глава 06/i }).click();
     await page.getByRole("button", { name: /разобраться/i }).click();

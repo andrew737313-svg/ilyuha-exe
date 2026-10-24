@@ -1,27 +1,23 @@
 import { ART } from "../game/art";
-import { MINIGAME_STEPS } from "../game/content";
-import { MINIGAME_CLICKS } from "../game/state";
+import { useAudio } from "../audio/AudioProvider";
+import { NightShiftGame } from "../components/NightShiftGame";
 import { ArtImage } from "../components/ArtImage";
 import { ChapterHeader, PixelButton } from "../components/Ui";
 import { PixelIcon } from "../components/PixelIcon";
-import { useAudio } from "../audio/AudioProvider";
 import { ChapterLayout, type ScreenProps } from "./types";
 
 export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
   const { sfx } = useAudio();
-  const clicks = state.clicks;
-  const done = clicks >= MINIGAME_CLICKS;
-  const step = clicks > 0 ? MINIGAME_STEPS[Math.min(clicks, MINIGAME_CLICKS) - 1] : null;
-  const clock = step ? step.time : "22:10";
+  const done = state.night !== null;
 
   return (
     <ChapterLayout
       head={
         <ChapterHeader
           chapter="04"
-          kicker="МИНИ-ИГРА · НОЧНАЯ СЕССИЯ"
+          kicker="МИНИ-ИГРА · НОЧНАЯ СМЕНА"
           title="Ещё пять минут"
-          lead="Нажми шесть раз. Дальше — как пойдёт."
+          lead="Одна ночь, один уровень и кефиры, которым не до твоих игр."
         />
       }
       nav={
@@ -36,90 +32,16 @@ export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
               go("family");
             }}
           >
-            {done ? "Глава 05: семья →" : `Открыто после ${MINIGAME_CLICKS} нажатий`}
+            {done ? "Глава 05: семья →" : "Открыто после смены"}
           </PixelButton>
         </div>
       }
     >
       <div className="night">
-        <div className="night__stage">
-          <div className={`night__crt ${done ? "is-done" : ""}`}>
-            <div className="night__top">
-              <span className="night__clock" aria-label={`Время ${clock}`}>
-                {clock}
-              </span>
-              <span className="night__counter">
-                {clicks} / {MINIGAME_CLICKS} нажатий
-              </span>
-            </div>
-
-            <div className="night__quote" key={clicks}>
-              {step ? (
-                <>
-                  <span className="night__speaker">{step.speaker}</span>
-                  <p className="night__text">«{step.quote}»</p>
-                  <p className="night__note">{step.note}</p>
-                </>
-              ) : (
-                <>
-                  <span className="night__speaker">Система</span>
-                  <p className="night__text">«Ну что, ещё пять минут?»</p>
-                  <p className="night__note">
-                    Мама уже спит. Комп гудит. Игра на самом интересном месте.
-                  </p>
-                </>
-              )}
-            </div>
-
-            <div
-              className="night__progress"
-              role="progressbar"
-              aria-valuemin={0}
-              aria-valuemax={MINIGAME_CLICKS}
-              aria-valuenow={clicks}
-              aria-label="Прогресс ночной сессии"
-            >
-              {Array.from({ length: MINIGAME_CLICKS }, (_, i) => (
-                <span key={i} className={`night__seg ${i < clicks ? "is-on" : ""}`} />
-              ))}
-            </div>
-
-            <PixelButton
-              variant="primary"
-              className="btn--big"
-              onClick={() => {
-                if (done) return;
-                sfx("select");
-                dispatch({ type: "minigame-click" });
-              }}
-              disabled={done}
-              icon="gamepad"
-            >
-              {done ? "Сессия завершена" : "Ещё пять минут"}
-            </PixelButton>
-
-            <p className="night__hint">
-              {done
-                ? "Дальше — только в кровать. Или на работу."
-                : "Кнопку можно нажимать мышью, пальцем или клавишей Enter."}
-            </p>
-          </div>
-
-          <aside className="night__log" aria-label="Журнал сессии">
-            <span className="night__log-title">ЖУРНАЛ</span>
-            <ol>
-              {MINIGAME_STEPS.map((s, i) => (
-                <li key={s.time} className={i < clicks ? "is-done" : ""}>
-                  <span className="night__log-time">{s.time}</span>
-                  <span className="night__log-text">{s.quote}</span>
-                  <span className="night__log-mark" aria-hidden="true">
-                    {i < clicks ? <PixelIcon name="check" size={10} /> : "·"}
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </aside>
-        </div>
+        <NightShiftGame
+          savedResult={state.night}
+          onFinish={(result) => dispatch({ type: "minigame-finish", result })}
+        />
 
         <div className="night__art">
           <ArtImage
@@ -142,10 +64,8 @@ export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
           </span>
           <div>
             <span className="award-panel__kicker">Достижение</span>
-            <strong>Не удалил сейв с детства</strong>
-            <p>
-              Шесть нажатий, ноль сожалений. За окном уже светает.
-            </p>
+            <strong>Не выключал до утра</strong>
+            <p>«Ещё пять минут» повторялись до семи утра. Смена всё равно сдана.</p>
           </div>
         </div>
       ) : null}

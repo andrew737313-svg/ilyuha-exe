@@ -1,7 +1,7 @@
 export const SCREENS = [
   { id: "boot", chapter: "01", title: "Запуск", subtitle: "ИЛЮХА.EXE" },
   { id: "profile", chapter: "02", title: "Профиль персонажа", subtitle: "LVL 32" },
-  { id: "school", chapter: "03", title: "Два стула, одна парта", subtitle: "Школа" },
+  { id: "school", chapter: "03", title: "Одна парта на двоих", subtitle: "Школа" },
   { id: "minigame", chapter: "04", title: "Ещё пять минут", subtitle: "Ночная сессия" },
   { id: "family", chapter: "05", title: "Новая игра+", subtitle: "Семья" },
   { id: "work", chapter: "06", title: "Ночная смена", subtitle: "Молочный завод" },
@@ -78,7 +78,7 @@ export const ACHIEVEMENTS: Record<AchievementId, Achievement> = {
   "save-childhood": {
     id: "save-childhood",
     title: "Не выключал до утра",
-    text: "Шесть раз «ещё пять минут».",
+    text: "«Ещё пять минут» повторялись до семи утра. Смена всё равно сдана.",
     icon: "disk",
   },
   "new-game-plus": {
@@ -113,7 +113,7 @@ export const ACHIEVEMENTS: Record<AchievementId, Achievement> = {
   },
   soundtrack: {
     id: "soundtrack",
-    title: "Старый сейв на связи",
+    title: "Старый трек на связи",
     text: "Финальный трек запущен. Слушай до конца.",
     icon: "note",
   },
@@ -215,44 +215,28 @@ export const WORK_CHOICES = [
   },
 ];
 
-export const MINIGAME_STEPS = [
-  {
-    time: "23:40",
-    speaker: "Мама",
-    quote: "Ну всё, выключай.",
-    note: "Голос из коридора. Ты сделал вид, что не расслышал.",
+/** Контент ночной смены — мини-игры «Ещё пять минут». */
+export const NIGHT_SHIFT = {
+  /** Длительность смены в игровых секундах (реальных при скорости 1). */
+  duration: 90,
+  /** 23:00 — 07:00. */
+  startHour: 23,
+  minutes: 480,
+  /** Заявки на отгрузку. */
+  vehicles: ["ГАЗЕЛЬ", "ФУРА"] as const,
+  products: [
+    { label: "КЕФИР", log: "кефир" },
+    { label: "СМЕТАНА", log: "сметана" },
+    { label: "МОЛОКО", log: "молоко" },
+  ] as const,
+  /** Итоговые реплики (level подставляется динамически). */
+  verdicts: {
+    perfect: "Уровень пройден, смена сдана. Легенда цеха.",
+    level: "Уровень пройден, молочка местами встала. Приоритеты, Илюха.",
+    shift: "Кефиры целы. Уровень — на {level}%. Тоже вариант.",
+    nothing: "Смена встала, уровень не пошёл. Ночь, честно говоря, так себе.",
   },
-  {
-    time: "00:15",
-    speaker: "Ты",
-    quote: "Ща, сохранюсь.",
-    note: "Сохранение занимает полминуты. Проверка, что всё сохранилось, — ещё двадцать.",
-  },
-  {
-    time: "01:02",
-    speaker: "Система",
-    quote: "Это была уже третья «последняя миссия».",
-    note: "Система ведёт статистику. Мама — тоже.",
-  },
-  {
-    time: "02:30",
-    speaker: "Система",
-    quote: "Сохранение создано.",
-    note: "Зато нашлось что-то редкое. Хоть какая-то награда.",
-  },
-  {
-    time: "03:55",
-    speaker: "Ты",
-    quote: "За окном стемнело. Ты ничего не заметил.",
-    note: "И правда: было светло, стало темно, а ты всё ещё на том же уровне.",
-  },
-  {
-    time: "05:10",
-    speaker: "Ты",
-    quote: "Ну всё. Ещё одну — и точно спать.",
-    note: "Утром всё равно вставать. Время ещё есть.",
-  },
-] as const;
+} as const;
 
 export const PROFILE_STATS = [
   { label: "Имя", value: "Илюха", icon: "star" },

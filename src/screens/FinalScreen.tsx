@@ -80,7 +80,7 @@ export function FinalScreen({ state, dispatch }: ScreenProps) {
             ))}
             <p className="letter__sign">— твой сосед по парте</p>
             <p className="letter__ps">
-              P.S. Сейв не удаляй. Он ещё пригодится.
+              P.S. Детство не удаляй. Оно ещё пригодится.
             </p>
           </article>
 

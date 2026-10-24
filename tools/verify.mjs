@@ -115,6 +115,14 @@ try {
     timezoneId: "Europe/Moscow",
   });
   const page = await context.newPage();
+  // Ускоряем ночную смену (мини-игру) для теста: 90 игровых секунд → ~18 реальных.
+  await page.addInitScript(() => {
+    try {
+      window.localStorage.setItem("ilyuha-night-fast", "1");
+    } catch {
+      /* ignore */
+    }
+  });
 
   page.on("console", (msg) => {
     if (msg.type() !== "error") return;
@@ -250,7 +258,7 @@ try {
   // ---------------------------------------------------------------- school
   console.log("\n03 · ШКОЛА");
   await page.getByRole("button", { name: /глава 03/i }).click();
-  await page.waitForSelector("h1:has-text('Два стула')");
+  await page.waitForSelector("h1:has-text('Одна парта')");
   await imagesReady(page);
   check("Школьная иллюстрация загрузилась", await page.locator(".split--story img").evaluate((i) => i.complete && i.naturalWidth > 0));
 
@@ -272,17 +280,49 @@ try {
   await imagesReady(page);
   check("Фото ночной сессии загрузилось", await page.locator(".night__art img").evaluate((i) => i.complete && i.naturalWidth > 0));
 
-  for (let i = 1; i <= 6; i += 1) {
-    await page.locator(".night__crt .btn").click();
-    const counter = await page.locator(".night__counter").innerText();
-    check(`Нажатие ${i}/6 обновляет счётчик`, counter.startsWith(`${i} / 6`), counter);
+  check(
+    "Правила смены показаны до старта",
+    (await page.locator(".night__crt").innerText()).includes("один уровень"),
+  );
+  await page.getByRole("button", { name: /начать смену/i }).click();
+  await page.waitForSelector(".night__bar", { timeout: 5000 });
+
+  // Автоигра: разбираем заявки и жмём «Ещё пять минут», пока смена не кончится.
+  let verdictShown = false;
+  let taskClicks = 0;
+  let boostClicks = 0;
+  for (let i = 0; i < 600; i += 1) {
+    if (await page.locator(".night__verdict").count()) {
+      verdictShown = true;
+      break;
+    }
+    const task = page.locator(".night__task.is-live .btn");
+    if (await task.count()) {
+      await task.first().click({ timeout: 400 }).catch(() => {});
+      taskClicks += 1;
+    }
+    const boostBtn = page.locator(".night__boost:not([disabled])");
+    if (await boostBtn.count()) {
+      await boostBtn.first().click({ timeout: 400 }).catch(() => {});
+      boostClicks += 1;
+    }
+    await page.waitForTimeout(100);
   }
+  check("Ночная смена завершается сама", verdictShown, `кликов по заявкам: ${taskClicks}, ускорений: ${boostClicks}`);
+  check(
+    "Итоги смены показаны",
+    /отгружено \d+ · встало \d+ · уровень \d+%/i.test(await page.locator(".night__tally").innerText()),
+  );
+  check(
+    "Вердикт смены не пустой",
+    (await page.locator(".night__verdict-text").innerText()).length > 20,
+  );
+  check("Журнал смены заполнился", (await page.locator(".night__log li").count()) >= 2);
   check("Достижение мини-игры показано", await page.locator(".award-panel").isVisible());
   check(
-    "Шкала заполнена на 6 сегментов",
-    (await page.locator(".night__seg.is-on").count()) === 6,
+    "Кнопка «Глава 05» разблокирована",
+    !(await page.locator(".nav-row .btn").last().isDisabled()),
   );
-  check("Кнопка заблокирована после 6 нажатий", await page.locator(".night__crt .btn").isDisabled());
   await auditContrast(page, "мини-игра");
   await shot(page, "05-minigame");
 

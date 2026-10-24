@@ -1,4 +1,4 @@
-﻿import {
+import {
   ACHIEVEMENTS,
   SCREENS,
   SCREEN_INDEX,
@@ -10,7 +10,16 @@
 
 const STORAGE_KEY = "ilyuha-exe-patch32-v1";
 const STATE_VERSION = 1;
-const MINIGAME_CLICKS = 6;
+
+/** Итог ночной смены из мини-игры «Ещё пять минут». */
+export type NightResult = {
+  /** Сколько заявок отгружено вовремя. */
+  shipped: number;
+  /** Сколько заявок пропущено — «встало». */
+  missed: number;
+  /** Прогресс игрового уровня, 0–100. */
+  level: number;
+};
 
 export type GameState = {
   version: number;
@@ -21,7 +30,7 @@ export type GameState = {
   schoolTried: SchoolChoiceId[];
   workChoice: WorkChoiceId | null;
   workTried: WorkChoiceId[];
-  clicks: number;
+  night: NightResult | null;
   beerBuff: boolean;
   achievements: AchievementId[];
   trackPlayed: boolean;
@@ -34,7 +43,7 @@ export type GameAction =
   | { type: "award"; id: AchievementId }
   | { type: "school"; id: SchoolChoiceId }
   | { type: "work"; id: WorkChoiceId }
-  | { type: "minigame-click" }
+  | { type: "minigame-finish"; result: NightResult }
   | { type: "beer-buff" }
   | { type: "track-played" }
   | { type: "finish" }
@@ -49,7 +58,7 @@ export const initialState: GameState = {
   schoolTried: [],
   workChoice: null,
   workTried: [],
-  clicks: 0,
+  night: null,
   beerBuff: false,
   achievements: [],
   trackPlayed: false,
@@ -103,15 +112,13 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       };
     }
 
-    case "minigame-click": {
-      if (state.clicks >= MINIGAME_CLICKS) return state;
-      const clicks = state.clicks + 1;
-      if (clicks < MINIGAME_CLICKS) return { ...state, clicks };
+    case "minigame-finish": {
+      const first = state.night === null;
       return {
         ...state,
-        clicks,
-        achievements: award(state, "save-childhood"),
-        reached: unlock(state, "family"),
+        night: action.result,
+        achievements: first ? award(state, "save-childhood") : state.achievements,
+        reached: first ? unlock(state, "family") : state.reached,
       };
     }
 
@@ -195,7 +202,17 @@ export function loadState(): GameState {
       schoolTried: Array.isArray(parsed.schoolTried) ? parsed.schoolTried : [],
       workChoice: parsed.workChoice ?? null,
       workTried: Array.isArray(parsed.workTried) ? parsed.workTried : [],
-      clicks: typeof parsed.clicks === "number" ? Math.min(MINIGAME_CLICKS, Math.max(0, parsed.clicks)) : 0,
+      night:
+        parsed.night && typeof parsed.night === "object" &&
+        typeof parsed.night.shipped === "number" &&
+        typeof parsed.night.missed === "number" &&
+        typeof parsed.night.level === "number"
+          ? {
+              shipped: Math.max(0, Math.round(parsed.night.shipped)),
+              missed: Math.max(0, Math.round(parsed.night.missed)),
+              level: Math.min(100, Math.max(0, Math.round(parsed.night.level))),
+            }
+          : null,
       beerBuff: Boolean(parsed.beerBuff),
       achievements,
       trackPlayed: Boolean(parsed.trackPlayed),
@@ -221,5 +238,3 @@ export function clearState(): void {
     /* ignore */
   }
 }
-
-export { MINIGAME_CLICKS };

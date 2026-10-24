@@ -857,6 +857,242 @@
   width: 100%;
 }
 
+/* — ночная смена: игровой HUD — */
+
+.night__bar {
+  position: relative;
+  height: 22px;
+  background: #0a1322;
+  border: 2px solid var(--line-soft);
+  overflow: hidden;
+}
+
+.night__bar-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--amber);
+  box-shadow: inset 0 -5px 0 #b97a24;
+  transition: width 0.12s linear;
+}
+
+.night__bar.is-boost .night__bar-fill {
+  background: var(--mint);
+  box-shadow: inset 0 -5px 0 #517a5e, 0 0 14px rgba(127, 176, 138, 0.35);
+}
+
+.night__bar.is-full {
+  border-color: var(--mint);
+}
+
+.night__bar-label {
+  display: block;
+  text-align: center;
+  padding-top: 4px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--text-mute);
+  text-transform: uppercase;
+}
+
+.night__tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 74px;
+}
+
+.night__task {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "name mark"
+    "bar btn";
+  align-items: center;
+  gap: 6px 10px;
+  padding: 8px 10px;
+  background: rgba(14, 24, 40, 0.92);
+  border: 2px solid var(--line-soft);
+  animation: task-in 0.18s steps(3, end) both;
+}
+
+@keyframes task-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.night__task-name {
+  grid-area: name;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--amber-2);
+  text-transform: uppercase;
+}
+
+.night__task-bar {
+  grid-area: bar;
+  display: block;
+  height: 5px;
+  background: #0a1322;
+  border: 1px solid var(--line-soft);
+}
+
+.night__task-bar span {
+  display: block;
+  height: 100%;
+  background: var(--mint);
+  transition: width 0.1s linear;
+}
+
+.night__task .btn {
+  grid-area: btn;
+  width: auto;
+}
+
+.night__task-mark {
+  grid-area: btn;
+  justify-self: end;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+
+.night__task.is-ok {
+  border-color: var(--mint);
+  animation: task-out-ok 0.45s steps(4, end) both;
+}
+
+.night__task.is-ok .night__task-mark {
+  color: var(--mint);
+}
+
+@keyframes task-out-ok {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.04);
+    filter: brightness(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.night__task.is-missed {
+  border-color: var(--rust);
+  animation: task-out-bad 0.5s steps(4, end) both;
+}
+
+.night__task.is-missed .night__task-mark {
+  color: var(--rust);
+}
+
+@keyframes task-out-bad {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-4px);
+  }
+  40% {
+    transform: translateX(4px);
+    filter: brightness(1.4);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+}
+
+.night__idle {
+  margin: 0;
+  padding: 10px 2px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-mute);
+  text-align: center;
+}
+
+.night__crt.is-shake {
+  animation: crt-shake 0.32s steps(6, end);
+}
+
+@keyframes crt-shake {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-5px, 2px); }
+  40% { transform: translate(4px, -2px); }
+  60% { transform: translate(-3px, 1px); }
+  80% { transform: translate(2px, -1px); }
+  100% { transform: translate(0, 0); }
+}
+
+.night__verdict {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  background: rgba(14, 24, 40, 0.92);
+  border: 2px solid var(--mint);
+  animation: crt-in 0.24s steps(3, end) both;
+}
+
+.night__tally {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--mint);
+  text-transform: uppercase;
+}
+
+.night__verdict-text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2vw, 23px);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--amber-2);
+}
+
+.night__log li.is-bad {
+  color: var(--rust);
+}
+
+.night__log li.is-bad .night__log-time {
+  color: #f0917f;
+}
+
+.night__log li.is-bad .night__log-mark {
+  color: #f0917f;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .night__crt.is-shake,
+  .night__task,
+  .night__task.is-ok,
+  .night__task.is-missed,
+  .night__verdict {
+    animation: none;
+  }
+}
+
 .night__log {
   display: flex;
   flex-direction: column;
@@ -889,7 +1125,11 @@
   align-items: start;
   font-size: 12px;
   line-height: 1.5;
-  color: var(--text-mute);
+  color: var(--text-dim);
+}
+
+.night__log li.is-bad {
+  color: #f0917f;
 }
 
 .night__log li.is-done {

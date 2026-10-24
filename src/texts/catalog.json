@@ -485,7 +485,7 @@
     "context": "div · toast"
   },
   {
-    "text": "МИНИ-ИГРА · НОЧНАЯ СЕССИЯ",
+    "text": "МИНИ-ИГРА · НОЧНАЯ СМЕНА",
     "group": "minigame",
     "context": "header · chapter__head"
   },
@@ -495,17 +495,17 @@
     "context": "header · chapter__head"
   },
   {
-    "text": "Нажми шесть раз. Дальше — как пойдёт.",
+    "text": "Одна ночь, один уровень и кефиры, которым не до твоих игр.",
     "group": "minigame",
     "context": "header · chapter__head"
   },
   {
-    "text": "нажатий",
+    "text": "отгружено",
     "group": "minigame",
     "context": "div · night__crt"
   },
   {
-    "text": "Система",
+    "text": "· встало",
     "group": "minigame",
     "context": "div · night__crt"
   },
@@ -515,12 +515,17 @@
     "context": "div · night__crt"
   },
   {
-    "text": "Мама уже спит. Комп гудит. Игра на самом интересном месте.",
+    "text": "До семи утра надо пройти один уровень. Пока на смене тихо, уровень идёт сам. Загорается заявка — разберись с ней, иначе молочка встанет. Смена начинается по кнопке.",
     "group": "minigame",
     "context": "div · night__crt"
   },
   {
-    "text": "Кнопку можно нажимать мышью, пальцем или клавишей Enter.",
+    "text": "Начать смену",
+    "group": "minigame",
+    "context": "div · night__crt"
+  },
+  {
+    "text": "Смена с 23:00 до 07:00. Пока всё тихо — уровень идёт сам.",
     "group": "minigame",
     "context": "div · night__crt"
   },
@@ -530,32 +535,7 @@
     "context": "aside · night__log"
   },
   {
-    "text": "Ну всё, выключай.",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "Ща, сохранюсь.",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "Это была уже третья «последняя миссия».",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "Сохранение создано.",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "За окном стемнело. Ты ничего не заметил.",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "Ну всё. Ещё одну — и точно спать.",
+    "text": "смена ещё не началась",
     "group": "minigame",
     "context": "aside · night__log"
   },
@@ -575,34 +555,124 @@
     "context": "section · chapter"
   },
   {
-    "text": "Открыто после 6 нажатий",
+    "text": "Открыто после смены",
     "group": "minigame",
     "context": "section · chapter"
   },
   {
-    "text": "Ты",
+    "text": "уровень · 1%",
     "group": "minigame",
     "context": "div · night__crt"
   },
   {
-    "text": "Сохранение занимает полминуты. Проверка, что всё сохранилось, — ещё двадцать.",
+    "text": "ФУРА",
     "group": "minigame",
     "context": "div · night__crt"
   },
   {
-    "text": "Утром всё равно вставать. Время ещё есть.",
+    "text": "СМЕТАНА",
+    "group": "minigame",
+    "context": "div · night__crt"
+  },
+  {
+    "text": "Разобраться",
+    "group": "minigame",
+    "context": "div · night__crt"
+  },
+  {
+    "text": "«Ещё пять минут» — ускорение ×2,5 на восемь секунд. Откат двенадцать.",
+    "group": "minigame",
+    "context": "div · night__crt"
+  },
+  {
+    "text": "фура ждёт сметана.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "смена началась. уровень запущен.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "уровень · 3%",
+    "group": "minigame",
+    "context": "div · night__crt"
+  },
+  {
+    "text": "тихо. уровень идёт сам.",
+    "group": "minigame",
+    "context": "div · night__crt"
+  },
+  {
+    "text": "Идёт ускорение",
+    "group": "minigame",
+    "context": "div · night__crt"
+  },
+  {
+    "text": "отгружено. снова тихо.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "газель ждёт кефир.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "«ещё пять минут», сказал ты. цех не поверил.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "уровень · 12%",
+    "group": "minigame",
+    "context": "div · night__crt"
+  },
+  {
+    "text": "газель ждёт молоко.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "газель ждёт сметана.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "· уровень",
     "group": "minigame",
     "context": "div · night__crt done"
   },
   {
-    "text": "Сессия завершена",
+    "text": "Смена встала, уровень не пошёл. Ночь, честно говоря, так себе.",
     "group": "minigame",
     "context": "div · night__crt done"
   },
   {
-    "text": "Дальше — только в кровать. Или на работу.",
+    "text": "Ещё смена",
     "group": "minigame",
     "context": "div · night__crt done"
+  },
+  {
+    "text": "семь утра. смена сдана.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "не успели. встало.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "фура ждёт молоко.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "фура ждёт кефир.",
+    "group": "minigame",
+    "context": "aside · night__log"
   },
   {
     "text": "Достижение",
@@ -610,12 +680,12 @@
     "context": "div · award-panel"
   },
   {
-    "text": "Не удалил сейв с детства",
+    "text": "Не выключал до утра",
     "group": "minigame",
     "context": "div · award-panel"
   },
   {
-    "text": "Шесть нажатий, ноль сожалений. За окном уже светает.",
+    "text": "«Ещё пять минут» повторялись до семи утра. Смена всё равно сдана.",
     "group": "minigame",
     "context": "div · award-panel"
   },
@@ -623,16 +693,6 @@
     "text": "Глава 05: семья →",
     "group": "minigame",
     "context": "section · chapter"
-  },
-  {
-    "text": "Не выключал до утра",
-    "group": "minigame",
-    "context": "div · toast"
-  },
-  {
-    "text": "Шесть раз «ещё пять минут».",
-    "group": "minigame",
-    "context": "div · toast"
   },
   {
     "text": "СЕМЬЯ · ТЁПЛАЯ ЧАСТЬ",
@@ -765,7 +825,7 @@
     "context": "div · panel work__panel"
   },
   {
-    "text": "Ночная смена на молочном заводе. Ты старший: сметана, кефиры, молоко — и всё это грузится в фуры и газели. Если нигде ничего не встало, ночь тихая: можно и в компе порезаться. А если встало — решать тебе.",
+    "text": "Ночная смена на молочном заводе. Ты старший: сметана, кефиры, молоко — и всё это грузится в фуры и газели. Ночь тихая, если нигде ничего не встало. А если встало — решать тебе.",
     "group": "work",
     "context": "div · panel work__panel"
   },
@@ -776,11 +836,6 @@
   },
   {
     "text": "Классическая реакция",
-    "group": "work",
-    "context": "div · panel work__panel"
-  },
-  {
-    "text": "Разобраться",
     "group": "work",
     "context": "div · panel work__panel"
   },
@@ -1075,7 +1130,7 @@
     "context": "article · letter"
   },
   {
-    "text": "P.S. Сейв не удаляй. Он ещё пригодится.",
+    "text": "P.S. Детство не удаляй. Оно ещё пригодится.",
     "group": "final",
     "context": "article · letter"
   },
@@ -1140,7 +1195,7 @@
     "context": "div · player"
   },
   {
-    "text": "Старый сейв на связи",
+    "text": "Старый трек на связи",
     "group": "final",
     "context": "div · final"
   },
@@ -1260,7 +1315,7 @@
     "context": "заголовок вкладки"
   },
   {
-    "text": "ИЛЮХА.EXE — Два стула, одна парта",
+    "text": "ИЛЮХА.EXE — Одна парта на двоих",
     "group": "tab",
     "context": "заголовок вкладки"
   },
