@@ -95,7 +95,7 @@ export function FamilyScreen({ dispatch, go }: ScreenProps) {
           </ul>
 
           <p className="panel__note panel__note--warm">
-            Это не набор характеристик. Это причина, по которой всё остальное имеет смысл.
+            Это не набор характеристик. Это лучшее, что в этой сборке.
           </p>
         </div>
       </div>
