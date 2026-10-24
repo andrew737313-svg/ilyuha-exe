@@ -11,6 +11,7 @@ import {
 import type { ReactNode } from "react";
 import {
   applyOverrides,
+  normalizeText,
   readLocalOverrides,
   readShippedOverrides,
   writeLocalOverrides,
@@ -71,6 +72,10 @@ export function TextsProvider({ children }: { children: ReactNode }) {
   // again whenever the map changes.
   useLayoutEffect(() => {
     applyOverrides(document.body, merged);
+    const title = normalizeText(document.title);
+    if (merged[title] !== undefined && document.title !== merged[title]) {
+      document.title = merged[title];
+    }
   }, [merged]);
 
   // React re-renders replace text nodes; re-apply on every DOM change.
@@ -94,6 +99,20 @@ export function TextsProvider({ children }: { children: ReactNode }) {
       observer.disconnect();
       if (frame) window.cancelAnimationFrame(frame);
     };
+  }, []);
+
+  // The app resets document.title on every screen change (it is not a body
+  // text node, so the MutationObserver above never sees it) — re-apply.
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      const map = mergedRef.current;
+      if (Object.keys(map).length === 0) return;
+      const title = normalizeText(document.title);
+      if (map[title] !== undefined && document.title !== map[title]) {
+        document.title = map[title];
+      }
+    }, 1200);
+    return () => window.clearInterval(id);
   }, []);
 
   const persist = useCallback((next: TextOverrideMap) => {

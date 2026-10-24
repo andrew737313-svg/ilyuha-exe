@@ -1,4 +1,4 @@
-﻿/**
+/**
  * End-to-end check of the built game in real Chromium.
  *
  * Run: npm run build && node tools/verify.mjs
@@ -142,7 +142,7 @@ try {
   );
   check(
     "Стартовое изображение загрузилось",
-    await page.locator(".boot__bg img").evaluate((img) => img.complete && img.naturalWidth > 0),
+    await page.locator(".boot__art img").evaluate((img) => img.complete && img.naturalWidth > 0),
   );
   await shot(page, "01-boot-idle");
 
@@ -270,7 +270,7 @@ try {
   await page.getByRole("button", { name: /глава 04/i }).click();
   await page.waitForSelector("h1:has-text('Ещё пять минут')");
   await imagesReady(page);
-  check("Ночная комната загрузилась", await page.locator(".night__bg img").evaluate((i) => i.complete && i.naturalWidth > 0));
+  check("Фото ночной сессии загрузилось", await page.locator(".night__art img").evaluate((i) => i.complete && i.naturalWidth > 0));
 
   for (let i = 1; i <= 6; i += 1) {
     await page.locator(".night__crt .btn").click();
@@ -328,7 +328,7 @@ try {
   await imagesReady(page);
   check("Чейнджлог отрисован", (await page.locator(".changelog li").count()) === 3);
   check(
-    "Иллюстрация геймера загрузилась",
+    "Иллюстрация в патче загрузилась",
     await page.locator(".patch__art img").evaluate((i) => i.complete && i.naturalWidth > 0),
   );
   check(

@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { SCREENS } from "../game/content";
 import { useTexts } from "./TextsProvider";
 import {
   collectEditableTexts,
   isTextOverrideMap,
   normalizeText,
-  type EditableText,
 } from "./text-overrides";
+import catalogData from "./catalog.json";
 import {
   clearTrack,
   formatTrackSize,
@@ -14,10 +15,108 @@ import {
   saveTrack,
 } from "../audio/track-store";
 
+type CatalogEntry = { text: string; group: string; context: string };
+
+type PanelRow = {
+  key: string;
+  original: string;
+  current: string;
+  context: string;
+  group: string;
+  /** Text is on screen right now (vs. catalog-only — applies when its chapter opens). */
+  live: boolean;
+};
+
+const GROUP_ORDER = [
+  "boot",
+  "profile",
+  "school",
+  "minigame",
+  "family",
+  "work",
+  "patch",
+  "final",
+  "settings",
+  "chrome",
+  "tab",
+] as const;
+
+const GROUP_LABELS: Record<string, string> = {
+  settings: "Настройки и достижения",
+  chrome: "Шапка и подвал",
+  tab: "Заголовок вкладки",
+};
+
+function groupLabel(group: string): string {
+  if (GROUP_LABELS[group]) return GROUP_LABELS[group];
+  const screen = SCREENS.find((s) => s.id === group);
+  return screen ? `${screen.chapter} · ${screen.title}` : group;
+}
+
+/** The game keeps its state in localStorage — read the current chapter from it. */
+function currentGameScreen(): string {
+  try {
+    const raw = window.localStorage.getItem("ilyuha-exe-patch32-v1");
+    if (!raw) return "boot";
+    const screen = JSON.parse(raw)?.screen;
+    return typeof screen === "string" ? screen : "boot";
+  } catch {
+    return "boot";
+  }
+}
+
+function groupOfContext(context: string, fallback: string): string {
+  if (context.includes("заголовок вкладки")) return "tab";
+  if (context.includes("site-foot") || context.includes("hud")) return "chrome";
+  if (context.includes("sheet")) return "settings";
+  return fallback;
+}
+
+function buildRows(merged: Record<string, string>): PanelRow[] {
+  const rows: PanelRow[] = [];
+  const seen = new Set<string>();
+
+  // 1. Everything on screen right now (edits apply instantly).
+  const screen = currentGameScreen();
+  for (const live of collectEditableTexts(document.body, merged)) {
+    if (seen.has(live.key)) continue;
+    seen.add(live.key);
+    rows.push({
+      key: live.key,
+      original: live.original,
+      current: merged[live.key] ?? live.key,
+      context: live.context,
+      group: groupOfContext(live.context, screen),
+      live: true,
+    });
+  }
+
+  // 2. The rest of the game from the catalog (edits apply when the chapter opens).
+  for (const entry of (catalogData as CatalogEntry[]).filter((e) => !seen.has(e.text))) {
+    seen.add(entry.text);
+    rows.push({
+      key: entry.text,
+      original: entry.text,
+      current: merged[entry.text] ?? entry.text,
+      context: entry.context,
+      group: entry.group,
+      live: false,
+    });
+  }
+
+  rows.sort(
+    (a, b) =>
+      GROUP_ORDER.indexOf(a.group as (typeof GROUP_ORDER)[number]) -
+        GROUP_ORDER.indexOf(b.group as (typeof GROUP_ORDER)[number]) ||
+      Number(b.live) - Number(a.live),
+  );
+  return rows;
+}
+
 export function AdminPanel() {
   const { overrides, shipped, merged, setText, removeText, reset, replaceAll, isOpen, setOpen } =
     useTexts();
-  const [rows, setRows] = useState<EditableText[]>([]);
+  const [rows, setRows] = useState<PanelRow[]>([]);
   const [query, setQuery] = useState("");
   const [jsonOpen, setJsonOpen] = useState(false);
   const [jsonDraft, setJsonDraft] = useState("");
@@ -28,12 +127,12 @@ export function AdminPanel() {
   const panelRef = useRef<HTMLDivElement>(null);
 
   const refresh = () => {
-    setRows(collectEditableTexts(document.body, merged));
+    setRows(buildRows(merged));
   };
 
   useEffect(() => {
     if (!isOpen) return;
-    setRows(collectEditableTexts(document.body, merged));
+    setRows(buildRows(merged));
     setJsonDraft(JSON.stringify(merged, null, 2));
     setNotice(null);
     void loadTrack().then((stored) => {
@@ -41,6 +140,33 @@ export function AdminPanel() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isOpen, setOpen]);
+
+  // Must run before the early return below: the hook order has to stay stable
+  // between the closed and the open state.
+  const grouped = useMemo(() => {
+    const needle = normalizeText(query).toLowerCase();
+    const visible = needle
+      ? rows.filter((row) =>
+          `${row.group} ${row.context} ${row.original} ${row.current}`.toLowerCase().includes(needle),
+        )
+      : rows;
+    const map = new Map<string, PanelRow[]>();
+    for (const row of visible) {
+      const list = map.get(row.group) ?? [];
+      list.push(row);
+      map.set(row.group, list);
+    }
+    return [...map.entries()];
+  }, [rows, query]);
 
   const onTrackFile = async (file: File | undefined) => {
     if (!file) return;
@@ -74,28 +200,9 @@ export function AdminPanel() {
     window.setTimeout(() => URL.revokeObjectURL(url), 2000);
   };
 
-  useEffect(() => {
-    if (!isOpen) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [isOpen, setOpen]);
-
-  const visible = useMemo(() => {
-    const needle = normalizeText(query).toLowerCase();
-    if (!needle) return rows;
-    return rows.filter((row) =>
-      `${row.context} ${row.original} ${row.current}`.toLowerCase().includes(needle),
-    );
-  }, [rows, query]);
-
   if (!isOpen) return null;
 
-  const valueFor = (row: EditableText) => overrides[row.key] ?? shipped[row.key] ?? row.original;
-
-  const onEdit = (row: EditableText, value: string) => {
+  const onEdit = (row: PanelRow, value: string) => {
     if (normalizeText(value) === normalizeText(row.original)) removeText(row.key);
     else setText(row.key, value);
   };
@@ -125,7 +232,7 @@ export function AdminPanel() {
       replaceAll(parsed);
       setJsonDraft(JSON.stringify(parsed, null, 2));
       setNotice(`Загружено правок: ${Object.keys(parsed).length}.`);
-      window.setTimeout(() => setRows(collectEditableTexts(document.body, parsed)), 60);
+      window.setTimeout(() => setRows(buildRows(parsed)), 60);
     } catch {
       setNotice("Не получилось прочитать JSON.");
     }
@@ -140,7 +247,7 @@ export function AdminPanel() {
       }
       replaceAll(parsed);
       setNotice(`Применено правок: ${Object.keys(parsed).length}.`);
-      window.setTimeout(() => setRows(collectEditableTexts(document.body, parsed)), 60);
+      window.setTimeout(() => setRows(buildRows(parsed)), 60);
     } catch {
       setNotice("Не получилось прочитать JSON.");
     }
@@ -180,7 +287,7 @@ export function AdminPanel() {
         <input
           type="search"
           className="tx__search"
-          placeholder="Поиск: «парта», «письмо», «завод»…"
+          placeholder="Поиск по всем главам: «парта», «письмо», «завод»…"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
         />
@@ -222,11 +329,11 @@ export function AdminPanel() {
       </div>
 
       <p className="tx__hint">
-        Меняй текст прямо здесь — страница обновится сразу, правки сохраняются в этом браузере.
-        Чтобы их увидел Илюха, нажми «Экспорт texts.json» и положи файл в <code>public/</code> перед
-        сборкой (или рядом с <code>index.html</code> на хостинге) — он подхватится при загрузке.
-        Окно открывается по <code>?admin</code>, <code>#admin</code>, Ctrl+Alt+A или пятью кликами
-        по логотипу.
+        Здесь собраны тексты всех восьми глав — искать и менять можно любую фразу, даже ту, что
+        сейчас не на экране: правка применится, когда глава откроется. Строки текущей главы
+        меняются мгновенно. Правки живут в этом браузере; чтобы их увидел Илюха — «Экспорт
+        texts.json», файл в <code>public/</code> и коммит в репозиторий (сайт пересоберётся сам).
+        Вход: <code>?admin</code>, <code>#admin</code>, Ctrl+Alt+A или пять кликов по логотипу.
       </p>
 
       <section className="tx__track">
@@ -294,36 +401,46 @@ export function AdminPanel() {
       {notice ? <p className="tx__notice">{notice}</p> : null}
 
       <div className="tx__list">
-        {visible.map((row) => {
-          const value = valueFor(row);
-          const edited = overrides[row.key] !== undefined;
-          return (
-            <label key={row.key} className={`tx__row ${edited ? "is-edited" : ""}`}>
-              <span className="tx__row-meta">
-                <span className="tx__row-context">{row.context}</span>
-                <span className="tx__row-state">{edited ? "изменено" : "по умолчанию"}</span>
-                {edited ? (
-                  <button
-                    type="button"
-                    className="tx__row-reset"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      removeText(row.key);
-                    }}
-                  >
-                    вернуть
-                  </button>
-                ) : null}
-              </span>
-              <textarea
-                value={value}
-                rows={Math.min(6, Math.max(2, Math.ceil(value.length / 70)))}
-                onChange={(event) => onEdit(row, event.target.value)}
-              />
-            </label>
-          );
-        })}
-        {visible.length === 0 ? <p className="tx__empty">Ничего не нашлось.</p> : null}
+        {grouped.map(([group, groupRows]) => (
+          <section key={group} className="tx__group">
+            <h3 className="tx__group-title">
+              {groupLabel(group)}
+              <span className="tx__group-count">{groupRows.length}</span>
+            </h3>
+            {groupRows.map((row) => {
+              const value = merged[row.key] ?? normalizeText(row.original);
+              const edited = merged[row.key] !== undefined;
+              return (
+                <label key={row.key} className={`tx__row ${edited ? "is-edited" : ""}`}>
+                  <span className="tx__row-meta">
+                    <span className="tx__row-context">{row.context}</span>
+                    <span className="tx__row-state">
+                      {edited ? "изменено" : row.live ? "на экране" : "в каталоге"}
+                    </span>
+                    {edited ? (
+                      <button
+                        type="button"
+                        className="tx__row-reset"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          removeText(row.key);
+                        }}
+                      >
+                        вернуть
+                      </button>
+                    ) : null}
+                  </span>
+                  <textarea
+                    value={value}
+                    rows={Math.min(6, Math.max(2, Math.ceil(value.length / 70)))}
+                    onChange={(event) => onEdit(row, event.target.value)}
+                  />
+                </label>
+              );
+            })}
+          </section>
+        ))}
+        {grouped.length === 0 ? <p className="tx__empty">Ничего не нашлось.</p> : null}
       </div>
     </div>
   );

@@ -107,16 +107,13 @@ export function BootScreen({ state, dispatch, go }: ScreenProps) {
       }
     >
       <div className="boot">
-        <div className="boot__bg" aria-hidden="true">
-          <ArtImage asset={ART.nightRetro} priority dim className="art--bleed" />
-        </div>
-
-        <div className="boot__crt">
-          <div className="boot__bar">
-            <span className="boot__dot" aria-hidden="true" />
-            <span>ILYUHA-OS 32.0</span>
-            <span className="boot__bar-right">{ready ? "ГОТОВ" : "ПРОВЕРКА"}</span>
-          </div>
+        <div className="boot__main">
+          <div className="boot__crt">
+            <div className="boot__bar">
+              <span className="boot__dot" aria-hidden="true" />
+              <span>ILYUHA-OS 32.0</span>
+              <span className="boot__bar-right">{ready ? "ГОТОВ" : "ПРОВЕРКА"}</span>
+            </div>
 
           <div className="boot__body">
             <ol className="boot__log" aria-live="polite">
@@ -151,14 +148,28 @@ export function BootScreen({ state, dispatch, go }: ScreenProps) {
               <span className="boot__meta-dim">для одного человека</span>
             </div>
           </div>
+          </div>
+
+          {phase === "idle" ? (
+            <button type="button" className="boot__start" onClick={start}>
+              <span className="boot__start-key">PRESS START</span>
+              <span className="boot__start-hint">нажми, чтобы загрузиться</span>
+            </button>
+          ) : null}
         </div>
 
-        {phase === "idle" ? (
-          <button type="button" className="boot__start" onClick={start}>
-            <span className="boot__start-key">PRESS START</span>
-            <span className="boot__start-hint">нажми, чтобы загрузиться</span>
-          </button>
-        ) : null}
+        <div className="boot__art">
+          <ArtImage
+            asset={ART.nightRetro}
+            priority
+            caption={
+              <>
+                <span className="art__tag">РЕТРО</span>
+                Ночная комната, тёплая лампа и гудящий комп.
+              </>
+            }
+          />
+        </div>
       </div>
     </ChapterLayout>
   );

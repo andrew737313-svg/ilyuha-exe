@@ -42,10 +42,6 @@ export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
       }
     >
       <div className="night">
-        <div className="night__bg" aria-hidden="true">
-          <ArtImage asset={ART.nightCozy} dim className="art--bleed" />
-        </div>
-
         <div className="night__stage">
           <div className={`night__crt ${done ? "is-done" : ""}`}>
             <div className="night__top">
@@ -123,6 +119,19 @@ export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
               ))}
             </ol>
           </aside>
+        </div>
+
+        <div className="night__art">
+          <ArtImage
+            asset={ART.gamer}
+            ratio="2.2 / 1"
+            caption={
+              <>
+                <span className="art__tag">НОЧЬ</span>
+                Илюха, кружка и «ещё пять минут».
+              </>
+            }
+          />
         </div>
       </div>
 

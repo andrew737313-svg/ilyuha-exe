@@ -13,6 +13,7 @@
     "verify": "npm run build && node tools/verify.mjs",
     "verify:only": "node tools/verify.mjs",
     "texts": "node tools/texts-check.mjs",
+    "texts:catalog": "node tools/extract-catalog.mjs",
     "devcheck": "node tools/devcheck.mjs",
     "typo": "npm run build && node tools/typo-check.mjs",
     "audio": "node tools/render-audio.ts",

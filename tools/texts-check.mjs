@@ -125,6 +125,61 @@ try {
   await page.waitForTimeout(150);
   check("Ctrl+Alt+A открывает панель", (await page.locator(".tx").count()) === 1);
 
+  // The catalog: texts from every chapter must be listed even while on the boot screen.
+  const groupTitles = await page.locator(".tx__group-title").evaluateAll((nodes) =>
+    nodes.map((node) => node.textContent?.replace(/\s+/g, " ").trim() ?? ""),
+  );
+  check(
+    "Тексты сгруппированы по главам",
+    groupTitles.length >= 10 && groupTitles.some((title) => /08/.test(title)) && groupTitles.some((title) => /заголовок вкладки/i.test(title)),
+    groupTitles.slice(0, 4).join(" | "),
+  );
+
+  const letterNeedle = "Мы сидели за одной партой";
+  const letterIndex = await page
+    .locator(".tx__row")
+    .evaluateAll(
+      (rows, value) =>
+        rows.findIndex((row) => row.querySelector("textarea")?.value.includes(value) ?? false),
+      letterNeedle,
+    );
+  check("Строку письма из финальной главы видно с экрана запуска", letterIndex >= 0, `index ${letterIndex}`);
+
+  if (letterIndex >= 0) {
+    await page.locator(".tx__row").nth(letterIndex).locator("textarea").fill("КАТАЛОГ РАБОТАЕТ С ЭКРАНА ЗАПУСКА");
+    await page.waitForTimeout(200);
+    const storedOverride = await page.evaluate(() => {
+      const raw = window.localStorage.getItem("ilyuha-texts-v1");
+      return raw ? Object.values(JSON.parse(raw)) : [];
+    });
+    check(
+      "Правка финального письма сохранена",
+      storedOverride.some((value) => String(value).includes("КАТАЛОГ РАБОТАЕТ")),
+      `${storedOverride.length} правок`,
+    );
+  }
+
+  // The tab title is also just a text (not a body node, applied by the provider).
+  const titleIndex = await page
+    .locator(".tx__row")
+    .evaluateAll(
+      (rows, value) => rows.findIndex((row) => row.querySelector("textarea")?.value === value),
+      "ИЛЮХА.EXE — Запуск",
+    );
+  if (titleIndex >= 0) {
+    await page.locator(".tx__row").nth(titleIndex).locator("textarea").fill("ТЕСТ ЗАГОЛОВОК 32");
+    let titleChanged = false;
+    try {
+      await page.waitForFunction(() => document.title === "ТЕСТ ЗАГОЛОВОК 32", null, { timeout: 5000 });
+      titleChanged = true;
+    } catch {
+      titleChanged = false;
+    }
+    check("Заголовок вкладки тоже меняется", titleChanged, await page.title());
+  } else {
+    check("Заголовок вкладки тоже меняется", false, "строка не найдена");
+  }
+
   // Final track: upload → stored in IndexedDB → shown in the panel → removable.
   const trackStateText = () => page.locator(".tx__track-state").innerText();
   const waitTrackState = async (needle, timeout = 5000) => {
@@ -173,6 +228,35 @@ try {
   await page.setViewportSize({ width: 1440, height: 960 });
   await page.waitForTimeout(150);
   await page.screenshot({ path: path.join(root, "tools", "screenshots", "11-admin.png") });
+
+  // The catalog edit made on the boot screen must reach the real final screen.
+  if (letterIndex >= 0) {
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(150);
+    await page.getByRole("button", { name: /запустить систему/i }).click();
+    await page.waitForSelector("button:has-text('Открыть профиль персонажа')", { timeout: 15000 });
+    await page.getByRole("button", { name: /открыть профиль/i }).click();
+    await page.getByRole("button", { name: /глава 03/i }).click();
+    await page.getByRole("button", { name: /спокойно/i }).click();
+    await page.getByRole("button", { name: /глава 04/i }).click();
+    for (let i = 0; i < 6; i += 1) await page.locator(".night__crt .btn").click();
+    await page.getByRole("button", { name: /глава 05/i }).click();
+    await page.getByRole("button", { name: /глава 06/i }).click();
+    await page.getByRole("button", { name: /разобраться/i }).click();
+    await page.getByRole("button", { name: /глава 07/i }).click();
+    await page.getByRole("button", { name: /получить пивной баф/i }).click();
+    await page.getByRole("button", { name: /финал/i }).click();
+    await page.waitForSelector(".letter", { timeout: 10000 });
+    await page.waitForTimeout(400);
+    const letterText = await page.locator(".letter").innerText();
+    check(
+      "Правка письма из каталога доехала до финального экрана",
+      letterText.includes("КАТАЛОГ РАБОТАЕТ С ЭКРАНА ЗАПУСКА"),
+      letterText.slice(0, 60),
+    );
+    await page.screenshot({ path: path.join(root, "tools", "screenshots", "12-catalog-letter.png") });
+    await page.evaluate(() => window.localStorage.clear());
+  }
 
   check("Ошибок в консоли нет", errors.length === 0, errors.slice(0, 3).join(" | "));
 } finally {

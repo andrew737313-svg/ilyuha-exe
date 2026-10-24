@@ -1,0 +1,1287 @@
+[
+  {
+    "text": "Перейти к главе",
+    "group": "boot",
+    "context": "a"
+  },
+  {
+    "text": "СИСТЕМА · ЗАПУСК",
+    "group": "boot",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "Патч 32.0 — вроде стабильная сборка.",
+    "group": "boot",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "ILYUHA-OS 32.0",
+    "group": "boot",
+    "context": "div · boot__crt"
+  },
+  {
+    "text": "ПРОВЕРКА",
+    "group": "boot",
+    "context": "div · boot__crt"
+  },
+  {
+    "text": "Патч 32.0 — вроде стабильная сборка",
+    "group": "boot",
+    "context": "div · boot__crt"
+  },
+  {
+    "text": "Сборка 32.0.1",
+    "group": "boot",
+    "context": "div · boot__crt"
+  },
+  {
+    "text": "Музыка включена",
+    "group": "boot",
+    "context": "div · boot__crt"
+  },
+  {
+    "text": "для одного человека",
+    "group": "boot",
+    "context": "div · boot__crt"
+  },
+  {
+    "text": "PRESS START",
+    "group": "boot",
+    "context": "section · chapter chapter--boot"
+  },
+  {
+    "text": "нажми, чтобы загрузиться",
+    "group": "boot",
+    "context": "section · chapter chapter--boot"
+  },
+  {
+    "text": "РЕТРО",
+    "group": "boot",
+    "context": "section · chapter chapter--boot"
+  },
+  {
+    "text": "Ночная комната, тёплая лампа и гудящий комп.",
+    "group": "boot",
+    "context": "section · chapter chapter--boot"
+  },
+  {
+    "text": "Звук включится после нажатия — так требуют браузеры.",
+    "group": "boot",
+    "context": "section · chapter chapter--boot"
+  },
+  {
+    "text": "Запустить систему",
+    "group": "boot",
+    "context": "section · chapter chapter--boot"
+  },
+  {
+    "text": "<div class=\"noscript\"> Для запуска игры нужен JavaScript. Включи его — и патч 32.0 загрузится. </div>",
+    "group": "boot",
+    "context": "noscript"
+  },
+  {
+    "text": "Проверка жёсткого диска: жив.",
+    "group": "boot",
+    "context": "div · boot__crt"
+  },
+  {
+    "text": "Поиск сохранения „Детство“: найдено.",
+    "group": "boot",
+    "context": "div · boot__crt"
+  },
+  {
+    "text": "Идёт проверка системы…",
+    "group": "boot",
+    "context": "section · chapter chapter--boot"
+  },
+  {
+    "text": "Проверка…",
+    "group": "boot",
+    "context": "section · chapter chapter--boot"
+  },
+  {
+    "text": "Достижение открыто",
+    "group": "boot",
+    "context": "div · toast"
+  },
+  {
+    "text": "Система загружена",
+    "group": "boot",
+    "context": "div · toast"
+  },
+  {
+    "text": "Жёсткий диск жив. Сохранение «Детство» на месте.",
+    "group": "boot",
+    "context": "div · toast"
+  },
+  {
+    "text": "ГОТОВ",
+    "group": "boot",
+    "context": "div · boot__crt"
+  },
+  {
+    "text": "Проверка взрослости: в процессе.",
+    "group": "boot",
+    "context": "div · boot__crt"
+  },
+  {
+    "text": "Илюха обнаружен. 32 года. Всё ещё свой.",
+    "group": "boot",
+    "context": "div · boot__crt"
+  },
+  {
+    "text": "Проверка завершена. Можно входить.",
+    "group": "boot",
+    "context": "section · chapter chapter--boot"
+  },
+  {
+    "text": "Открыть профиль персонажа →",
+    "group": "boot",
+    "context": "section · chapter chapter--boot"
+  },
+  {
+    "text": "ПРОФИЛЬ ПЕРСОНАЖА · LVL 32",
+    "group": "profile",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "Илюха",
+    "group": "profile",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "Обычный человек. 32 года в сборке.",
+    "group": "profile",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "LVL 32",
+    "group": "profile",
+    "context": "section · chapter"
+  },
+  {
+    "text": "муж · отец · смена на заводе",
+    "group": "profile",
+    "context": "section · chapter"
+  },
+  {
+    "text": "ХАРАКТЕРИСТИКИ",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "сохранено",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "Имя",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "Возраст",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "Класс",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "муж, отец, смена на заводе",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "Семейное положение",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "женат на Диане",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "Дети",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "двое",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "Слабость",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "«Ещё одна катка»",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "Совесть",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "Сон",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "Харизма",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "Спокойствие",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "Пассивная способность",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "Пивной баф",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "+5 к уверенности, −2 к скорости. Открывается автоматически после тридцати. Отключению не подлежит.",
+    "group": "profile",
+    "context": "div · panel stat-panel"
+  },
+  {
+    "text": "← В начало",
+    "group": "profile",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Глава 03: школа →",
+    "group": "profile",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Опознан",
+    "group": "profile",
+    "context": "div · toast"
+  },
+  {
+    "text": "Профиль открыт: 32 года, всё ещё свой.",
+    "group": "profile",
+    "context": "div · toast"
+  },
+  {
+    "text": "ШКОЛА · ОДНА ПАРТА НА ДВОИХ",
+    "group": "school",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "Два стула, одна парта",
+    "group": "school",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "Один класс, одна парта и очень много свободного времени.",
+    "group": "school",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "2000-е",
+    "group": "school",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Один класс, две фамилии в журнале, одна парта. Солнце в окно — как в тот самый день.",
+    "group": "school",
+    "context": "section · chapter"
+  },
+  {
+    "text": "ГЛАВА 03 · ВОСПОМИНАНИЕ",
+    "group": "school",
+    "context": "div · panel story-panel"
+  },
+  {
+    "text": "запись 1 из 1",
+    "group": "school",
+    "context": "div · panel story-panel"
+  },
+  {
+    "text": "Мы учились в одном классе и сидели за одной партой. После уроков бегали друг к другу — то в приставку, то в комп. И всё время что-то придумывали: игры, правила, поводы не делать уроки. Половину уже не вспомнить, но смешно до сих пор.",
+    "group": "school",
+    "context": "div · panel story-panel"
+  },
+  {
+    "text": "В тот день нужно было решить, как вести себя на уроке. Обычно мы решали это одинаково.",
+    "group": "school",
+    "context": "div · panel story-panel"
+  },
+  {
+    "text": "Сидеть спокойно",
+    "group": "school",
+    "context": "div · panel story-panel"
+  },
+  {
+    "text": "Попробовать хотя бы раз",
+    "group": "school",
+    "context": "div · panel story-panel"
+  },
+  {
+    "text": "Придумать какую-нибудь фигню",
+    "group": "school",
+    "context": "div · panel story-panel"
+  },
+  {
+    "text": "Классика жанра",
+    "group": "school",
+    "context": "div · panel story-panel"
+  },
+  {
+    "text": "Пойти играть в комп",
+    "group": "school",
+    "context": "div · panel story-panel"
+  },
+  {
+    "text": "Как обычно",
+    "group": "school",
+    "context": "div · panel story-panel"
+  },
+  {
+    "text": "Варианты можно пройти заново: открой настройки или вернись сюда позже. Пробовано:",
+    "group": "school",
+    "context": "div · panel story-panel"
+  },
+  {
+    "text": "← Профиль",
+    "group": "school",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Сначала выбери вариант",
+    "group": "school",
+    "context": "section · chapter"
+  },
+  {
+    "text": "РЕАКЦИЯ",
+    "group": "school",
+    "context": "div · reaction"
+  },
+  {
+    "text": "достижение открыто",
+    "group": "school",
+    "context": "div · reaction"
+  },
+  {
+    "text": "Ты сел ровно, сложил руки на парте и решил хотя бы раз в жизни побыть примерным.",
+    "group": "school",
+    "context": "div · reaction"
+  },
+  {
+    "text": "Я посмотрел на тебя как на предателя. Ты сделал вид, что не заметил.",
+    "group": "school",
+    "context": "div · reaction"
+  },
+  {
+    "text": "Хватило тебя ненадолго. Дальше ты уже придумывал, чем заняться, — так, чтобы никто не заметил.",
+    "group": "school",
+    "context": "div · reaction"
+  },
+  {
+    "text": "Замечание мы всё равно получили. Посмотрели друг на друга и засмеялись.",
+    "group": "school",
+    "context": "div · reaction"
+  },
+  {
+    "text": "Глава 04: ночная сессия →",
+    "group": "school",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Спокойный урок",
+    "group": "school",
+    "context": "div · toast"
+  },
+  {
+    "text": "Продержался дольше, чем сам ожидал.",
+    "group": "school",
+    "context": "div · toast"
+  },
+  {
+    "text": "Мы придумали новую игру. Правила менялись на ходу, и это никого не смущало.",
+    "group": "school",
+    "context": "div · reaction"
+  },
+  {
+    "text": "К концу урока в неё играл уже весь ряд, а учительница делала вид, что ничего не замечает.",
+    "group": "school",
+    "context": "div · reaction"
+  },
+  {
+    "text": "Потом нас всё-таки попросили выйти и подумать. Мы вышли и придумали ещё две игры.",
+    "group": "school",
+    "context": "div · reaction"
+  },
+  {
+    "text": "Правила забылись. Смех — нет.",
+    "group": "school",
+    "context": "div · reaction"
+  },
+  {
+    "text": "Генератор фигни",
+    "group": "school",
+    "context": "div · toast"
+  },
+  {
+    "text": "Придумал. Сработало. Учительница не оценила.",
+    "group": "school",
+    "context": "div · toast"
+  },
+  {
+    "text": "Уроки подождут: дома ждал комп, а в нём — сохранение на самом интересном месте.",
+    "group": "school",
+    "context": "div · reaction"
+  },
+  {
+    "text": "«Только на полчаса» закончилось затемно. Как всегда.",
+    "group": "school",
+    "context": "div · reaction"
+  },
+  {
+    "text": "Мама спрашивала, сделаны ли уроки. Мы хором сказали «да».",
+    "group": "school",
+    "context": "div · reaction"
+  },
+  {
+    "text": "Уроки не сделали. Зато прошли то, что не получалось. Не жалею.",
+    "group": "school",
+    "context": "div · reaction"
+  },
+  {
+    "text": "Сначала катка",
+    "group": "school",
+    "context": "div · toast"
+  },
+  {
+    "text": "Уроки подождут. Сейв не подождёт.",
+    "group": "school",
+    "context": "div · toast"
+  },
+  {
+    "text": "Все три парты",
+    "group": "school",
+    "context": "div · toast"
+  },
+  {
+    "text": "Прошёл школу во всех трёх вариантах.",
+    "group": "school",
+    "context": "div · toast"
+  },
+  {
+    "text": "МИНИ-ИГРА · НОЧНАЯ СЕССИЯ",
+    "group": "minigame",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "Ещё пять минут",
+    "group": "minigame",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "Нажми шесть раз. Дальше — как пойдёт.",
+    "group": "minigame",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "нажатий",
+    "group": "minigame",
+    "context": "div · night__crt"
+  },
+  {
+    "text": "Система",
+    "group": "minigame",
+    "context": "div · night__crt"
+  },
+  {
+    "text": "«Ну что, ещё пять минут?»",
+    "group": "minigame",
+    "context": "div · night__crt"
+  },
+  {
+    "text": "Мама уже спит. Компьютер гудит. Сейв не сохранён.",
+    "group": "minigame",
+    "context": "div · night__crt"
+  },
+  {
+    "text": "Кнопку можно нажимать мышью, пальцем или клавишей Enter.",
+    "group": "minigame",
+    "context": "div · night__crt"
+  },
+  {
+    "text": "ЖУРНАЛ",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "Ну всё, выключай.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "Ща, сохранюсь.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "Это была уже третья «последняя миссия».",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "Сохранение создано.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "За окном стемнело. Ты ничего не заметил.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "Ну всё. Ещё одну — и точно спать.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "НОЧЬ",
+    "group": "minigame",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Илюха, кружка и «ещё пять минут».",
+    "group": "minigame",
+    "context": "section · chapter"
+  },
+  {
+    "text": "← Школа",
+    "group": "minigame",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Открыто после 6 нажатий",
+    "group": "minigame",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Ты",
+    "group": "minigame",
+    "context": "div · night__crt"
+  },
+  {
+    "text": "Сохранение занимает полминуты. Проверка, что всё сохранилось, — ещё двадцать.",
+    "group": "minigame",
+    "context": "div · night__crt"
+  },
+  {
+    "text": "Утром всё равно вставать. Время ещё есть.",
+    "group": "minigame",
+    "context": "div · night__crt done"
+  },
+  {
+    "text": "Сессия завершена",
+    "group": "minigame",
+    "context": "div · night__crt done"
+  },
+  {
+    "text": "Дальше — только в кровать. Или на работу.",
+    "group": "minigame",
+    "context": "div · night__crt done"
+  },
+  {
+    "text": "Достижение",
+    "group": "minigame",
+    "context": "div · award-panel"
+  },
+  {
+    "text": "Не удалил сейв с детства",
+    "group": "minigame",
+    "context": "div · award-panel"
+  },
+  {
+    "text": "Шесть нажатий, ноль сожалений. За окном светает, а сохранение на месте — как и в детстве.",
+    "group": "minigame",
+    "context": "div · award-panel"
+  },
+  {
+    "text": "Глава 05: семья →",
+    "group": "minigame",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Шесть раз «ещё пять минут».",
+    "group": "minigame",
+    "context": "div · toast"
+  },
+  {
+    "text": "СЕМЬЯ · ТЁПЛАЯ ЧАСТЬ",
+    "group": "family",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "Новая игра+",
+    "group": "family",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "Сложность выше. Народу больше.",
+    "group": "family",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "СЕМЬЯ",
+    "group": "family",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Илюха, Диана, Маргарита и младший. Тёплый свет, шумно, хорошо.",
+    "group": "family",
+    "context": "section · chapter"
+  },
+  {
+    "text": "ГЛАВА 05 · ДОМ",
+    "group": "family",
+    "context": "div · panel family-panel"
+  },
+  {
+    "text": "без статистики",
+    "group": "family",
+    "context": "div · panel family-panel"
+  },
+  {
+    "text": "Илюха женат на Диане. Старшая дочь Маргарита в этом году пошла в школу. Младшему сыну скоро исполнится шесть месяцев. Дома шумно, тепло и кто-то опять не спит.",
+    "group": "family",
+    "context": "div · panel family-panel"
+  },
+  {
+    "text": "Диана",
+    "group": "family",
+    "context": "ul · journal"
+  },
+  {
+    "text": "Рыжие волосы, светлые глаза и та самая улыбка. Человек, рядом с которым дом звучит как дом.",
+    "group": "family",
+    "context": "ul · journal"
+  },
+  {
+    "text": "Маргарита",
+    "group": "family",
+    "context": "ul · journal"
+  },
+  {
+    "text": "В этом году пошла в школу. Первый звонок, первый рюкзак, первые «я не хочу вставать». Всё только начинается.",
+    "group": "family",
+    "context": "ul · journal"
+  },
+  {
+    "text": "Младший",
+    "group": "family",
+    "context": "ul · journal"
+  },
+  {
+    "text": "Скоро шесть месяцев. Пока его расписание — сон и громкость. Имени в этой сборке нет — есть место, которое он занял.",
+    "group": "family",
+    "context": "ul · journal"
+  },
+  {
+    "text": "Это не набор характеристик. Это причина, по которой всё остальное имеет смысл.",
+    "group": "family",
+    "context": "div · panel family-panel"
+  },
+  {
+    "text": "← Ночная сессия",
+    "group": "family",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Глава 06: завод →",
+    "group": "family",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Сложность выше. Диана, Маргарита и младший.",
+    "group": "family",
+    "context": "div · toast"
+  },
+  {
+    "text": "РАБОТА · МОЛОЧНЫЙ ЗАВОД",
+    "group": "work",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "Ночная смена",
+    "group": "work",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "Ночная смена, линия розлива и один очень спокойный человек в белом.",
+    "group": "work",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "ЛИНИЯ ОСТАНОВЛЕНА",
+    "group": "work",
+    "context": "section · chapter"
+  },
+  {
+    "text": "датчик уровня · защита насоса",
+    "group": "work",
+    "context": "section · chapter"
+  },
+  {
+    "text": "СМЕНА · 03:20",
+    "group": "work",
+    "context": "section · chapter"
+  },
+  {
+    "text": "ГЛАВА 06 · СМЕНА",
+    "group": "work",
+    "context": "div · panel work__panel"
+  },
+  {
+    "text": "/3 реакций",
+    "group": "work",
+    "context": "div · panel work__panel"
+  },
+  {
+    "text": "Половина четвёртого. Линия розлива встала, молоко стоит, смена смотрит на тебя. Инженер уже идёт, но у тебя есть секунда, чтобы выбрать лицо.",
+    "group": "work",
+    "context": "div · panel work__panel"
+  },
+  {
+    "text": "Паниковать",
+    "group": "work",
+    "context": "div · panel work__panel"
+  },
+  {
+    "text": "Классическая реакция",
+    "group": "work",
+    "context": "div · panel work__panel"
+  },
+  {
+    "text": "Разобраться",
+    "group": "work",
+    "context": "div · panel work__panel"
+  },
+  {
+    "text": "Собственно, работа",
+    "group": "work",
+    "context": "div · panel work__panel"
+  },
+  {
+    "text": "Сделать вид, что всё под контролем",
+    "group": "work",
+    "context": "div · panel work__panel"
+  },
+  {
+    "text": "Очень уверенно",
+    "group": "work",
+    "context": "div · panel work__panel"
+  },
+  {
+    "text": "Любой вариант — рабочая ситуация. Никто не пострадал, кроме молока.",
+    "group": "work",
+    "context": "div · panel work__panel"
+  },
+  {
+    "text": "← Семья",
+    "group": "work",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Сначала разберись со сменой",
+    "group": "work",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Ты хватаешь рацию, роняешь рацию, ловишь рацию ногой.",
+    "group": "work",
+    "context": "div · reaction reaction--inline"
+  },
+  {
+    "text": "«СТОП-СТОП-СТОП, ВСЁ ВСТАЛО!» — кричишь ты в рацию, которая лежит на полу.",
+    "group": "work",
+    "context": "div · reaction reaction--inline"
+  },
+  {
+    "text": "Смена спокойно смотрит на тебя. Инженер подходит, щёлкает один тумблер, линия оживает.",
+    "group": "work",
+    "context": "div · reaction reaction--inline"
+  },
+  {
+    "text": "«Всё, — говорит он. — В следующий раз просто позови». Ты киваешь так, будто так и планировал.",
+    "group": "work",
+    "context": "div · reaction reaction--inline"
+  },
+  {
+    "text": "Глава 07: патч 32.0 →",
+    "group": "work",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Линия встала — смена не встала.",
+    "group": "work",
+    "context": "div · toast"
+  },
+  {
+    "text": "Ты смотришь на панель, потом на линию, потом снова на панель. Минус двадцать секунд, плюс спокойные руки.",
+    "group": "work",
+    "context": "div · reaction reaction--inline"
+  },
+  {
+    "text": "Датчик уровня врёт: молоко ушло в накопитель, насос встал на защите. Классика.",
+    "group": "work",
+    "context": "div · reaction reaction--inline"
+  },
+  {
+    "text": "Ты сбрасываешь защиту, запускаешь насос, проверяешь температуру. Линия идёт, молоко идёт, смена идёт.",
+    "group": "work",
+    "context": "div · reaction reaction--inline"
+  },
+  {
+    "text": "Инженер кивает: «Красиво». Ты пожимаешь плечами. Работа как работа.",
+    "group": "work",
+    "context": "div · reaction reaction--inline"
+  },
+  {
+    "text": "Ты не двигаешься. Ты просто стоишь и смотришь на линию так, будто это она во всём виновата.",
+    "group": "work",
+    "context": "div · reaction reaction--inline"
+  },
+  {
+    "text": "Смена ждёт. Линия ждёт. Молоко ждёт. Ты киваешь сам себе и говоришь: «Ну, в принципе, штатно».",
+    "group": "work",
+    "context": "div · reaction reaction--inline"
+  },
+  {
+    "text": "Через сорок секунд линия запускается сама. Ты делаешь вид, что так и задумано.",
+    "group": "work",
+    "context": "div · reaction reaction--inline"
+  },
+  {
+    "text": "В журнале смены появляется запись, сделанная твоей рукой: «Штатно». Никто не спорит.",
+    "group": "work",
+    "context": "div · reaction reaction--inline"
+  },
+  {
+    "text": "Полный разбор смены",
+    "group": "work",
+    "context": "div · toast"
+  },
+  {
+    "text": "Паника, разбор и лицо кирпичом. Всё в один день.",
+    "group": "work",
+    "context": "div · toast"
+  },
+  {
+    "text": "ПАТЧ 32.0 · ИЗМЕНЕНИЯ",
+    "group": "patch",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "Не баг. Фича. И, судя по всему, единственная, которую нельзя откатить.",
+    "group": "patch",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "CHANGELOG · LVL 7 → LVL 32",
+    "group": "patch",
+    "context": "div · panel patch__panel"
+  },
+  {
+    "text": "сборка 32.0",
+    "group": "patch",
+    "context": "div · panel patch__panel"
+  },
+  {
+    "text": "LVL 7",
+    "group": "patch",
+    "context": "div · panel patch__panel"
+  },
+  {
+    "text": "высокий и худой",
+    "group": "patch",
+    "context": "div · panel patch__panel"
+  },
+  {
+    "text": "тот же человек, больше площади",
+    "group": "patch",
+    "context": "div · panel patch__panel"
+  },
+  {
+    "text": "было",
+    "group": "patch",
+    "context": "ul · changelog"
+  },
+  {
+    "text": "Ремень затягивался на последнюю дырку. Футболка болталась, как парус.",
+    "group": "patch",
+    "context": "ul · changelog"
+  },
+  {
+    "text": "стало",
+    "group": "patch",
+    "context": "ul · changelog"
+  },
+  {
+    "text": "Ремень теперь скорее рекомендация. Футболка сидит ровно.",
+    "group": "patch",
+    "context": "ul · changelog"
+  },
+  {
+    "text": "добавлено",
+    "group": "patch",
+    "context": "ul · changelog"
+  },
+  {
+    "text": "«Пивной баф» — пассивный навык. Открывается после тридцати, работает круглосуточно.",
+    "group": "patch",
+    "context": "ul · changelog"
+  },
+  {
+    "text": "Получить пивной баф",
+    "group": "patch",
+    "context": "div · panel patch__panel"
+  },
+  {
+    "text": "одно нажатие · навсегда",
+    "group": "patch",
+    "context": "div · panel patch__panel"
+  },
+  {
+    "text": "Шутка дружеская. Ни одно лицо в этом патче не пострадало.",
+    "group": "patch",
+    "context": "div · panel patch__panel"
+  },
+  {
+    "text": "Вечер, комп и свет экрана. Полный набор.",
+    "group": "patch",
+    "context": "section · chapter"
+  },
+  {
+    "text": "← Завод",
+    "group": "patch",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Сначала активируй баф",
+    "group": "patch",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Баф уже активен",
+    "group": "patch",
+    "context": "div · panel patch__panel"
+  },
+  {
+    "text": "БАФ АКТИВЕН: Пивной баф",
+    "group": "patch",
+    "context": "div · panel patch__panel"
+  },
+  {
+    "text": "Гибкость −1, скорость −2, уверенность +5. Действует бессрочно, снимается только силой воли.",
+    "group": "patch",
+    "context": "div · panel patch__panel"
+  },
+  {
+    "text": "БАФ АКТИВЕН",
+    "group": "patch",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Финал: старый сейв →",
+    "group": "patch",
+    "context": "section · chapter"
+  },
+  {
+    "text": "Баф активен. Скорость −2, уверенность +5.",
+    "group": "patch",
+    "context": "div · toast"
+  },
+  {
+    "text": "ФИНАЛ · СТАРЫЙ СЕЙВ",
+    "group": "final",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "Старый сейв, новая глава",
+    "group": "final",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "Патч 32.0 установлен. История не закончена.",
+    "group": "final",
+    "context": "header · chapter__head"
+  },
+  {
+    "text": "ПАРК",
+    "group": "final",
+    "context": "div · final"
+  },
+  {
+    "text": "Двое, которые когда-то делили парту. Слева — Илюха, справа — автор этой сборки.",
+    "group": "final",
+    "context": "div · final"
+  },
+  {
+    "text": "Илюха, с днём рождения!",
+    "group": "final",
+    "context": "article · letter"
+  },
+  {
+    "text": "Мы сидели за одной партой, бегали друг к другу «на полчаса» и всё время что-то придумывали. Половину тех идей уже не вспомнить — а смешно до сих пор.",
+    "group": "final",
+    "context": "article · letter"
+  },
+  {
+    "text": "Теперь у тебя Диана, двое детей, ночная смена и дела, которые нельзя отложить. А тот пацан, с которым можно было придумать что угодно, никуда не делся — просто он стал старше и научился держать себя в руках.",
+    "group": "final",
+    "context": "article · letter"
+  },
+  {
+    "text": "Желаю тебе здоровья, сил, благополучия семьи, поменьше нервов на работе и побольше времени на себя, друзей и любимые игры — хотя бы на те самые «пять минут».",
+    "group": "final",
+    "context": "article · letter"
+  },
+  {
+    "text": "Рад, что столько лет назад мы оказались за одной партой. Пусть впереди будет ещё много историй, над которыми будем смеяться.",
+    "group": "final",
+    "context": "article · letter"
+  },
+  {
+    "text": "— твой сосед по парте",
+    "group": "final",
+    "context": "article · letter"
+  },
+  {
+    "text": "P.S. Сейв не удаляй. Он ещё пригодится.",
+    "group": "final",
+    "context": "article · letter"
+  },
+  {
+    "text": "Музыкальный подарок",
+    "group": "final",
+    "context": "div · player"
+  },
+  {
+    "text": "Старый сейв",
+    "group": "final",
+    "context": "div · player"
+  },
+  {
+    "text": "встроенная чиптюн-версия",
+    "group": "final",
+    "context": "div · player"
+  },
+  {
+    "text": "old-save-demo.wav",
+    "group": "final",
+    "context": "div · player"
+  },
+  {
+    "text": "Выбрать другой файл",
+    "group": "final",
+    "context": "div · player"
+  },
+  {
+    "text": "Файл, выбранный вручную, звучит только в этом браузере. Чтобы песня была слышна по опубликованной ссылке, её нужно положить в проект и развернуть вместе с ним.",
+    "group": "final",
+    "context": "div · player"
+  },
+  {
+    "text": "Иллюстрации: папка assets/",
+    "group": "final",
+    "context": "div · final"
+  },
+  {
+    "text": "Музыка: процедурный чиптюн",
+    "group": "final",
+    "context": "div · final"
+  },
+  {
+    "text": "Шрифты: Pixelify Sans, Press Start 2P, IBM Plex Mono",
+    "group": "final",
+    "context": "div · final"
+  },
+  {
+    "text": "↑ Наверх",
+    "group": "final",
+    "context": "section · chapter chapter--final"
+  },
+  {
+    "text": "Пройти заново",
+    "group": "final",
+    "context": "section · chapter chapter--final"
+  },
+  {
+    "text": "Фоновая музыка приглушена, пока играет трек.",
+    "group": "final",
+    "context": "div · player"
+  },
+  {
+    "text": "Старый сейв на связи",
+    "group": "final",
+    "context": "div · final"
+  },
+  {
+    "text": "Финальный трек запущен. Слушай до конца.",
+    "group": "final",
+    "context": "div · toast"
+  },
+  {
+    "text": "Настройки",
+    "group": "settings",
+    "context": "header · sheet__head"
+  },
+  {
+    "text": "Звук",
+    "group": "settings",
+    "context": "section · sheet__section"
+  },
+  {
+    "text": "Аудио включится после первого нажатия кнопки в игре — так требуют браузеры.",
+    "group": "settings",
+    "context": "section · sheet__section"
+  },
+  {
+    "text": "Фоновая музыка",
+    "group": "settings",
+    "context": "section · sheet__section"
+  },
+  {
+    "text": "Громкость музыки",
+    "group": "settings",
+    "context": "section · sheet__section"
+  },
+  {
+    "text": "Звуковые эффекты",
+    "group": "settings",
+    "context": "section · sheet__section"
+  },
+  {
+    "text": "Громкость эффектов",
+    "group": "settings",
+    "context": "section · sheet__section"
+  },
+  {
+    "text": "Достижения",
+    "group": "settings",
+    "context": "section · sheet__section"
+  },
+  {
+    "text": "Заблокировано",
+    "group": "settings",
+    "context": "section · sheet__section"
+  },
+  {
+    "text": "Ещё не открыто в этой сборке.",
+    "group": "settings",
+    "context": "section · sheet__section"
+  },
+  {
+    "text": "Прохождение",
+    "group": "settings",
+    "context": "section · sheet__section"
+  },
+  {
+    "text": "Прогресс сохраняется в этом браузере. Сброс вернёт игру к экрану запуска.",
+    "group": "settings",
+    "context": "section · sheet__section"
+  },
+  {
+    "text": "Начать заново",
+    "group": "settings",
+    "context": "section · sheet__section"
+  },
+  {
+    "text": "Иллюстрации — из папки",
+    "group": "settings",
+    "context": "footer · sheet__foot"
+  },
+  {
+    "text": "assets/",
+    "group": "settings",
+    "context": "footer · sheet__foot"
+  },
+  {
+    "text": ", музыка — процедурный чиптюн Web Audio. Шрифты Pixelify Sans, Press Start 2P и IBM Plex Mono распространяются по OFL.",
+    "group": "settings",
+    "context": "footer · sheet__foot"
+  },
+  {
+    "text": "ИЛЮХА.EXE",
+    "group": "chrome",
+    "context": "header · hud"
+  },
+  {
+    "text": "патч 32.0",
+    "group": "chrome",
+    "context": "header · hud"
+  },
+  {
+    "text": "ИЛЮХА.EXE · патч 32.0 · сборка для одного человека",
+    "group": "chrome",
+    "context": "footer · site-foot"
+  },
+  {
+    "text": "Прогресс сохраняется в браузере. Звук включается после первого нажатия.",
+    "group": "chrome",
+    "context": "footer · site-foot"
+  },
+  {
+    "text": "ИЛЮХА.EXE — Запуск",
+    "group": "tab",
+    "context": "заголовок вкладки"
+  },
+  {
+    "text": "ИЛЮХА.EXE — Профиль персонажа",
+    "group": "tab",
+    "context": "заголовок вкладки"
+  },
+  {
+    "text": "ИЛЮХА.EXE — Два стула, одна парта",
+    "group": "tab",
+    "context": "заголовок вкладки"
+  },
+  {
+    "text": "ИЛЮХА.EXE — Ещё пять минут",
+    "group": "tab",
+    "context": "заголовок вкладки"
+  },
+  {
+    "text": "ИЛЮХА.EXE — Новая игра+",
+    "group": "tab",
+    "context": "заголовок вкладки"
+  },
+  {
+    "text": "ИЛЮХА.EXE — Ночная смена",
+    "group": "tab",
+    "context": "заголовок вкладки"
+  },
+  {
+    "text": "ИЛЮХА.EXE — Патч 32.0",
+    "group": "tab",
+    "context": "заголовок вкладки"
+  },
+  {
+    "text": "ИЛЮХА.EXE — Старый сейв, новая глава",
+    "group": "tab",
+    "context": "заголовок вкладки"
+  }
+]

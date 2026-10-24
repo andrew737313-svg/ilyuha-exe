@@ -187,6 +187,36 @@
   min-height: 0;
 }
 
+.tx__group {
+  display: grid;
+  gap: 8px;
+}
+
+.tx__group-title {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 10px 0 2px;
+  padding: 6px 8px;
+  border-left: 2px solid var(--amber);
+  background: #04070e;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--amber-2);
+}
+
+.tx__group-count {
+  margin-left: auto;
+  color: var(--text-mute);
+  font-weight: 400;
+}
+
 .tx__track {
   display: grid;
   gap: 8px;

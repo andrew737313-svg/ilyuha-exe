@@ -19,8 +19,24 @@ export type TextOverrideMap = Record<string, string>;
 const STORAGE_KEY = "ilyuha-texts-v1";
 const SHIPPED_FILE = `${import.meta.env.BASE_URL}texts.json`;
 
-type NodeRecord = { key: string; original: string };
+type NodeRecord = { key: string; original: string; applied?: string };
 const nodeRecords = new WeakMap<Text, NodeRecord>();
+
+/**
+ * A record is only trusted while the node still shows text we manage: the
+ * authored original or an override we wrote ourselves. React legitimately
+ * swaps text node content (conditional copy, timers, counters) — restoring a
+ * stale record would fight React and freeze the UI on old text, so in that
+ * case the record is dropped and the node is treated as brand new.
+ */
+function validRecord(node: Text, visible: string): NodeRecord | undefined {
+  const record = nodeRecords.get(node);
+  if (!record) return undefined;
+  if (visible === record.key) return record;
+  if (record.applied !== undefined && visible === record.applied) return record;
+  nodeRecords.delete(node);
+  return undefined;
+}
 
 /** Collapse JSX/HTML whitespace so a text node matches its source string. */
 export function normalizeText(value: string): string {
@@ -105,25 +121,26 @@ export function applyOverrides(root: Node, map: TextOverrideMap): number {
     const visible = normalizeText(raw);
     if (!visible) continue;
 
-    const record = nodeRecords.get(node);
-    const key = record?.key ?? (map[visible] !== undefined ? visible : reverse.get(visible));
-
-    if (!key) {
-      nodeRecords.delete(node);
-      continue;
+    let record = validRecord(node, visible);
+    if (!record) {
+      const key = map[visible] !== undefined ? visible : reverse.get(visible);
+      if (!key) continue;
+      record = { key, original: raw };
+      nodeRecords.set(node, record);
     }
-    if (!record) nodeRecords.set(node, { key, original: raw });
 
-    const next = map[key];
+    const next = map[record.key];
     if (next === undefined) {
-      // Override was deleted: put the default back.
-      const original = nodeRecords.get(node)?.original;
-      if (original !== undefined && node.nodeValue !== original) {
-        node.nodeValue = original;
+      // Override was deleted: restore the authored text — but only if this
+      // node currently shows an override we wrote ourselves.
+      if (record.applied !== undefined) {
+        node.nodeValue = record.original;
+        record.applied = undefined;
         changed += 1;
       }
       continue;
     }
+    record.applied = next;
     if (visible === next) continue;
 
     const lead = raw.match(/^\s*/)?.[0] ?? "";
@@ -175,21 +192,23 @@ export function collectEditableTexts(root: HTMLElement, map: TextOverrideMap): E
     const node = current as Text;
     const parent = node.parentElement;
     if (!parent || parent.closest("[data-texts-ui]")) continue;
+    if (parent.closest('[aria-hidden="true"]')) continue;
     const tag = parent.tagName;
     if (tag === "SCRIPT" || tag === "STYLE" || tag === "TEXTAREA") continue;
 
     const visible = normalizeText(node.nodeValue ?? "");
     if (!visible) continue;
 
-    const record = nodeRecords.get(node);
-    const key = record?.key ?? (map[visible] !== undefined ? visible : reverse.get(visible) ?? visible);
+    const record = validRecord(node, visible);
+    const key =
+      record?.key ?? (map[visible] !== undefined ? visible : reverse.get(visible) ?? visible);
     if (seen.has(key)) continue;
     seen.add(key);
-    if (!nodeRecords.has(node)) nodeRecords.set(node, { key, original: node.nodeValue ?? "" });
+    if (!record) nodeRecords.set(node, { key, original: node.nodeValue ?? "" });
 
     items.push({
       key,
-      original: nodeRecords.get(node)?.original ?? visible,
+      original: record?.original ?? node.nodeValue ?? visible,
       current: map[key] ?? key,
       context: describeContext(parent),
     });

@@ -123,7 +123,11 @@ export function PatchScreen({ state, dispatch, go }: ScreenProps) {
         </div>
 
         <div className="patch__art">
-          <ArtImage asset={ART.gamer} priority caption="Вечер, компьютер, кружка. Полный набор." />
+          <ArtImage
+            asset={ART.nightCozy}
+            priority
+            caption="Вечер, комп и свет экрана. Полный набор."
+          />
           {state.beerBuff ? (
             <span className="patch__stamp">
               <PixelIcon name="beer" size={14} /> БАФ АКТИВЕН

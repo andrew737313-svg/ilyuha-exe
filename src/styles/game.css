@@ -137,11 +137,10 @@
 
 .boot {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(230px, 1fr);
+  gap: clamp(14px, 2.2vw, 24px);
+  align-items: stretch;
   min-height: clamp(420px, 58vh, 620px);
   padding: clamp(18px, 3vw, 34px);
   overflow: hidden;
@@ -150,29 +149,31 @@
   box-shadow: 0 0 0 3px var(--void);
 }
 
-.boot__bg {
-  position: absolute;
-  inset: 0;
-  opacity: 0.7;
+.boot__main {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-width: 0;
 }
 
-.boot__bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(80% 60% at 50% 40%, rgba(7, 11, 20, 0.05) 0%, rgba(7, 11, 20, 0.86) 100%),
-    repeating-linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.35) 0 1px,
-      rgba(0, 0, 0, 0) 1px 3px
-    );
+.boot__art {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+}
+
+.boot__art .art {
+  flex: 1;
 }
 
 .boot__crt {
   position: relative;
-  z-index: 1;
-  width: min(760px, 100%);
+  width: 100%;
   background: rgba(7, 13, 23, 0.93);
   border: 3px solid var(--line-hot);
   box-shadow:
@@ -730,18 +731,8 @@
   background: #060b14;
 }
 
-.night__bg {
-  position: absolute;
-  inset: 0;
-}
-
-.night__bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(70% 70% at 30% 30%, rgba(6, 11, 20, 0.22) 0%, rgba(6, 11, 20, 0.82) 100%),
-    repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0 1px, transparent 1px 3px);
+.night__art {
+  padding: 0 clamp(12px, 2.4vw, 24px) clamp(12px, 2.4vw, 24px);
 }
 
 .night__stage {
@@ -1644,8 +1635,17 @@
   .split--family,
   .work,
   .patch,
+  .boot,
   .final__grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .boot__main {
+    min-height: clamp(340px, 48vh, 520px);
+  }
+
+  .boot__art {
+    max-width: 560px;
   }
 
   .night__stage {
