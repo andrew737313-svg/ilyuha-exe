@@ -19,7 +19,7 @@ export function SchoolScreen({ state, dispatch, go }: ScreenProps) {
         <ChapterHeader
           chapter="03"
           kicker="ШКОЛА · ОДНА ПАРТА НА ДВОИХ"
-          title="Два стула, одна парта"
+          title="Одна парта на двоих"
           lead="Одна парта, два хулигана."
         />
       }

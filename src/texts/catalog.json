@@ -285,7 +285,7 @@
     "context": "header · chapter__head"
   },
   {
-    "text": "Два стула, одна парта",
+    "text": "Одна парта на двоих",
     "group": "school",
     "context": "header · chapter__head"
   },
@@ -570,7 +570,7 @@
     "context": "div · night__crt"
   },
   {
-    "text": "СМЕТАНА",
+    "text": "МОЛОКО",
     "group": "minigame",
     "context": "div · night__crt"
   },
@@ -585,7 +585,7 @@
     "context": "div · night__crt"
   },
   {
-    "text": "фура ждёт сметана.",
+    "text": "фура ждёт молоко.",
     "group": "minigame",
     "context": "aside · night__log"
   },
@@ -595,7 +595,7 @@
     "context": "aside · night__log"
   },
   {
-    "text": "уровень · 3%",
+    "text": "уровень · 6%",
     "group": "minigame",
     "context": "div · night__crt"
   },
@@ -610,17 +610,12 @@
     "context": "div · night__crt"
   },
   {
-    "text": "отгружено. снова тихо.",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "газель ждёт кефир.",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
     "text": "«ещё пять минут», сказал ты. цех не поверил.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "отгружено. снова тихо.",
     "group": "minigame",
     "context": "aside · night__log"
   },
@@ -630,12 +625,22 @@
     "context": "div · night__crt"
   },
   {
-    "text": "газель ждёт молоко.",
+    "text": "газель ждёт кефир.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "фура ждёт кефир.",
     "group": "minigame",
     "context": "aside · night__log"
   },
   {
     "text": "газель ждёт сметана.",
+    "group": "minigame",
+    "context": "aside · night__log"
+  },
+  {
+    "text": "газель ждёт молоко.",
     "group": "minigame",
     "context": "aside · night__log"
   },
@@ -665,12 +670,7 @@
     "context": "aside · night__log"
   },
   {
-    "text": "фура ждёт молоко.",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "фура ждёт кефир.",
+    "text": "фура ждёт сметана.",
     "group": "minigame",
     "context": "aside · night__log"
   },
