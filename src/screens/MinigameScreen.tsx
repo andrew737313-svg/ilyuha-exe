@@ -65,7 +65,7 @@ export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
                   <span className="night__speaker">Система</span>
                   <p className="night__text">«Ну что, ещё пять минут?»</p>
                   <p className="night__note">
-                    Мама уже спит. Компьютер гудит. Сейв не сохранён.
+                    Мама уже спит. Комп гудит. Игра на самом интересном месте.
                   </p>
                 </>
               )}
@@ -144,7 +144,7 @@ export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
             <span className="award-panel__kicker">Достижение</span>
             <strong>Не удалил сейв с детства</strong>
             <p>
-              Шесть нажатий, ноль сожалений. За окном светает, а сейв на месте.
+              Шесть нажатий, ноль сожалений. За окном уже светает.
             </p>
           </div>
         </div>

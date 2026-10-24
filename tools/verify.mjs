@@ -240,7 +240,7 @@ try {
     "Все характеристики на месте",
     ["имя", "возраст", "класс", "семейное положение", "дети", "слабость"].every((s) =>
       statsText.includes(s),
-    ) && statsText.includes("ещё одна катка"),
+    ) && statsText.includes("ну ещё одну и всё"),
     statsText.slice(0, 160),
   );
   check("Пассивная способность «Пивной баф»", await page.locator(".perk").innerText().then((t) => t.includes("Пивной баф")));
@@ -290,7 +290,19 @@ try {
   console.log("\n05 · СЕМЬЯ");
   await page.getByRole("button", { name: /глава 05/i }).click();
   await page.waitForSelector("h1:has-text('Новая игра+')");
-  check("Семейная иллюстрация загрузилась", await page.locator(".split--family img").evaluate((i) => i.complete && i.naturalWidth > 0));
+  check(
+    "Семейная иллюстрация загрузилась",
+    await page
+      .locator(".split--family img")
+      .evaluate((i) => {
+        if (i.complete && i.naturalWidth > 0) return true;
+        return new Promise((resolve) => {
+          i.addEventListener("load", () => resolve(i.naturalWidth > 0), { once: true });
+          i.addEventListener("error", () => resolve(false), { once: true });
+          window.setTimeout(() => resolve(i.complete && i.naturalWidth > 0), 8000);
+        });
+      }),
+  );
   const journal = await page.locator(".journal__item").allInnerTexts();
   check(
     "Три записи: Диана, Маргарита, младший",

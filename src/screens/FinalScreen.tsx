@@ -26,7 +26,7 @@ export function FinalScreen({ state, dispatch }: ScreenProps) {
           chapter="08"
           kicker="ФИНАЛ · СТАРЫЙ СЕЙВ"
           title="Старый сейв, новая глава"
-          lead="Патч 32.0 установлен. Сейвы переносятся."
+          lead="Патч 32.0 установлен. Всё лучшее — с собой."
         />
       }
       nav={

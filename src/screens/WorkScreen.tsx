@@ -18,7 +18,7 @@ export function WorkScreen({ state, dispatch, go }: ScreenProps) {
           chapter="06"
           kicker="РАБОТА · МОЛОЧНЫЙ ЗАВОД"
           title="Ночная смена"
-          lead="Ночная смена, линия розлива и один очень спокойный человек в белом."
+          lead="Ты — старший смены. Молоко, сметана, кефиры, фуры и газели."
         />
       }
       nav={
@@ -44,8 +44,8 @@ export function WorkScreen({ state, dispatch, go }: ScreenProps) {
           <div className="work__alert">
             <span className="work__alert-dot" aria-hidden="true" />
             <span>
-              <strong>ЛИНИЯ ОСТАНОВЛЕНА</strong>
-              <em>датчик уровня · защита насоса</em>
+              <strong>ЧТО-ТО НЕ ПОЕХАЛО</strong>
+              <em>молочка · погрузка · газель во дворе</em>
             </span>
           </div>
           <span className="work__stamp">СМЕНА · 03:20</span>
@@ -58,8 +58,7 @@ export function WorkScreen({ state, dispatch, go }: ScreenProps) {
           </div>
 
           <p className="story">
-            Половина четвёртого. Линия розлива встала, молоко стоит, смена смотрит на тебя.
-            Инженер уже идёт, но у тебя есть секунда, чтобы выбрать лицо.
+            Ночная смена на молочном заводе. Ты старший: сметана, кефиры, молоко — и всё это грузится в фуры и газели. Если нигде ничего не встало, ночь тихая: можно и в компе порезаться. А если встало — решать тебе.
           </p>
 
           <div className="choices choices--compact" role="group" aria-label="Решение на смене">
@@ -108,7 +107,7 @@ export function WorkScreen({ state, dispatch, go }: ScreenProps) {
             </div>
           ) : (
             <p className="panel__note">
-              Любой вариант — рабочая ситуация. Никто не пострадал, кроме молока.
+              Любой вариант — обычная ночная смена. Молочка уезжает, старший остаётся.
             </p>
           )}
         </div>

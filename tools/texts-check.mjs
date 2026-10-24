@@ -135,7 +135,7 @@ try {
     groupTitles.slice(0, 4).join(" | "),
   );
 
-  const letterNeedle = "Мы сидели за одной партой";
+  const letterNeedle = "Балашиха";
   const letterIndex = await page
     .locator(".tx__row")
     .evaluateAll(

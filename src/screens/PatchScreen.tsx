@@ -34,7 +34,7 @@ export function PatchScreen({ state, dispatch, go }: ScreenProps) {
           chapter="07"
           kicker="ПАТЧ 32.0 · ИЗМЕНЕНИЯ"
           title="Пивной баф"
-          lead="Не баг. Фича. И, судя по всему, единственная, которую нельзя откатить."
+          lead="Единственный навык, который к тридцати двум прокачался сам."
         />
       }
       nav={
@@ -84,8 +84,7 @@ export function PatchScreen({ state, dispatch, go }: ScreenProps) {
             </li>
             <li>
               <span className="changelog__tag">добавлено</span>
-              «Пивной баф» — пассивный навык. Открывается после тридцати, работает
-              круглосуточно.
+              «Пивной баф» — пассивный навык. Оформился после тридцати, работает круглосуточно.
             </li>
           </ul>
 
@@ -117,7 +116,7 @@ export function PatchScreen({ state, dispatch, go }: ScreenProps) {
             </div>
           ) : (
             <p className="panel__note">
-              Шутка дружеская. Ни одно лицо в этом патче не пострадало.
+              Шутка дружеская. Сила воли в комплект не входит.
             </p>
           )}
         </div>

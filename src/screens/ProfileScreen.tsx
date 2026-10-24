@@ -50,7 +50,7 @@ export function ProfileScreen({ dispatch, go }: ScreenProps) {
           <span className="portrait__badge">
             <PixelIcon name="crown" size={12} /> LVL 32
           </span>
-          <span className="portrait__tag">муж · отец · смена на заводе</span>
+          <span className="portrait__tag">муж · отец · старший смены</span>
         </div>
 
         <div className="panel stat-panel">
@@ -94,7 +94,7 @@ export function ProfileScreen({ dispatch, go }: ScreenProps) {
               <span className="perk__kicker">Пассивная способность</span>
               <strong>Пивной баф</strong>
               <span className="perk__text">
-                +5 к уверенности, −2 к скорости. Выдаётся автоматически после тридцати. Отключению не подлежит.
+                +5 к уверенности, −2 к скорости. Достался после тридцати, сам. Отключению не подлежит.
               </span>
             </span>
           </div>
