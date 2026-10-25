@@ -35,13 +35,12 @@ function describeMediaError(err: MediaError | null): string {
 }
 
 export function FinalPlayer({ onPlayed }: { onPlayed: () => void }) {
-  const { duck, sfx } = useAudio();
+  const { duck } = useAudio();
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const inputRef = useRef<HTMLInputElement | null>(null);
   const objectUrl = useRef<string | null>(null);
 
   const [trackName, setTrackName] = useState<string | null>(null);
-  const [trackKind, setTrackKind] = useState<"bundled" | "local" | "custom" | null>(null);
+  const [trackKind, setTrackKind] = useState<"bundled" | "custom" | null>(null);
   const [playing, setPlaying] = useState(false);
   const [current, setCurrent] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -116,37 +115,11 @@ export function FinalPlayer({ onPlayed }: { onPlayed: () => void }) {
         setStarted(true);
         onPlayed();
       } catch {
-        setError(
-          "Браузер не дал запустить воспроизведение. Нажми ещё раз или выбери другой файл.",
-        );
+        setError("Браузер не дал запустить воспроизведение. Нажми ещё раз.");
       }
     } else {
       audio.pause();
     }
-  };
-
-  const onFile = (file: File | undefined) => {
-    if (!file) return;
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    if (!/^audio\//.test(file.type) && !/\.(mp3|m4a|ogg|oga|wav|flac|aac)$/i.test(file.name)) {
-      setError("Это не похоже на аудиофайл. Нужен mp3, m4a, ogg или wav.");
-      return;
-    }
-
-    audio.pause();
-    releaseObjectUrl();
-    const url = URL.createObjectURL(file);
-    objectUrl.current = url;
-    audio.src = url;
-    setTrackName(file.name);
-    setTrackKind("local");
-    setError(null);
-    setCurrent(0);
-    setDuration(0);
-    setPlaying(false);
-    sfx("select");
   };
 
   const seek = (value: number) => {
@@ -162,11 +135,9 @@ export function FinalPlayer({ onPlayed }: { onPlayed: () => void }) {
         <span className="player__kicker">Музыкальный подарок</span>
         <h2 className="player__title">Старый сейв</h2>
         {trackKind === "bundled" ? (
-          <span className="player__badge">встроенная чиптюн-версия</span>
+          <span className="player__badge">из сборки</span>
         ) : trackKind === "custom" ? (
-          <span className="player__badge player__badge--local">свой трек</span>
-        ) : trackKind === "local" ? (
-          <span className="player__badge player__badge--local">локальный файл</span>
+          <span className="player__badge player__badge--local">тестовый трек · только этот браузер</span>
         ) : null}
       </div>
 
@@ -178,7 +149,7 @@ export function FinalPlayer({ onPlayed }: { onPlayed: () => void }) {
           <p>
             <strong>Трек пока не загружен.</strong>
             <span>
-              Положи mp3 в <code>public/audio/old-save.mp3</code> — или выбери файл вручную.
+              Положи mp3 в <code>public/audio/old-save.mp3</code> — и он заиграет здесь.
             </span>
           </p>
         </div>
@@ -228,25 +199,6 @@ export function FinalPlayer({ onPlayed }: { onPlayed: () => void }) {
           ) : null}
         </>
       )}
-
-      <div className="player__actions">
-        <button type="button" className="btn btn--ghost" onClick={() => inputRef.current?.click()}>
-          <PixelIcon name="disk" size={12} />
-          <span className="btn__label">{trackName ? "Выбрать другой файл" : "Выбрать файл"}</span>
-        </button>
-        <input
-          ref={inputRef}
-          type="file"
-          accept="audio/*,.mp3,.m4a,.ogg,.wav,.flac"
-          className="visually-hidden"
-          onChange={(e) => onFile(e.target.files?.[0])}
-        />
-      </div>
-
-      <p className="player__note">
-        Файл, выбранный вручную, звучит только в этом браузере. Чтобы песня была слышна по
-        опубликованной ссылке, её нужно положить в проект и развернуть вместе с ним.
-      </p>
 
       <audio
         ref={audioRef}

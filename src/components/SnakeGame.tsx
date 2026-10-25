@@ -17,7 +17,8 @@ type Phase = "intro" | "run" | "dead" | "over";
 type World = {
   snake: Cell[];
   dir: Dir;
-  pending: Dir | null;
+  /** Очередь поворотов — быстрый «вверх-влево» не теряется. */
+  pending: Dir[];
   food: Cell;
   cans: number;
   ms: number;
@@ -44,7 +45,8 @@ const AUTO = (() => {
 const key = (c: Cell) => `${c.x},${c.y}`;
 const same = (a: Cell, b: Cell) => a.x === b.x && a.y === b.y;
 const opposite = (a: Dir, b: Dir) => a.x === -b.x && a.y === -b.y;
-const inside = (c: Cell) => c.x >= 0 && c.y >= 0 && c.x < COLS && c.y < ROWS;
+/** Стены сквозные: координаты заворачиваются на другую сторону. */
+const wrap = (c: Cell): Cell => ({ x: (c.x + COLS) % COLS, y: (c.y + ROWS) % ROWS });
 
 function freeCell(snake: Cell[]): Cell {
   for (;;) {
@@ -64,7 +66,7 @@ function makeWorld(): World {
   return {
     snake,
     dir: DIRS.right,
-    pending: null,
+    pending: [],
     food: freeCell(snake),
     cans: 0,
     ms: 0,
@@ -72,7 +74,7 @@ function makeWorld(): World {
   };
 }
 
-/** Автоигра для тестов: BFS до банки, запасной вариант — самая свободная сторона. */
+/** Автоигра для тестов: BFS до банки (с учётом сквозных стен), запас — самая свободная сторона. */
 function autoDir(w: World): Dir | null {
   const head = w.snake[0];
   const blocked = new Set(w.snake.slice(0, -1).map(key));
@@ -87,9 +89,9 @@ function autoDir(w: World): Dir | null {
       break;
     }
     for (const d of Object.values(DIRS)) {
-      const n = { x: cur.x + d.x, y: cur.y + d.y };
+      const n = wrap({ x: cur.x + d.x, y: cur.y + d.y });
       const k = key(n);
-      if (!inside(n) || blocked.has(k) || seen.has(k)) continue;
+      if (blocked.has(k) || seen.has(k)) continue;
       seen.add(k);
       prev.set(k, key(cur));
       queue.push(n);
@@ -109,16 +111,16 @@ function autoDir(w: World): Dir | null {
   let bestSpace = -1;
   for (const d of Object.values(DIRS)) {
     if (opposite(d, w.dir)) continue;
-    const n = { x: head.x + d.x, y: head.y + d.y };
-    if (!inside(n) || blocked.has(key(n))) continue;
+    const n = wrap({ x: head.x + d.x, y: head.y + d.y });
+    if (blocked.has(key(n))) continue;
     const spaceSeen = new Set([key(n)]);
     const stack = [n];
     while (stack.length > 0) {
       const cur = stack.pop()!;
       for (const dd of Object.values(DIRS)) {
-        const m = { x: cur.x + dd.x, y: cur.y + dd.y };
+        const m = wrap({ x: cur.x + dd.x, y: cur.y + dd.y });
         const k = key(m);
-        if (!inside(m) || blocked.has(k) || spaceSeen.has(k)) continue;
+        if (blocked.has(k) || spaceSeen.has(k)) continue;
         spaceSeen.add(k);
         stack.push(m);
       }
@@ -132,13 +134,17 @@ function autoDir(w: World): Dir | null {
 }
 
 function tickWorld(w: World): "run" | "dead" | "over" {
-  if (w.pending && !opposite(w.pending, w.dir)) w.dir = w.pending;
-  w.pending = null;
+  while (w.pending.length > 0) {
+    const d = w.pending.shift()!;
+    if (opposite(d, w.dir)) continue;
+    w.dir = d;
+    break;
+  }
   const head = w.snake[0];
-  const next = { x: head.x + w.dir.x, y: head.y + w.dir.y };
+  const next = wrap({ x: head.x + w.dir.x, y: head.y + w.dir.y });
   const eating = same(next, w.food);
   const body = eating ? w.snake : w.snake.slice(0, -1);
-  if (!inside(next) || body.some((c) => same(c, next))) {
+  if (body.some((c) => same(c, next))) {
     w.crash = SNAKE.crashes[Math.floor(Math.random() * SNAKE.crashes.length)];
     return "dead";
   }
@@ -173,10 +179,29 @@ export function SnakeGame({
   const render = () => setTick((n) => n + 1);
 
   const setDir = (dir: Dir) => {
-    const w = worldRef.current!;
     if (phase !== "run") return;
-    if (opposite(dir, w.dir) || (dir.x === w.dir.x && dir.y === w.dir.y)) return;
-    w.pending = dir;
+    const w = worldRef.current!;
+    const last = w.pending[w.pending.length - 1] ?? w.dir;
+    if (opposite(dir, last) || (dir.x === last.x && dir.y === last.y)) return;
+    if (w.pending.length < 3) w.pending.push(dir);
+  };
+
+  // Свайп по полю: движение пальцем задаёт направление, страница не скроллится.
+  const swipeStart = useRef<{ x: number; y: number } | null>(null);
+  const onSwipeStart = (e: { clientX: number; clientY: number }) => {
+    swipeStart.current = { x: e.clientX, y: e.clientY };
+  };
+  const onSwipeMove = (e: { clientX: number; clientY: number }) => {
+    const s = swipeStart.current;
+    if (!s) return;
+    const dx = e.clientX - s.x;
+    const dy = e.clientY - s.y;
+    if (Math.abs(dx) < 22 && Math.abs(dy) < 22) return;
+    setDir(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? DIRS.right : DIRS.left) : dy > 0 ? DIRS.down : DIRS.up);
+    swipeStart.current = { x: e.clientX, y: e.clientY };
+  };
+  const onSwipeEnd = () => {
+    swipeStart.current = null;
   };
 
   useEffect(() => {
@@ -187,7 +212,7 @@ export function SnakeGame({
       const delay = Math.max(SNAKE.minTick, SNAKE.baseTick - w.cans * 5);
       if (AUTO) {
         const d = autoDir(w);
-        if (d) w.pending = d;
+        if (d) w.pending = [d];
       }
       const before = w.cans;
       const outcome = tickWorld(w);
@@ -264,14 +289,15 @@ export function SnakeGame({
           <>
             <p className="night__text">«Художка» ждёт</p>
             <p className="night__note">
-              Ночь, двор, в кармане пусто. Ты — змейка: собирай банки ягуара, не врезайся
-              в столбы и не кусай себя за хвост. {SNAKE.goal} банок — и на ночь хватит.
+              Ночь, двор, в кармане пусто. Ты — змейка: собирай банки ягуара и не кусай
+              себя за хвост. Стены сквозные: въехал справа — выедешь слева. {SNAKE.goal} банок —
+              и на ночь хватит.
             </p>
             <PixelButton variant="primary" className="btn--big" icon="beer" onClick={start}>
               Начать сбор
             </PixelButton>
             <p className="night__hint">
-              Стрелки или WASD. На телефоне — кнопки под двором.
+              Стрелки, WASD, свайп по полю или кнопки под двором.
             </p>
             {savedResult ? (
               <p className="night__hint">
@@ -288,6 +314,10 @@ export function SnakeGame({
               ref={fieldRef}
               role="application"
               aria-label="Змейка по двору"
+              onPointerDown={onSwipeStart}
+              onPointerMove={onSwipeMove}
+              onPointerUp={onSwipeEnd}
+              onPointerCancel={onSwipeEnd}
               style={{
                 gridTemplateColumns: `repeat(${COLS}, 1fr)`,
                 aspectRatio: `${COLS} / ${ROWS}`,

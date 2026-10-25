@@ -153,7 +153,7 @@
     {
       "name": "Итоги забега показаны",
       "ok": true,
-      "detail": "БАНОК 12/12 · ВРЕМЯ 0:15"
+      "detail": "БАНОК 12/12 · ВРЕМЯ 0:10"
     },
     {
       "name": "Приз двора выдан",
@@ -288,7 +288,7 @@
     {
       "name": "Трек реально играет",
       "ok": true,
-      "detail": "{\"paused\":false,\"currentTime\":1.064108,\"duration\":30.999955,\"ducked\":true,\"musicPlaying\":true}"
+      "detail": "{\"paused\":false,\"currentTime\":1.03316,\"duration\":30.999955,\"ducked\":true,\"musicPlaying\":true}"
     },
     {
       "name": "Чиптюн приглушён под трек",

@@ -515,7 +515,7 @@
     "context": "div · night__crt snake"
   },
   {
-    "text": "Ночь, двор, в кармане пусто. Ты — змейка: собирай банки ягуара, не врезайся в столбы и не кусай себя за хвост.",
+    "text": "Ночь, двор, в кармане пусто. Ты — змейка: собирай банки ягуара и не кусай себя за хвост. Стены сквозные: въехал справа — выедешь слева.",
     "group": "minigame",
     "context": "div · night__crt snake"
   },
@@ -530,7 +530,7 @@
     "context": "div · night__crt snake"
   },
   {
-    "text": "Стрелки или WASD. На телефоне — кнопки под двором.",
+    "text": "Стрелки, WASD, свайп по полю или кнопки под двором.",
     "group": "minigame",
     "context": "div · night__crt snake"
   },
@@ -550,12 +550,12 @@
     "context": "aside · night__log ring__book"
   },
   {
-    "text": "Столб",
+    "text": "Стены",
     "group": "minigame",
     "context": "aside · night__log ring__book"
   },
   {
-    "text": "бесплатно. больно",
+    "text": "сквозные. въехал — выехал",
     "group": "minigame",
     "context": "aside · night__log ring__book"
   },
@@ -1100,22 +1100,12 @@
     "context": "div · player"
   },
   {
-    "text": "встроенная чиптюн-версия",
+    "text": "из сборки",
     "group": "final",
     "context": "div · player"
   },
   {
     "text": "old-save-demo.wav",
-    "group": "final",
-    "context": "div · player"
-  },
-  {
-    "text": "Выбрать другой файл",
-    "group": "final",
-    "context": "div · player"
-  },
-  {
-    "text": "Файл, выбранный вручную, звучит только в этом браузере. Чтобы песня была слышна по опубликованной ссылке, её нужно положить в проект и развернуть вместе с ним.",
     "group": "final",
     "context": "div · player"
   },
