@@ -53,10 +53,10 @@ const wavPath = path.join(root, "tools", "screenshots", "test-track.wav");
 try {
   const context = await browser.newContext({ viewport: { width: 1440, height: 960 }, locale: "ru-RU" });
   const page = await context.newPage();
-  // Мини-игра сама бьёт ноты: флаг автоигры для сквозного прохождения.
+  // Змейка сама собирает банки: флаг автоигры для сквозного прохождения.
   await page.addInitScript(() => {
     try {
-      window.localStorage.setItem("ilyuha-ring-auto", "1");
+      window.localStorage.setItem("ilyuha-snake-auto", "1");
     } catch {
       /* ignore */
     }
@@ -247,8 +247,13 @@ try {
     await page.getByRole("button", { name: /глава 03/i }).click();
     await page.getByRole("button", { name: /спокойно/i }).click();
     await page.getByRole("button", { name: /глава 04/i }).click();
-    await page.getByRole("button", { name: /сыграть песенку/i }).click();
-    await page.waitForSelector(".night__verdict", { timeout: 60000 });
+    await page.getByRole("button", { name: /начать сбор/i }).click();
+    for (let i = 0; i < 900; i += 1) {
+      if (await page.locator(".night__verdict:not(.snake__dead)").count()) break;
+      const retry = page.locator(".snake__dead .btn");
+      if (await retry.count()) await retry.first().click({ timeout: 400 }).catch(() => {});
+      await page.waitForTimeout(150);
+    }
     await page.getByRole("button", { name: /глава 05/i }).click();
     await page.getByRole("button", { name: /глава 06/i }).click();
     await page.getByRole("button", { name: /разобраться/i }).click();

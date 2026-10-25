@@ -82,10 +82,10 @@ try {
     locale: "ru-RU",
   });
   const page = await context.newPage();
-  // Мини-игра сама бьёт ноты: флаг автоигры, чтобы каталог собирался быстро.
+  // Змейка сама собирает банки: флаг автоигры, чтобы каталог собирался быстро.
   await page.addInitScript(() => {
     try {
-      window.localStorage.setItem("ilyuha-ring-auto", "1");
+      window.localStorage.setItem("ilyuha-snake-auto", "1");
     } catch {
       /* ignore */
     }
@@ -127,14 +127,19 @@ try {
   await page.waitForTimeout(300);
   await collect(page, "school");
 
-  // 04 · minigame: песенка на сименсе (интро, процесс, итог)
+  // 04 · minigame: змейка по двору (интро, процесс, итог)
   await page.getByRole("button", { name: /глава 04/i }).click();
   await page.waitForTimeout(400);
   await collect(page, "minigame");
-  await page.getByRole("button", { name: /сыграть песенку/i }).click();
-  await page.waitForTimeout(4000);
+  await page.getByRole("button", { name: /начать сбор/i }).click();
+  await page.waitForTimeout(3000);
   await collect(page, "minigame");
-  await page.waitForSelector(".night__verdict", { timeout: 60000 });
+  for (let i = 0; i < 900; i += 1) {
+    if (await page.locator(".night__verdict:not(.snake__dead)").count()) break;
+    const retry = page.locator(".snake__dead .btn");
+    if (await retry.count()) await retry.first().click({ timeout: 400 }).catch(() => {});
+    await page.waitForTimeout(150);
+  }
   await page.waitForTimeout(300);
   await collect(page, "minigame");
 

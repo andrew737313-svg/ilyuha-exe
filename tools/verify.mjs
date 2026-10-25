@@ -115,10 +115,10 @@ try {
     timezoneId: "Europe/Moscow",
   });
   const page = await context.newPage();
-  // Мини-игра сама бьёт ноты: флаг автоигры для теста.
+  // Мини-игра сама собирает банки: флаг автоигры для теста.
   await page.addInitScript(() => {
     try {
-      window.localStorage.setItem("ilyuha-ring-auto", "1");
+      window.localStorage.setItem("ilyuha-snake-auto", "1");
     } catch {
       /* ignore */
     }
@@ -276,35 +276,43 @@ try {
   // -------------------------------------------------------------- minigame
   console.log("\n04 · МИНИ-ИГРА");
   await page.getByRole("button", { name: /глава 04/i }).click();
-  await page.waitForSelector("h1:has-text('Поставь на звонок')");
+  await page.waitForSelector("h1:has-text('На ягуар не хватает')");
   await imagesReady(page);
   check("Фото ночной сессии загрузилось", await page.locator(".night__art img").evaluate((i) => i.complete && i.naturalWidth > 0));
 
   check(
-    "Правила песенки показаны до старта",
-    (await page.locator(".night__crt").innerText()).includes("Сименс"),
+    "Правила двора показаны до старта",
+    (await page.locator(".night__crt").innerText()).includes("змейка"),
   );
-  await page.getByRole("button", { name: /сыграть песенку/i }).click();
-  await page.waitForSelector(".ring__phone", { timeout: 5000 });
-  check("Телефон с линиями отрисован", (await page.locator(".ring__lane").count()) === 3);
-  await page.waitForSelector(".ring__note", { timeout: 8000 });
-  check("Ноты пошли по линиям", true);
+  await page.getByRole("button", { name: /начать сбор/i }).click();
+  await page.waitForSelector(".snake__field", { timeout: 5000 });
+  await page.waitForSelector(".snake__head", { timeout: 3000 });
+  check("Змейка и двор отрисованы", (await page.locator(".snake__food").count()) === 1);
+  check("Кнопки управления на месте", (await page.locator(".snake__pad .ring__key").count()) === 4);
 
-  // Автоигра (ilyuha-ring-auto) бьёт каждую ноту в точку — ждём финал песенки.
-  await page.waitForSelector(".night__verdict", { timeout: 60000 });
-  check("Песенка доиграна до конца", true);
-  const tally = await page.locator(".night__tally").innerText();
+  // Автоигра (ilyuha-snake-auto) сама ведёт змейку к банкам — ждём победу или смерть.
+  let won = false;
+  for (let i = 0; i < 900; i += 1) {
+    if (await page.locator(".night__verdict:not(.snake__dead)").count()) {
+      won = true;
+      break;
+    }
+    const retry = page.locator(".snake__dead .btn");
+    if (await retry.count()) await retry.first().click({ timeout: 400 }).catch(() => {});
+    await page.waitForTimeout(150);
+  }
+  check("Змейка собрала 12 банок", won);
+  const tally = await page.locator(".night__verdict:not(.snake__dead) .night__tally").innerText();
   check(
-    "Итоги песенки показаны",
-    /попаданий \d+\/\d+ · серия ×\d+ · точность \d+%/i.test(tally),
+    "Итоги забега показаны",
+    /банок \d+\/\d+ · время \d+:\d{2}/i.test(tally),
     tally,
   );
-  check("Автоигра даёт 100%", /точность 100%/i.test(tally), tally);
   check(
-    "Оценка двора выдана",
-    (await page.locator(".ring__grade").innerText()).trim().length >= 4,
+    "Приз двора выдан",
+    (await page.locator(".ring__grade").innerText()).includes("НАБРАЛ"),
   );
-  check("Записная книжка на месте", (await page.locator(".ring__book li").count()) >= 4);
+  check("Табличка цен на месте", (await page.locator(".ring__book li").count()) >= 4);
   check("Достижение мини-игры показано", await page.locator(".award-panel").isVisible());
   check(
     "Кнопка «Глава 05» разблокирована",

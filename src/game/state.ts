@@ -11,14 +11,12 @@ import {
 const STORAGE_KEY = "ilyuha-exe-patch32-v1";
 const STATE_VERSION = 1;
 
-/** Итог мини-игры «Поставь на звонок». */
-export type RingResult = {
-  /** Попадания по нотам. */
-  hits: number;
-  /** Всего нот в песенке. */
-  total: number;
-  /** Лучшая серия без промахов. */
-  combo: number;
+/** Итог мини-игры «На ягуар не хватает». */
+export type SnakeResult = {
+  /** Собрано банок. */
+  cans: number;
+  /** Время забега, сек. */
+  seconds: number;
 };
 
 export type GameState = {
@@ -30,7 +28,7 @@ export type GameState = {
   schoolTried: SchoolChoiceId[];
   workChoice: WorkChoiceId | null;
   workTried: WorkChoiceId[];
-  ring: RingResult | null;
+  snake: SnakeResult | null;
   beerBuff: boolean;
   achievements: AchievementId[];
   trackPlayed: boolean;
@@ -43,7 +41,7 @@ export type GameAction =
   | { type: "award"; id: AchievementId }
   | { type: "school"; id: SchoolChoiceId }
   | { type: "work"; id: WorkChoiceId }
-  | { type: "minigame-finish"; result: RingResult }
+  | { type: "minigame-finish"; result: SnakeResult }
   | { type: "beer-buff" }
   | { type: "track-played" }
   | { type: "finish" }
@@ -58,7 +56,7 @@ export const initialState: GameState = {
   schoolTried: [],
   workChoice: null,
   workTried: [],
-  ring: null,
+  snake: null,
   beerBuff: false,
   achievements: [],
   trackPlayed: false,
@@ -113,10 +111,10 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
     }
 
     case "minigame-finish": {
-      const first = state.ring === null && !state.reached.includes("family");
+      const first = state.snake === null && !state.reached.includes("family");
       return {
         ...state,
-        ring: action.result,
+        snake: action.result,
         achievements: first ? award(state, "save-childhood") : state.achievements,
         reached: unlock(state, "family"),
       };
@@ -202,15 +200,13 @@ export function loadState(): GameState {
       schoolTried: Array.isArray(parsed.schoolTried) ? parsed.schoolTried : [],
       workChoice: parsed.workChoice ?? null,
       workTried: Array.isArray(parsed.workTried) ? parsed.workTried : [],
-      ring:
-        parsed.ring && typeof parsed.ring === "object" &&
-        typeof parsed.ring.hits === "number" &&
-        typeof parsed.ring.total === "number" &&
-        typeof parsed.ring.combo === "number"
+      snake:
+        parsed.snake && typeof parsed.snake === "object" &&
+        typeof parsed.snake.cans === "number" &&
+        typeof parsed.snake.seconds === "number"
           ? {
-              hits: Math.max(0, Math.round(parsed.ring.hits)),
-              total: Math.max(0, Math.round(parsed.ring.total)),
-              combo: Math.max(0, Math.round(parsed.ring.combo)),
+              cans: Math.max(0, Math.round(parsed.snake.cans)),
+              seconds: Math.max(0, Math.round(parsed.snake.seconds)),
             }
           : null,
       beerBuff: Boolean(parsed.beerBuff),
