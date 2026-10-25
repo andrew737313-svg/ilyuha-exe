@@ -115,10 +115,10 @@ try {
     timezoneId: "Europe/Moscow",
   });
   const page = await context.newPage();
-  // Мини-игра сама собирает банки: флаг автоигры для теста.
+  // Мини-игра сама бросает ящики: флаг автоигры для теста.
   await page.addInitScript(() => {
     try {
-      window.localStorage.setItem("ilyuha-snake-auto", "1");
+      window.localStorage.setItem("ilyuha-stack-auto", "1");
     } catch {
       /* ignore */
     }
@@ -276,43 +276,43 @@ try {
   // -------------------------------------------------------------- minigame
   console.log("\n04 · МИНИ-ИГРА");
   await page.getByRole("button", { name: /глава 04/i }).click();
-  await page.waitForSelector("h1:has-text('На ягуар не хватает')");
+  await page.waitForSelector("h1:has-text('Погрузи фуру')");
   await imagesReady(page);
   check("Фото ночной сессии загрузилось", await page.locator(".night__art img").evaluate((i) => i.complete && i.naturalWidth > 0));
 
   check(
-    "Правила двора показаны до старта",
-    (await page.locator(".night__crt").innerText()).includes("змейка"),
+    "Правила погрузки показаны до старта",
+    (await page.locator(".night__crt").innerText()).toLowerCase().includes("фур"),
   );
-  await page.getByRole("button", { name: /начать сбор/i }).click();
-  await page.waitForSelector(".snake__field", { timeout: 5000 });
-  await page.waitForSelector(".snake__head", { timeout: 3000 });
-  check("Змейка и двор отрисованы", (await page.locator(".snake__food").count()) === 1);
-  check("Кнопки управления на месте", (await page.locator(".snake__pad .ring__key").count()) === 4);
+  await page.getByRole("button", { name: /начать погрузку/i }).click();
+  await page.waitForSelector(".stack__field", { timeout: 5000 });
+  await page.waitForSelector(".stack__box--cur", { timeout: 3000 });
+  check("Поле и каретка отрисованы", (await page.locator(".stack__bed").count()) === 1);
+  check("Кнопка сброса на месте", await page.locator(".stack__drop").isVisible());
 
-  // Автоигра (ilyuha-snake-auto) сама ведёт змейку к банкам — ждём победу или смерть.
+  // Автоигра (ilyuha-stack-auto) бросает в идеальный момент — ждём победу или провал.
   let won = false;
-  for (let i = 0; i < 900; i += 1) {
-    if (await page.locator(".night__verdict:not(.snake__dead)").count()) {
+  for (let i = 0; i < 600; i += 1) {
+    if (await page.locator(".night__verdict:not(.stack__failed)").count()) {
       won = true;
       break;
     }
-    const retry = page.locator(".snake__dead .btn");
+    const retry = page.locator(".stack__failed .btn");
     if (await retry.count()) await retry.first().click({ timeout: 400 }).catch(() => {});
     await page.waitForTimeout(150);
   }
-  check("Змейка собрала 12 банок", won);
-  const tally = await page.locator(".night__verdict:not(.snake__dead) .night__tally").innerText();
+  check("Фура загружена", won);
+  const tally = await page.locator(".night__verdict:not(.stack__failed) .night__tally").innerText();
   check(
-    "Итоги забега показаны",
-    /банок \d+\/\d+ · время \d+:\d{2}/i.test(tally),
+    "Итоги смены показаны",
+    /ящиков \d+\/\d+ · потеряно \d+ · время \d+:\d{2}/i.test(tally),
     tally,
   );
   check(
-    "Приз двора выдан",
-    (await page.locator(".ring__grade").innerText()).includes("НАБРАЛ"),
+    "Звание выдано",
+    (await page.locator(".ring__grade").innerText()).includes("СТАРШИЙ"),
   );
-  check("Табличка цен на месте", (await page.locator(".ring__book li").count()) >= 4);
+  check("Накладная на месте", (await page.locator(".ring__book li").count()) >= 4);
   check("Достижение мини-игры показано", await page.locator(".award-panel").isVisible());
   check(
     "Кнопка «Глава 05» разблокирована",

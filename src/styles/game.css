@@ -821,26 +821,27 @@
   width: 100%;
 }
 
-/* — мини-игра «На ягуар не хватает» — */
+/* — мини-игра «Погрузи фуру» — */
 
-.snake__field {
+.stack__field {
   position: relative;
-  display: grid;
-  gap: 2px;
   width: 100%;
-  max-width: 420px;
+  max-width: 480px;
+  height: min(52vh, 420px);
   margin: 0 auto;
-  padding: 8px;
   background:
-    radial-gradient(120% 90% at 50% 0%, rgba(240, 169, 63, 0.06), transparent 60%),
+    radial-gradient(120% 90% at 50% 0%, rgba(240, 169, 63, 0.07), transparent 60%),
     #0a1322;
   border: 3px solid var(--line-soft);
+  overflow: hidden;
+  cursor: pointer;
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
-.snake__field.is-crash {
+.stack__field.is-shake {
   animation: crt-shake 0.3s steps(6, end);
   border-color: var(--rust);
 }
@@ -854,71 +855,96 @@
   100% { transform: translate(0, 0); }
 }
 
-.snake__head,
-.snake__body,
-.snake__food {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1;
+.stack__pile {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.16s steps(3, end);
 }
 
-.snake__head {
-  background: var(--amber);
-  box-shadow: 0 0 8px rgba(240, 169, 63, 0.6);
-}
-
-.snake__body {
-  background: var(--mint);
-  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.25);
-}
-
-.snake__food {
-  background: var(--amber-2);
-  border: 2px solid var(--amber);
-  animation: food-blink 0.7s steps(2, end) infinite;
-}
-
-@keyframes food-blink {
-  0% { filter: brightness(1); }
-  50% { filter: brightness(1.5); }
-  100% { filter: brightness(1); }
-}
-
-.snake__pad {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  max-width: 300px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.snake__dead {
-  border-color: var(--rust);
-}
-
-.ring__key {
-  padding: 14px 0;
-  font-family: var(--font-digit);
-  font-size: 18px;
-  letter-spacing: 0.04em;
-  color: var(--text);
-  background: #0e1830;
-  border: 3px solid var(--line-soft);
-  cursor: pointer;
-  transition: background 0.08s, border-color 0.08s, transform 0.08s;
-  touch-action: manipulation;
-}
-
-.ring__key:hover {
-  border-color: var(--amber);
-}
-
-.ring__key:active {
-  background: var(--amber);
+.stack__box {
+  position: absolute;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   color: #0a1322;
-  border-color: var(--amber-2);
-  transform: translateY(2px);
+  border: 2px solid rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.stack__box[data-p="КЕФИР"] { background: var(--mint); }
+.stack__box[data-p="МОЛОКО"] { background: #b5c0d4; }
+.stack__box[data-p="СМЕТАНА"] { background: var(--amber); }
+
+.stack__box--cur {
+  top: 8%;
+  box-shadow: 0 0 14px rgba(240, 169, 63, 0.4);
+}
+
+.stack__fall {
+  top: 8%;
+  animation: stack-fall 0.7s ease-in both;
+}
+
+@keyframes stack-fall {
+  to { transform: translateY(430px) rotate(10deg); opacity: 0; }
+}
+
+.stack__bed {
+  position: absolute;
+  left: 20%;
+  width: 60%;
+  bottom: 0;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--text-mute);
+  background: #0e1830;
+  border: 2px solid var(--line-soft);
+  border-bottom: none;
+}
+
+.stack__flash {
+  position: absolute;
+  left: 50%;
+  top: 34%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  pointer-events: none;
+  animation: stack-flash 0.6s steps(5, end) both;
+}
+
+.stack__flash.is-perfect { color: var(--amber); }
+.stack__flash.is-ok { color: var(--mint); }
+.stack__flash.is-miss { color: #f0917f; }
+
+@keyframes stack-flash {
+  from { opacity: 1; transform: translate(-50%, 0); }
+  to { opacity: 0; transform: translate(-50%, -20px); }
+}
+
+.stack__drop {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 56px;
+}
+
+.stack__failed {
+  border-color: var(--rust);
 }
 
 .ring__grade {
@@ -968,10 +994,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .snake__field.is-crash,
-  .snake__food,
+  .stack__field.is-shake,
+  .stack__fall,
+  .stack__flash,
+  .stack__pile,
   .night__verdict {
     animation: none;
+    transition: none;
   }
 }
 

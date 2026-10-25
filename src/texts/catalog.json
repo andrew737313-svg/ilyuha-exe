@@ -485,107 +485,107 @@
     "context": "div · toast"
   },
   {
-    "text": "МИНИ-ИГРА · ДВОР · 2005",
+    "text": "МИНИ-ИГРА · СКЛАД · НОЧЬ",
     "group": "minigame",
     "context": "header · chapter__head"
   },
   {
-    "text": "На ягуар не хватает",
+    "text": "Погрузи фуру",
     "group": "minigame",
     "context": "header · chapter__head"
   },
   {
-    "text": "Ночь, двор, в кармане пусто. Собери двенадцать банок — и «Художка» открыта.",
+    "text": "Ночная смена. Кефир на линии, фура во дворе. Двенадцать ящиков — и можно домой.",
     "group": "minigame",
     "context": "header · chapter__head"
   },
   {
-    "text": "ДВОР · НОЧЬ",
+    "text": "СКЛАД · НОЧЬ",
     "group": "minigame",
-    "context": "div · night__crt snake"
+    "context": "div · night__crt stack"
   },
   {
-    "text": "банок",
+    "text": "ящиков",
     "group": "minigame",
-    "context": "div · night__crt snake"
+    "context": "div · night__crt stack"
   },
   {
-    "text": "«Художка» ждёт",
+    "text": "· минус",
     "group": "minigame",
-    "context": "div · night__crt snake"
+    "context": "div · night__crt stack"
   },
   {
-    "text": "Ночь, двор, в кармане пусто. Ты — змейка: собирай банки ягуара и не кусай себя за хвост. Стены сквозные: въехал справа — выедешь слева.",
+    "text": "Фура ждёт",
     "group": "minigame",
-    "context": "div · night__crt snake"
+    "context": "div · night__crt stack"
   },
   {
-    "text": "банок — и на ночь хватит.",
+    "text": "Ящик ездит туда-сюда — тапай вовремя, и он ложится на стопку. Свесился — край отваливается. Три ящика мимо — и фура ушла пустой.",
     "group": "minigame",
-    "context": "div · night__crt snake"
+    "context": "div · night__crt stack"
   },
   {
-    "text": "Начать сбор",
+    "text": "Начать погрузку",
     "group": "minigame",
-    "context": "div · night__crt snake"
+    "context": "div · night__crt stack"
   },
   {
-    "text": "Стрелки, WASD, свайп по полю или кнопки под двором.",
+    "text": "Тап по полю, кнопка внизу или пробел.",
     "group": "minigame",
-    "context": "div · night__crt snake"
+    "context": "div · night__crt stack"
   },
   {
-    "text": "ЦЕНЫ ДВОРА",
-    "group": "minigame",
-    "context": "aside · night__log ring__book"
-  },
-  {
-    "text": "Вход в «Художку»",
+    "text": "НАКЛАДНАЯ",
     "group": "minigame",
     "context": "aside · night__log ring__book"
   },
   {
-    "text": "12 банок за ночь",
+    "text": "Кефир",
     "group": "minigame",
     "context": "aside · night__log ring__book"
   },
   {
-    "text": "Стены",
+    "text": "4 ящика, не трясти",
     "group": "minigame",
     "context": "aside · night__log ring__book"
   },
   {
-    "text": "сквозные. въехал — выехал",
+    "text": "Молоко",
     "group": "minigame",
     "context": "aside · night__log ring__book"
   },
   {
-    "text": "Скорость",
+    "text": "5 ящиков, сегодняшнее",
     "group": "minigame",
     "context": "aside · night__log ring__book"
   },
   {
-    "text": "приходит сама",
+    "text": "Сметана",
     "group": "minigame",
     "context": "aside · night__log ring__book"
   },
   {
-    "text": "Мама",
+    "text": "3 ящика. была",
     "group": "minigame",
     "context": "aside · night__log ring__book"
   },
   {
-    "text": "спит. не звонить",
+    "text": "Фура",
     "group": "minigame",
     "context": "aside · night__log ring__book"
   },
   {
-    "text": "НОЧЬ",
+    "text": "уходит в 07:00",
+    "group": "minigame",
+    "context": "aside · night__log ring__book"
+  },
+  {
+    "text": "СКЛАД",
     "group": "minigame",
     "context": "section · chapter"
   },
   {
-    "text": "Двор, змейка и двенадцать банок на всю ночь.",
+    "text": "Ящики, фура и одна кнопка. Как в ту смену.",
     "group": "minigame",
     "context": "section · chapter"
   },
@@ -595,29 +595,59 @@
     "context": "section · chapter"
   },
   {
-    "text": "Собери банки — дальше",
+    "text": "Загрузи фуру — дальше",
     "group": "minigame",
     "context": "section · chapter"
   },
   {
+    "text": "КЕФИР",
+    "group": "minigame",
+    "context": "div · night__crt stack"
+  },
+  {
+    "text": "МОЛОКО",
+    "group": "minigame",
+    "context": "div · night__crt stack"
+  },
+  {
+    "text": "СМЕТАНА",
+    "group": "minigame",
+    "context": "div · night__crt stack"
+  },
+  {
+    "text": "РОВНО! ×2",
+    "group": "minigame",
+    "context": "div · night__crt stack"
+  },
+  {
+    "text": "Сбросить ящик",
+    "group": "minigame",
+    "context": "div · night__crt stack"
+  },
+  {
+    "text": "· потеряно",
+    "group": "minigame",
+    "context": "div · night__crt stack"
+  },
+  {
     "text": "· время",
     "group": "minigame",
-    "context": "div · night__crt snake"
+    "context": "div · night__crt stack"
   },
   {
-    "text": "НАБРАЛ НА НОЧЬ",
+    "text": "СТАРШИЙ ПОГРУЗКИ",
     "group": "minigame",
-    "context": "div · night__crt snake"
+    "context": "div · night__crt stack"
   },
   {
-    "text": "Двенадцать банок. «Художка», открывай.",
+    "text": "Двенадцать ящиков, ни одной потери. Фура ушла, смена сдана.",
     "group": "minigame",
-    "context": "div · night__crt snake"
+    "context": "div · night__crt stack"
   },
   {
-    "text": "Ещё забег",
+    "text": "Ещё смена",
     "group": "minigame",
-    "context": "div · night__crt snake"
+    "context": "div · night__crt stack"
   },
   {
     "text": "Достижение",
@@ -625,12 +655,12 @@
     "context": "div · award-panel"
   },
   {
-    "text": "Собрал на ночь",
+    "text": "Фура ушла полной",
     "group": "minigame",
     "context": "div · award-panel"
   },
   {
-    "text": "Двенадцать банок ягуара. «Художка», открывай.",
+    "text": "Двенадцать ящиков. Погрузка без крана.",
     "group": "minigame",
     "context": "div · award-panel"
   },
@@ -638,11 +668,6 @@
     "text": "Глава 05: семья →",
     "group": "minigame",
     "context": "section · chapter"
-  },
-  {
-    "text": "Двенадцать банок ягуара. Художка, открывай.",
-    "group": "minigame",
-    "context": "div · toast"
   },
   {
     "text": "СЕМЬЯ · ТЁПЛАЯ ЧАСТЬ",
@@ -1265,7 +1290,7 @@
     "context": "заголовок вкладки"
   },
   {
-    "text": "ИЛЮХА.EXE — На ягуар не хватает",
+    "text": "ИЛЮХА.EXE — Погрузи фуру",
     "group": "tab",
     "context": "заголовок вкладки"
   },

@@ -10,7 +10,7 @@ const browser = await chromium.launch({ args: ["--autoplay-policy=no-user-gestur
 const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
 await page.addInitScript(() => {
   try {
-    window.localStorage.setItem("ilyuha-snake-auto", "1");
+    window.localStorage.setItem("ilyuha-stack-auto", "1");
   } catch {
     /* ignore */
   }
@@ -32,10 +32,10 @@ await page.getByRole("button", { name: /спокойно/i }).click();
 await page.waitForTimeout(300);
 await page.getByRole("button", { name: /глава 04/i }).click();
 await page.waitForTimeout(300);
-await page.getByRole("button", { name: /начать сбор/i }).click();
-for (let i = 0; i < 900; i += 1) {
-  if (await page.locator(".night__verdict:not(.snake__dead)").count()) break;
-  const retry = page.locator(".snake__dead .btn");
+await page.getByRole("button", { name: /начать погрузку/i }).click();
+for (let i = 0; i < 600; i += 1) {
+  if (await page.locator(".night__verdict:not(.stack__failed)").count()) break;
+  const retry = page.locator(".stack__failed .btn");
   if (await retry.count()) await retry.first().click({ timeout: 400 }).catch(() => {});
   await page.waitForTimeout(150);
 }

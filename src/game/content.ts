@@ -2,7 +2,7 @@ export const SCREENS = [
   { id: "boot", chapter: "01", title: "Запуск", subtitle: "ИЛЮХА.EXE" },
   { id: "profile", chapter: "02", title: "Профиль персонажа", subtitle: "LVL 32" },
   { id: "school", chapter: "03", title: "Одна парта на двоих", subtitle: "Школа" },
-  { id: "minigame", chapter: "04", title: "На ягуар не хватает", subtitle: "Двор · 2005" },
+  { id: "minigame", chapter: "04", title: "Погрузи фуру", subtitle: "Склад · ночь" },
   { id: "family", chapter: "05", title: "Новая игра+", subtitle: "Семья" },
   { id: "work", chapter: "06", title: "Ночная смена", subtitle: "Молочный завод" },
   { id: "patch", chapter: "07", title: "Патч 32.0", subtitle: "Пивной баф" },
@@ -77,9 +77,9 @@ export const ACHIEVEMENTS: Record<AchievementId, Achievement> = {
   },
   "save-childhood": {
     id: "save-childhood",
-    title: "Собрал на ночь",
-    text: "Двенадцать банок ягуара. Художка, открывай.",
-    icon: "beer",
+    title: "Фура ушла полной",
+    text: "Двенадцать ящиков. Погрузка без крана.",
+    icon: "factory",
   },
   "new-game-plus": {
     id: "new-game-plus",
@@ -215,28 +215,22 @@ export const WORK_CHOICES = [
   },
 ];
 
-/** Мини-игра «На ягуар не хватает» — змейка по ночному двору. */
-export const SNAKE = {
-  cols: 14,
-  rows: 16,
-  /** Сколько банок нужно на ночь в «Художке». */
+/** Мини-игра «Погрузи фуру» — стакер на ночном складе. */
+export const STACKER = {
+  /** Сколько ящиков нужно, чтобы фура уехала. */
   goal: 12,
-  /** Базовый темп, мс на шаг; ускоряется с каждой банкой. */
-  baseTick: 145,
-  minTick: 80,
-  /** Стены сквозные: проиграть может только хвост. */
-  crashes: [
-    "Сам себя поймал. Так тоже бывает.",
-    "Хвост оказался длиннее, чем казалось.",
-    "Загнал сам себя. В прямом смысле.",
-    "Укусил себя. Ягуар в шоке.",
-  ],
-  /** Табличка в боковой панели. */
-  prices: [
-    { name: "Вход в «Художку»", note: "12 банок за ночь" },
-    { name: "Стены", note: "сквозные. въехал — выехал" },
-    { name: "Скорость", note: "приходит сама" },
-    { name: "Мама", note: "спит. не звонить" },
+  lives: 3,
+  /** Скорость каретки, % ширины поля в секунду; растёт с каждым ящиком. */
+  baseSpeed: 55,
+  speedStep: 4,
+  maxSpeed: 110,
+  products: ["КЕФИР", "МОЛОКО", "СМЕТАНА"] as const,
+  /** Накладная в боковой панели. */
+  invoice: [
+    { name: "Кефир", note: "4 ящика, не трясти" },
+    { name: "Молоко", note: "5 ящиков, сегодняшнее" },
+    { name: "Сметана", note: "3 ящика. была" },
+    { name: "Фура", note: "уходит в 07:00" },
   ] as const,
 } as const;
 

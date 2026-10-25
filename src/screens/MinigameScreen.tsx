@@ -1,6 +1,6 @@
 import { ART } from "../game/art";
 import { useAudio } from "../audio/AudioProvider";
-import { SnakeGame } from "../components/SnakeGame";
+import { StackerGame } from "../components/StackerGame";
 import { ArtImage } from "../components/ArtImage";
 import { ChapterHeader, PixelButton } from "../components/Ui";
 import { PixelIcon } from "../components/PixelIcon";
@@ -8,16 +8,16 @@ import { ChapterLayout, type ScreenProps } from "./types";
 
 export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
   const { sfx } = useAudio();
-  const done = state.snake !== null || state.reached.includes("family");
+  const done = state.stack !== null || state.reached.includes("family");
 
   return (
     <ChapterLayout
       head={
         <ChapterHeader
           chapter="04"
-          kicker="МИНИ-ИГРА · ДВОР · 2005"
-          title="На ягуар не хватает"
-          lead="Ночь, двор, в кармане пусто. Собери двенадцать банок — и «Художка» открыта."
+          kicker="МИНИ-ИГРА · СКЛАД · НОЧЬ"
+          title="Погрузи фуру"
+          lead="Ночная смена. Кефир на линии, фура во дворе. Двенадцать ящиков — и можно домой."
         />
       }
       nav={
@@ -32,14 +32,14 @@ export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
               go("family");
             }}
           >
-            {done ? "Глава 05: семья →" : "Собери банки — дальше"}
+            {done ? "Глава 05: семья →" : "Загрузи фуру — дальше"}
           </PixelButton>
         </div>
       }
     >
       <div className="night">
-        <SnakeGame
-          savedResult={state.snake}
+        <StackerGame
+          savedResult={state.stack}
           onFinish={(result) => dispatch({ type: "minigame-finish", result })}
         />
 
@@ -49,8 +49,8 @@ export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
             ratio="2.2 / 1"
             caption={
               <>
-                <span className="art__tag">НОЧЬ</span>
-                Двор, змейка и двенадцать банок на всю ночь.
+                <span className="art__tag">СКЛАД</span>
+                Ящики, фура и одна кнопка. Как в ту смену.
               </>
             }
           />
@@ -60,12 +60,12 @@ export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
       {done ? (
         <div className="award-panel">
           <span className="award-panel__icon" aria-hidden="true">
-            <PixelIcon name="beer" size={22} />
+            <PixelIcon name="factory" size={22} />
           </span>
           <div>
             <span className="award-panel__kicker">Достижение</span>
-            <strong>Собрал на ночь</strong>
-            <p>Двенадцать банок ягуара. «Художка», открывай.</p>
+            <strong>Фура ушла полной</strong>
+            <p>Двенадцать ящиков. Погрузка без крана.</p>
           </div>
         </div>
       ) : null}
