@@ -82,10 +82,10 @@ try {
     locale: "ru-RU",
   });
   const page = await context.newPage();
-  // Ускоряем ночную смену, чтобы каталог собирался быстро.
+  // Мини-игра сама бьёт ноты: флаг автоигры, чтобы каталог собирался быстро.
   await page.addInitScript(() => {
     try {
-      window.localStorage.setItem("ilyuha-night-fast", "1");
+      window.localStorage.setItem("ilyuha-ring-auto", "1");
     } catch {
       /* ignore */
     }
@@ -127,22 +127,14 @@ try {
   await page.waitForTimeout(300);
   await collect(page, "school");
 
-  // 04 · minigame: ночная смена (интро, процесс, итог)
+  // 04 · minigame: песенка на сименсе (интро, процесс, итог)
   await page.getByRole("button", { name: /глава 04/i }).click();
   await page.waitForTimeout(400);
   await collect(page, "minigame");
-  await page.getByRole("button", { name: /начать смену/i }).click();
-  await page.waitForTimeout(400);
+  await page.getByRole("button", { name: /сыграть песенку/i }).click();
+  await page.waitForTimeout(4000);
   await collect(page, "minigame");
-  for (let i = 0; i < 600; i += 1) {
-    if (await page.locator(".night__verdict").count()) break;
-    const task = page.locator(".night__task.is-live .btn");
-    if (await task.count()) await task.first().click({ timeout: 400 }).catch(() => {});
-    const boost = page.locator(".night__boost:not([disabled])");
-    if (await boost.count()) await boost.first().click({ timeout: 400 }).catch(() => {});
-    if (i === 4 || i === 20) await collect(page, "minigame");
-    await page.waitForTimeout(100);
-  }
+  await page.waitForSelector(".night__verdict", { timeout: 60000 });
   await page.waitForTimeout(300);
   await collect(page, "minigame");
 

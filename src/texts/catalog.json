@@ -485,67 +485,92 @@
     "context": "div · toast"
   },
   {
-    "text": "МИНИ-ИГРА · НОЧНАЯ СМЕНА",
+    "text": "МИНИ-ИГРА · СИМЕНС · 2005",
     "group": "minigame",
     "context": "header · chapter__head"
   },
   {
-    "text": "Ещё пять минут",
+    "text": "Поставь на звонок",
     "group": "minigame",
     "context": "header · chapter__head"
   },
   {
-    "text": "Одна ночь, один уровень и кефиры, которым не до твоих игр.",
+    "text": "Три клавиши, сорок нот и главный вопрос года: что будет у тебя на звонке.",
     "group": "minigame",
     "context": "header · chapter__head"
   },
   {
-    "text": "отгружено",
+    "text": "ПИЛИКАЮЩАЯ №2",
     "group": "minigame",
-    "context": "div · night__crt"
+    "context": "div · night__crt ring"
   },
   {
-    "text": "· встало",
+    "text": "· WAV",
     "group": "minigame",
-    "context": "div · night__crt"
+    "context": "div · night__crt ring"
   },
   {
-    "text": "«Ну что, ещё пять минут?»",
+    "text": "Сименс, 2005 год. Ноты падают по трём линиям — бей клавишей, когда нота долетит до черты. Сыграешь песенку — она станет рингтоном. Не сыграешь — так и останется «Пиликающей №3».",
     "group": "minigame",
-    "context": "div · night__crt"
+    "context": "div · night__crt ring"
   },
   {
-    "text": "До семи утра надо пройти один уровень. Пока на смене тихо, уровень идёт сам. Загорается заявка — разберись с ней, иначе молочка встанет. Смена начинается по кнопке.",
+    "text": "Сыграть песенку",
     "group": "minigame",
-    "context": "div · night__crt"
+    "context": "div · night__crt ring"
   },
   {
-    "text": "Начать смену",
+    "text": "Клавиши 1 · 2 · 3 (или J · K · L), а можно просто тыкать по кнопкам.",
     "group": "minigame",
-    "context": "div · night__crt"
+    "context": "div · night__crt ring"
   },
   {
-    "text": "Смена с 23:00 до 07:00. Пока всё тихо — уровень идёт сам.",
+    "text": "ЗАПИСНАЯ КНИЖКА",
     "group": "minigame",
-    "context": "div · night__crt"
+    "context": "aside · night__log ring__book"
   },
   {
-    "text": "ЖУРНАЛ",
+    "text": "Мама",
     "group": "minigame",
-    "context": "aside · night__log"
+    "context": "aside · night__log ring__book"
   },
   {
-    "text": "смена ещё не началась",
+    "text": "14 пропущенных",
     "group": "minigame",
-    "context": "aside · night__log"
+    "context": "aside · night__log ring__book"
   },
   {
-    "text": "НОЧЬ",
+    "text": "Художка",
     "group": "minigame",
-    "context": "section · chapter"
+    "context": "aside · night__log ring__book"
   },
   {
-    "text": "Илюха, кружка и «ещё пять минут».",
+    "text": "до утра открыты, заходи",
+    "group": "minigame",
+    "context": "aside · night__log ring__book"
+  },
+  {
+    "text": "Пацаны",
+    "group": "minigame",
+    "context": "aside · night__log ring__book"
+  },
+  {
+    "text": "го в кску, места есть",
+    "group": "minigame",
+    "context": "aside · night__log ring__book"
+  },
+  {
+    "text": "Дом",
+    "group": "minigame",
+    "context": "aside · night__log ring__book"
+  },
+  {
+    "text": "ужин остыл, сам разогрей",
+    "group": "minigame",
+    "context": "aside · night__log ring__book"
+  },
+  {
+    "text": "Сименс, палец и главная мелодия двора.",
     "group": "minigame",
     "context": "section · chapter"
   },
@@ -555,124 +580,44 @@
     "context": "section · chapter"
   },
   {
-    "text": "Открыто после смены",
+    "text": "Открыто после песенки",
     "group": "minigame",
     "context": "section · chapter"
   },
   {
-    "text": "уровень · 1%",
+    "text": "· серия ×42",
     "group": "minigame",
-    "context": "div · night__crt"
+    "context": "div · night__crt ring"
   },
   {
-    "text": "ФУРА",
+    "text": "попаданий",
     "group": "minigame",
-    "context": "div · night__crt"
+    "context": "div · night__crt ring"
   },
   {
-    "text": "МОЛОКО",
+    "text": "· серия ×",
     "group": "minigame",
-    "context": "div · night__crt"
+    "context": "div · night__crt ring"
   },
   {
-    "text": "Разобраться",
+    "text": "· точность",
     "group": "minigame",
-    "context": "div · night__crt"
+    "context": "div · night__crt ring"
   },
   {
-    "text": "«Ещё пять минут» — ускорение ×2,5 на восемь секунд. Откат двенадцать.",
+    "text": "ЗВЕЗДА ДВОРА",
     "group": "minigame",
-    "context": "div · night__crt"
+    "context": "div · night__crt ring"
   },
   {
-    "text": "фура ждёт молоко.",
+    "text": "Мелодия на звонке. Прохожие оборачиваются.",
     "group": "minigame",
-    "context": "aside · night__log"
+    "context": "div · night__crt ring"
   },
   {
-    "text": "смена началась. уровень запущен.",
+    "text": "Ещё раз",
     "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "уровень · 6%",
-    "group": "minigame",
-    "context": "div · night__crt"
-  },
-  {
-    "text": "тихо. уровень идёт сам.",
-    "group": "minigame",
-    "context": "div · night__crt"
-  },
-  {
-    "text": "Идёт ускорение",
-    "group": "minigame",
-    "context": "div · night__crt"
-  },
-  {
-    "text": "«ещё пять минут», сказал ты. цех не поверил.",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "отгружено. снова тихо.",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "уровень · 12%",
-    "group": "minigame",
-    "context": "div · night__crt"
-  },
-  {
-    "text": "газель ждёт кефир.",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "фура ждёт кефир.",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "газель ждёт сметана.",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "газель ждёт молоко.",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "· уровень",
-    "group": "minigame",
-    "context": "div · night__crt done"
-  },
-  {
-    "text": "Смена встала, уровень не пошёл. Ночь, честно говоря, так себе.",
-    "group": "minigame",
-    "context": "div · night__crt done"
-  },
-  {
-    "text": "Ещё смена",
-    "group": "minigame",
-    "context": "div · night__crt done"
-  },
-  {
-    "text": "семь утра. смена сдана.",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "не успели. встало.",
-    "group": "minigame",
-    "context": "aside · night__log"
-  },
-  {
-    "text": "фура ждёт сметана.",
-    "group": "minigame",
-    "context": "aside · night__log"
+    "context": "div · night__crt ring"
   },
   {
     "text": "Достижение",
@@ -680,12 +625,12 @@
     "context": "div · award-panel"
   },
   {
-    "text": "Не выключал до утра",
+    "text": "Поставил на звонок",
     "group": "minigame",
     "context": "div · award-panel"
   },
   {
-    "text": "«Ещё пять минут» повторялись до семи утра. Смена всё равно сдана.",
+    "text": "WAV-песенка сыграна до конца. 2005-й одобряет.",
     "group": "minigame",
     "context": "div · award-panel"
   },
@@ -836,6 +781,11 @@
   },
   {
     "text": "Классическая реакция",
+    "group": "work",
+    "context": "div · panel work__panel"
+  },
+  {
+    "text": "Разобраться",
     "group": "work",
     "context": "div · panel work__panel"
   },
@@ -1320,7 +1270,7 @@
     "context": "заголовок вкладки"
   },
   {
-    "text": "ИЛЮХА.EXE — Ещё пять минут",
+    "text": "ИЛЮХА.EXE — Поставь на звонок",
     "group": "tab",
     "context": "заголовок вкладки"
   },

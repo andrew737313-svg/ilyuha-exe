@@ -115,10 +115,10 @@ try {
     timezoneId: "Europe/Moscow",
   });
   const page = await context.newPage();
-  // Ускоряем ночную смену (мини-игру) для теста: 90 игровых секунд → ~18 реальных.
+  // Мини-игра сама бьёт ноты: флаг автоигры для теста.
   await page.addInitScript(() => {
     try {
-      window.localStorage.setItem("ilyuha-night-fast", "1");
+      window.localStorage.setItem("ilyuha-ring-auto", "1");
     } catch {
       /* ignore */
     }
@@ -276,48 +276,35 @@ try {
   // -------------------------------------------------------------- minigame
   console.log("\n04 · МИНИ-ИГРА");
   await page.getByRole("button", { name: /глава 04/i }).click();
-  await page.waitForSelector("h1:has-text('Ещё пять минут')");
+  await page.waitForSelector("h1:has-text('Поставь на звонок')");
   await imagesReady(page);
   check("Фото ночной сессии загрузилось", await page.locator(".night__art img").evaluate((i) => i.complete && i.naturalWidth > 0));
 
   check(
-    "Правила смены показаны до старта",
-    (await page.locator(".night__crt").innerText()).includes("один уровень"),
+    "Правила песенки показаны до старта",
+    (await page.locator(".night__crt").innerText()).includes("Сименс"),
   );
-  await page.getByRole("button", { name: /начать смену/i }).click();
-  await page.waitForSelector(".night__bar", { timeout: 5000 });
+  await page.getByRole("button", { name: /сыграть песенку/i }).click();
+  await page.waitForSelector(".ring__phone", { timeout: 5000 });
+  check("Телефон с линиями отрисован", (await page.locator(".ring__lane").count()) === 3);
+  await page.waitForSelector(".ring__note", { timeout: 8000 });
+  check("Ноты пошли по линиям", true);
 
-  // Автоигра: разбираем заявки и жмём «Ещё пять минут», пока смена не кончится.
-  let verdictShown = false;
-  let taskClicks = 0;
-  let boostClicks = 0;
-  for (let i = 0; i < 600; i += 1) {
-    if (await page.locator(".night__verdict").count()) {
-      verdictShown = true;
-      break;
-    }
-    const task = page.locator(".night__task.is-live .btn");
-    if (await task.count()) {
-      await task.first().click({ timeout: 400 }).catch(() => {});
-      taskClicks += 1;
-    }
-    const boostBtn = page.locator(".night__boost:not([disabled])");
-    if (await boostBtn.count()) {
-      await boostBtn.first().click({ timeout: 400 }).catch(() => {});
-      boostClicks += 1;
-    }
-    await page.waitForTimeout(100);
-  }
-  check("Ночная смена завершается сама", verdictShown, `кликов по заявкам: ${taskClicks}, ускорений: ${boostClicks}`);
+  // Автоигра (ilyuha-ring-auto) бьёт каждую ноту в точку — ждём финал песенки.
+  await page.waitForSelector(".night__verdict", { timeout: 60000 });
+  check("Песенка доиграна до конца", true);
+  const tally = await page.locator(".night__tally").innerText();
   check(
-    "Итоги смены показаны",
-    /отгружено \d+ · встало \d+ · уровень \d+%/i.test(await page.locator(".night__tally").innerText()),
+    "Итоги песенки показаны",
+    /попаданий \d+\/\d+ · серия ×\d+ · точность \d+%/i.test(tally),
+    tally,
   );
+  check("Автоигра даёт 100%", /точность 100%/i.test(tally), tally);
   check(
-    "Вердикт смены не пустой",
-    (await page.locator(".night__verdict-text").innerText()).length > 20,
+    "Оценка двора выдана",
+    (await page.locator(".ring__grade").innerText()).trim().length >= 4,
   );
-  check("Журнал смены заполнился", (await page.locator(".night__log li").count()) >= 2);
+  check("Записная книжка на месте", (await page.locator(".ring__book li").count()) >= 4);
   check("Достижение мини-игры показано", await page.locator(".award-panel").isVisible());
   check(
     "Кнопка «Глава 05» разблокирована",

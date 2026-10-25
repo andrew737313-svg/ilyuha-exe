@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Single, app-wide audio engine.
  *
  * - exactly one AudioContext for the whole game (no per-screen instances);
@@ -382,6 +382,38 @@ class AudioEngine {
   setDucked(on: boolean) {
     this.ducked = on;
     if (this.duckNode) this.rampGain(this.duckNode, on ? DUCK_LEVEL : 1, on ? 0.4 : 0.6);
+  }
+
+  /** Одна мелодическая нота (мини-игра «Поставь на звонок»). midi 69 = ля 440 Гц. */
+  note(midi: number, velocity = 1) {
+    const ctx = this.ctx;
+    const bus = this.sfxBus;
+    if (!ctx || !bus || !this.sfxOn || ctx.state !== "running") return;
+    const t = ctx.currentTime;
+    const freq = 440 * Math.pow(2, (midi - 69) / 12);
+    const dur = 0.22;
+    const peak = 0.16 * Math.min(1, Math.max(0.2, velocity));
+    const osc = ctx.createOscillator();
+    osc.type = "square";
+    osc.frequency.setValueAtTime(freq, t);
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.0001, t);
+    gain.gain.linearRampToValueAtTime(peak, t + 0.008);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    osc.connect(gain).connect(bus);
+    osc.start(t);
+    osc.stop(t + dur + 0.02);
+    // Лёгкая октава сверху — «сименсный» призвук.
+    const overtone = ctx.createOscillator();
+    overtone.type = "square";
+    overtone.frequency.setValueAtTime(freq * 2, t);
+    const ogain = ctx.createGain();
+    ogain.gain.setValueAtTime(0.0001, t);
+    ogain.gain.linearRampToValueAtTime(peak * 0.35, t + 0.008);
+    ogain.gain.exponentialRampToValueAtTime(0.0001, t + dur * 0.7);
+    overtone.connect(ogain).connect(bus);
+    overtone.start(t);
+    overtone.stop(t + dur);
   }
 
   sfx(name: SfxName) {

@@ -11,14 +11,14 @@ import {
 const STORAGE_KEY = "ilyuha-exe-patch32-v1";
 const STATE_VERSION = 1;
 
-/** Итог ночной смены из мини-игры «Ещё пять минут». */
-export type NightResult = {
-  /** Сколько заявок отгружено вовремя. */
-  shipped: number;
-  /** Сколько заявок пропущено — «встало». */
-  missed: number;
-  /** Прогресс игрового уровня, 0–100. */
-  level: number;
+/** Итог мини-игры «Поставь на звонок». */
+export type RingResult = {
+  /** Попадания по нотам. */
+  hits: number;
+  /** Всего нот в песенке. */
+  total: number;
+  /** Лучшая серия без промахов. */
+  combo: number;
 };
 
 export type GameState = {
@@ -30,7 +30,7 @@ export type GameState = {
   schoolTried: SchoolChoiceId[];
   workChoice: WorkChoiceId | null;
   workTried: WorkChoiceId[];
-  night: NightResult | null;
+  ring: RingResult | null;
   beerBuff: boolean;
   achievements: AchievementId[];
   trackPlayed: boolean;
@@ -43,7 +43,7 @@ export type GameAction =
   | { type: "award"; id: AchievementId }
   | { type: "school"; id: SchoolChoiceId }
   | { type: "work"; id: WorkChoiceId }
-  | { type: "minigame-finish"; result: NightResult }
+  | { type: "minigame-finish"; result: RingResult }
   | { type: "beer-buff" }
   | { type: "track-played" }
   | { type: "finish" }
@@ -58,7 +58,7 @@ export const initialState: GameState = {
   schoolTried: [],
   workChoice: null,
   workTried: [],
-  night: null,
+  ring: null,
   beerBuff: false,
   achievements: [],
   trackPlayed: false,
@@ -113,12 +113,12 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
     }
 
     case "minigame-finish": {
-      const first = state.night === null;
+      const first = state.ring === null && !state.reached.includes("family");
       return {
         ...state,
-        night: action.result,
+        ring: action.result,
         achievements: first ? award(state, "save-childhood") : state.achievements,
-        reached: first ? unlock(state, "family") : state.reached,
+        reached: unlock(state, "family"),
       };
     }
 
@@ -202,15 +202,15 @@ export function loadState(): GameState {
       schoolTried: Array.isArray(parsed.schoolTried) ? parsed.schoolTried : [],
       workChoice: parsed.workChoice ?? null,
       workTried: Array.isArray(parsed.workTried) ? parsed.workTried : [],
-      night:
-        parsed.night && typeof parsed.night === "object" &&
-        typeof parsed.night.shipped === "number" &&
-        typeof parsed.night.missed === "number" &&
-        typeof parsed.night.level === "number"
+      ring:
+        parsed.ring && typeof parsed.ring === "object" &&
+        typeof parsed.ring.hits === "number" &&
+        typeof parsed.ring.total === "number" &&
+        typeof parsed.ring.combo === "number"
           ? {
-              shipped: Math.max(0, Math.round(parsed.night.shipped)),
-              missed: Math.max(0, Math.round(parsed.night.missed)),
-              level: Math.min(100, Math.max(0, Math.round(parsed.night.level))),
+              hits: Math.max(0, Math.round(parsed.ring.hits)),
+              total: Math.max(0, Math.round(parsed.ring.total)),
+              combo: Math.max(0, Math.round(parsed.ring.combo)),
             }
           : null,
       beerBuff: Boolean(parsed.beerBuff),

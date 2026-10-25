@@ -1,6 +1,6 @@
 import { ART } from "../game/art";
 import { useAudio } from "../audio/AudioProvider";
-import { NightShiftGame } from "../components/NightShiftGame";
+import { RingtoneGame } from "../components/RingtoneGame";
 import { ArtImage } from "../components/ArtImage";
 import { ChapterHeader, PixelButton } from "../components/Ui";
 import { PixelIcon } from "../components/PixelIcon";
@@ -8,16 +8,16 @@ import { ChapterLayout, type ScreenProps } from "./types";
 
 export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
   const { sfx } = useAudio();
-  const done = state.night !== null;
+  const done = state.ring !== null || state.reached.includes("family");
 
   return (
     <ChapterLayout
       head={
         <ChapterHeader
           chapter="04"
-          kicker="МИНИ-ИГРА · НОЧНАЯ СМЕНА"
-          title="Ещё пять минут"
-          lead="Одна ночь, один уровень и кефиры, которым не до твоих игр."
+          kicker="МИНИ-ИГРА · СИМЕНС · 2005"
+          title="Поставь на звонок"
+          lead="Три клавиши, сорок нот и главный вопрос года: что будет у тебя на звонке."
         />
       }
       nav={
@@ -32,14 +32,14 @@ export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
               go("family");
             }}
           >
-            {done ? "Глава 05: семья →" : "Открыто после смены"}
+            {done ? "Глава 05: семья →" : "Открыто после песенки"}
           </PixelButton>
         </div>
       }
     >
       <div className="night">
-        <NightShiftGame
-          savedResult={state.night}
+        <RingtoneGame
+          savedResult={state.ring}
           onFinish={(result) => dispatch({ type: "minigame-finish", result })}
         />
 
@@ -49,8 +49,8 @@ export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
             ratio="2.2 / 1"
             caption={
               <>
-                <span className="art__tag">НОЧЬ</span>
-                Илюха, кружка и «ещё пять минут».
+                <span className="art__tag">2005</span>
+                Сименс, палец и главная мелодия двора.
               </>
             }
           />
@@ -60,12 +60,12 @@ export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
       {done ? (
         <div className="award-panel">
           <span className="award-panel__icon" aria-hidden="true">
-            <PixelIcon name="disk" size={22} />
+            <PixelIcon name="note" size={22} />
           </span>
           <div>
             <span className="award-panel__kicker">Достижение</span>
-            <strong>Не выключал до утра</strong>
-            <p>«Ещё пять минут» повторялись до семи утра. Смена всё равно сдана.</p>
+            <strong>Поставил на звонок</strong>
+            <p>WAV-песенка сыграна до конца. 2005-й одобряет.</p>
           </div>
         </div>
       ) : null}
