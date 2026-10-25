@@ -80,11 +80,11 @@ export function PatchScreen({ state, dispatch, go }: ScreenProps) {
             </li>
             <li>
               <span className="changelog__tag changelog__tag--new">стало</span>
-              Спрайт LVL 32: ремень теперь скорее рекомендация.
+              Спрайт LVL 32: ремень теперь скорее рекомендация или средство воспитания=)
             </li>
             <li>
               <span className="changelog__tag">добавлено</span>
-              «Пивной баф», пассивный навык. Появился после тридцати, работает круглосуточно.
+              «Трудовая мозоль авторитета», пассивный навык. Появился к тридцати, работает круглосуточно.
             </li>
             <li>
               <span className="changelog__tag">не исправлено</span>
@@ -111,9 +111,10 @@ export function PatchScreen({ state, dispatch, go }: ScreenProps) {
                 <PixelIcon name="beer" size={16} />
               </span>
               <div>
-                <strong>БАФ АКТИВЕН: Пивной баф</strong>
+                <strong>БАФ АКТИВЕН: Трудовая мозоль авторитета</strong>
                 <p>
-                  Уверенность +5, скорость −2. Действует бессрочно, снимается только силой воли.
+                  Уверенность +5, скорость −2, авторитет +15. Действует бессрочно, снимается
+                  только силой воли.
                 </p>
               </div>
             </div>

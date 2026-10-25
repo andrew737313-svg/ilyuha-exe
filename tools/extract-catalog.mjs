@@ -120,10 +120,10 @@ try {
   await page.getByRole("button", { name: /спокойно/i }).click();
   await page.waitForTimeout(250);
   await collect(page, "school");
-  await page.getByRole("button", { name: /фигню/i }).click();
+  await page.getByRole("button", { name: /херь/i }).click();
   await page.waitForTimeout(300);
   await collect(page, "school");
-  await page.getByRole("button", { name: /пойти играть/i }).click();
+  await page.getByRole("button", { name: /свалить/i }).click();
   await page.waitForTimeout(300);
   await collect(page, "school");
 

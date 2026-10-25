@@ -18,9 +18,9 @@ export function SchoolScreen({ state, dispatch, go }: ScreenProps) {
       head={
         <ChapterHeader
           chapter="03"
-          kicker="ШКОЛА · ОДНА ПАРТА НА ДВОИХ"
-          title="Одна парта на двоих"
-          lead="Одна парта, два хулигана."
+          kicker="ШКОЛА · КОГДА-ТО ДЕЛИЛИ ПАРТУ"
+          title="Когда-то делили парту"
+          lead="От звонка до звонка =)"
         />
       }
       nav={
@@ -46,7 +46,7 @@ export function SchoolScreen({ state, dispatch, go }: ScreenProps) {
           caption={
             <>
               <span className="art__tag">2000-е</span>
-              Один класс, две фамилии в журнале, одна парта на двоих.
+              Годы летят, а будто вчера.
             </>
           }
         />
@@ -58,10 +58,7 @@ export function SchoolScreen({ state, dispatch, go }: ScreenProps) {
           </div>
 
           <p className="story">
-            Мы сидели за одной партой и хулиганили: фишки, суефа, ржач на уроках, дрались
-            бывало. После уроков шли то друг к другу, то в «Художку». На сименсах и моторолах
-            у всех были одни и те же wav-песенки. Половину уже не вспомнить, но смешно до сих
-            пор.
+            Бывало отжигали за последней партой так, что стендап и камеди курят в сторонке )))
           </p>
           <p className="story story--small">
             Выбери, каким ты был на уроке. Правильного варианта нет, я проверял.

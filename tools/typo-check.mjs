@@ -60,14 +60,14 @@ try {
   // ---------------------------------------------------------------- fonts
   const fonts = await page.evaluate(async () => {
     await Promise.all([
-      document.fonts.load('800 48px "ILY-rubik"', "Старый сейв"),
+      document.fonts.load('800 48px "ILY-rubik"', "Та же книга"),
       document.fonts.load('600 20px "ILY-rubik"', "Илюха"),
       document.fonts.load('400 16px "ILY-plexsans"', "Илюха"),
       document.fonts.load('600 10px "ILY-plexmono"', "ФИНАЛ"),
       document.fonts.load('400 10px "ILY-pressstart"', "08"),
     ]);
     return {
-      cyrRubik: document.fonts.check('800 48px "ILY-rubik"', "Старый сейв, новая глава"),
+      cyrRubik: document.fonts.check('800 48px "ILY-rubik"', "Та же книга, новая глава"),
       cyrSans: document.fonts.check('400 16px "ILY-plexsans"', "Патч установлен"),
       cyrMono: document.fonts.check('600 10px "ILY-plexmono"', "ФИНАЛ · СТАРЫЙ СЕЙВ"),
       digits: document.fonts.check('400 10px "ILY-pressstart"', "08"),
@@ -136,14 +136,17 @@ try {
   ink = await page.evaluate(() => {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
-    const measure = (text, font) => {
+    const measure = (text, font, spacing = "0px") => {
       ctx.font = font;
+      // Заголовок на телефоне набирается с трекингом — измеряем ровно то, что видно.
+      if ("letterSpacing" in ctx) ctx.letterSpacing = spacing;
       const width = Math.ceil(ctx.measureText(text).width) + 12;
       const height = 200;
       canvas.width = width;
       canvas.height = height;
       ctx.clearRect(0, 0, width, height);
       ctx.font = font;
+      if ("letterSpacing" in ctx) ctx.letterSpacing = spacing;
       ctx.fillStyle = "#fff";
       ctx.textBaseline = "alphabetic";
       ctx.fillText(text, 6, 150);
@@ -185,12 +188,12 @@ try {
           : 0,
       };
     };
-    const title = "Старый сейв, новая глава";
+    const title = "Та же книга, новая глава";
     const desktopSize = getComputedStyle(document.querySelector(".chapter__title")).fontSize;
     const mobileSize = "26px"; // smallest rendered heading size (390/320 px viewport)
     return {
       rubikDesktop: measure(title, `800 ${desktopSize} "ILY-rubik"`),
-      rubikMobile: measure(title, `800 ${mobileSize} "ILY-rubik"`),
+      rubikMobile: measure(title, `800 ${mobileSize} "ILY-rubik"`, "1px"),
       pressOld: measure(title, `${desktopSize} "ILY-pressstart"`),
       plex16: measure("Патч 32.0 установлен. История не закончена.", '400 16px "ILY-plexsans"'),
       letter: measure("Илюха, с днём рождения!", '800 29px "ILY-rubik"'),
@@ -238,7 +241,7 @@ try {
       ["ИЛЮХА.EXE — логотип в HUD", '800 15px "ILY-rubik"', "#f0a93f"],
       ["ПАТЧ 32.0", '500 10px "ILY-plexmono"', "#8794ad"],
       ["ФИНАЛ · СТАРЫЙ СЕЙВ", '600 10.5px "ILY-plexmono"', "#8794ad"],
-      ["Старый сейв, новая глава", '800 56px "ILY-rubik"', "#f3e9d6"],
+      ["Та же книга, новая глава", '800 56px "ILY-rubik"', "#f3e9d6"],
       ["Патч 32.0 установлен. История не закончена.", '400 16px "ILY-plexsans"', "#b5c0d4"],
       ["Погрузи фуру", '800 46px "ILY-rubik"', "#f3e9d6"],
       ["Ночная смена", '800 46px "ILY-rubik"', "#f3e9d6"],

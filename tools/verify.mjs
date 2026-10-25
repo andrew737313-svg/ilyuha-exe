@@ -251,18 +251,24 @@ try {
     ) && statsText.includes("ну ещё одну и всё"),
     statsText.slice(0, 160),
   );
-  check("Пассивная способность «Пивной баф»", await page.locator(".perk").innerText().then((t) => t.includes("Пивной баф")));
+  check(
+    "Пассивная способность «Трудовая мозоль авторитета»",
+    await page
+      .locator(".perk")
+      .innerText()
+      .then((t) => t.includes("Трудовая мозоль авторитета") && t.includes("авторитет +15")),
+  );
   await auditContrast(page, "профиль");
   await shot(page, "03-profile");
 
   // ---------------------------------------------------------------- school
   console.log("\n03 · ШКОЛА");
   await page.getByRole("button", { name: /глава 03/i }).click();
-  await page.waitForSelector("h1:has-text('Одна парта')");
+  await page.waitForSelector("h1:has-text('Когда-то делили парту')");
   await imagesReady(page);
   check("Школьная иллюстрация загрузилась", await page.locator(".split--story img").evaluate((i) => i.complete && i.naturalWidth > 0));
 
-  const schoolChoices = ["Сидеть спокойно", "Придумать какую-нибудь фигню", "Пойти играть в комп"];
+  const schoolChoices = ["Сидеть спокойно", "Придумать какую-то херь", "Свалить и пойти играть в комп"];
   for (const label of schoolChoices) {
     await page.getByRole("button", { name: new RegExp(label.slice(0, 18), "i") }).click();
     await page.waitForSelector(".reaction");
@@ -340,14 +346,18 @@ try {
   );
   const journal = await page.locator(".journal__item").allInnerTexts();
   check(
-    "Три записи: Диана, Маргарита, младший",
-    journal.length === 3 && journal.join(" ").includes("Диана") && journal.join(" ").includes("Маргарита"),
+    "Три записи: Диана, Маргарита, Богдан",
+    journal.length === 3 &&
+      journal.join(" ").includes("Диана") &&
+      journal.join(" ").includes("Маргарита") &&
+      journal.join(" ").includes("Богдан"),
     `${journal.length}`,
   );
   const familyText = await page.locator(".family-panel").innerText();
   check(
-    "Факты из сценария (школа Маргариты, шесть месяцев)",
-    /пошла в школу/i.test(familyText) && /шесть месяцев/i.test(familyText),
+    "Факты из сценария (школа Маргариты, полгода Богдану)",
+    /пошла в школу/i.test(familyText) && /полгода/i.test(familyText),
+    familyText.slice(0, 120),
   );
   await auditContrast(page, "семья");
   await shot(page, "06-family");
@@ -396,7 +406,7 @@ try {
   // ----------------------------------------------------------------- final
   console.log("\n08 · ФИНАЛ");
   await page.getByRole("button", { name: /финал: старый сейв/i }).click();
-  await page.waitForSelector("h1:has-text('Старый сейв')");
+  await page.waitForSelector("h1:has-text('Та же книга')");
   await imagesReady(page);
   check("Фото друзей загрузилось", await page.locator(".final__hero img").evaluate((i) => i.complete && i.naturalWidth > 0));
   const upscaled = await page.evaluate(() =>
@@ -408,7 +418,7 @@ try {
   const letter = await page.locator(".letter").innerText();
   check(
     "Письмо содержит ключевые абзацы",
-    /с днём рождения/i.test(letter) && /одной партой/i.test(letter) && /сосед по парте/i.test(letter),
+    /с днём рождения/i.test(letter) && /одной партой/i.test(letter) && /обнял, приподнял/i.test(letter),
   );
   const playerTitle = await page.locator(".player__title").innerText();
   const playerBadge = await page.locator(".player__badge").first().innerText();
@@ -483,7 +493,7 @@ try {
   await page.waitForTimeout(400);
   check(
     "Прогресс сохранился после перезагрузки",
-    (await page.locator("h1").innerText()).includes("Старый сейв"),
+    (await page.locator("h1").innerText()).includes("Та же книга"),
   );
   const savedAudio = await page.evaluate(() =>
     JSON.parse(window.localStorage.getItem("ilyuha-exe-audio-v1") ?? "{}"),

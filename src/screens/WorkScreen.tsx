@@ -60,7 +60,7 @@ export function WorkScreen({ state, dispatch, go }: ScreenProps) {
           <p className="story">
             Ночная смена на молочном заводе. Ты старший: сметана, кефиры, молоко, и всё это
             грузится в фуры и газели. Ночь тихая, если нигде ничего не встало. А если
-            встало, решать тебе.
+            встало, твои действия?
           </p>
 
           <div className="choices choices--compact" role="group" aria-label="Решение на смене">

@@ -24,8 +24,8 @@ export function FinalScreen({ state, dispatch }: ScreenProps) {
       head={
         <ChapterHeader
           chapter="08"
-          kicker="ФИНАЛ · СТАРЫЙ СЕЙВ"
-          title="Старый сейв, новая глава"
+          kicker="ФИНАЛ · ТА ЖЕ КНИГА"
+          title="Та же книга, новая глава"
           lead="Патч 32.0 встал. Дальше по плану."
         />
       }

@@ -22,7 +22,7 @@ export function ProfileScreen({ dispatch, go }: ScreenProps) {
           chapter="02"
           kicker="ПРОФИЛЬ ПЕРСОНАЖА · LVL 32"
           title="Илюха"
-          lead="Обычный человек. 32 года в сборке."
+          lead="Гений, миллиардер, филантроп (когда-нибудь). 32 года в сборке."
         />
       }
       nav={
@@ -94,9 +94,9 @@ export function ProfileScreen({ dispatch, go }: ScreenProps) {
             </span>
             <span className="perk__body">
               <span className="perk__kicker">Пассивная способность</span>
-              <strong>Пивной баф</strong>
+              <strong>Трудовая мозоль авторитета</strong>
               <span className="perk__text">
-                Уверенность +5, скорость −2. Достался после тридцати, сам. Отключению не подлежит.
+                Уверенность +5, скорость −2, авторитет +15. Достался к тридцати, сам. Отключению не подлежит.
               </span>
             </span>
           </div>

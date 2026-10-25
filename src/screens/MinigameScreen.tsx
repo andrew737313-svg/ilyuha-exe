@@ -17,7 +17,7 @@ export function MinigameScreen({ state, dispatch, go }: ScreenProps) {
           chapter="04"
           kicker="МИНИ-ИГРА · СКЛАД · НОЧЬ"
           title="Погрузи фуру"
-          lead="Твоя смена, только в виде игры. Двенадцать ящиков, три промаха, фура в 07:00."
+          lead="Ящики, фура и одна кнопка."
         />
       }
       nav={

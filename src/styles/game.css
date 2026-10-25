@@ -979,6 +979,14 @@
   min-height: 56px;
 }
 
+/* Второй, мелкий способ: включить автопогрузку уже по ходу смены. */
+.stack__auto-btn {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 44px;
+}
+
 .stack__failed {
   border-color: var(--rust);
 }
@@ -1881,6 +1889,7 @@
 
   .chapter__title {
     font-size: clamp(26px, 5.6vw, 38px);
+    letter-spacing: 0.04em;
   }
 
   .final__hero .art__frame {

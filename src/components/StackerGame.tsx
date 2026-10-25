@@ -324,9 +324,19 @@ export function StackerGame({
                 Взять в руки
               </PixelButton>
             ) : (
-              <PixelButton variant="primary" className="btn--big stack__drop" onClick={manualDrop}>
-                Сбросить ящик
-              </PixelButton>
+              <>
+                <PixelButton variant="primary" className="btn--big stack__drop" onClick={manualDrop}>
+                  Сбросить ящик
+                </PixelButton>
+                <PixelButton
+                  variant="ghost"
+                  className="stack__auto-btn"
+                  icon="disk"
+                  onClick={() => setAuto(true)}
+                >
+                  Автопогрузка
+                </PixelButton>
+              </>
             )}
           </>
         ) : null}
