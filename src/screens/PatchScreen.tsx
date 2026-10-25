@@ -65,10 +65,10 @@ export function PatchScreen({ state, dispatch, go }: ScreenProps) {
             <EvolutionScene active={state.beerBuff} />
             <div className="patch__evo-labels">
               <span>
-                <strong>LVL 7</strong> высокий и худой
+                <strong>LVL 7</strong> ремень на последнюю дырку
               </span>
               <span>
-                <strong>LVL 32</strong> тот же человек, больше площади
+                <strong>LVL 32</strong> тот же человек, кружка больше
               </span>
             </div>
           </div>
@@ -76,15 +76,19 @@ export function PatchScreen({ state, dispatch, go }: ScreenProps) {
           <ul className="changelog">
             <li>
               <span className="changelog__tag">было</span>
-              Ремень затягивался на последнюю дырку. Футболка болталась, как парус.
+              Спрайт LVL 7: ремень на последнюю дырку, футболка как парус.
             </li>
             <li>
               <span className="changelog__tag changelog__tag--new">стало</span>
-              Ремень теперь скорее рекомендация. Футболка сидит ровно.
+              Спрайт LVL 32: ремень теперь скорее рекомендация.
             </li>
             <li>
               <span className="changelog__tag">добавлено</span>
-              «Пивной баф» — пассивный навык. Оформился после тридцати, работает круглосуточно.
+              «Пивной баф», пассивный навык. Появился после тридцати, работает круглосуточно.
+            </li>
+            <li>
+              <span className="changelog__tag">не исправлено</span>
+              Сон. Регресс известен, патчноут отклонён.
             </li>
           </ul>
 
@@ -109,8 +113,7 @@ export function PatchScreen({ state, dispatch, go }: ScreenProps) {
               <div>
                 <strong>БАФ АКТИВЕН: Пивной баф</strong>
                 <p>
-                  Гибкость −1, скорость −2, уверенность +5. Действует
-                  бессрочно, снимается только силой воли.
+                  Уверенность +5, скорость −2. Действует бессрочно, снимается только силой воли.
                 </p>
               </div>
             </div>

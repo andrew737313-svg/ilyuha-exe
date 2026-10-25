@@ -26,7 +26,7 @@ export function FinalScreen({ state, dispatch }: ScreenProps) {
           chapter="08"
           kicker="ФИНАЛ · СТАРЫЙ СЕЙВ"
           title="Старый сейв, новая глава"
-          lead="Патч 32.0 установлен. Всё лучшее — с собой."
+          lead="Патч 32.0 встал. Дальше по плану."
         />
       }
       nav={
@@ -63,7 +63,7 @@ export function FinalScreen({ state, dispatch }: ScreenProps) {
           caption={
             <>
               <span className="art__tag">ПАРК</span>
-              Двое, которые когда-то делили парту. Слева — Илюха, справа — автор этой сборки.
+              Двое, которые делили парту. Слева Илюха, справа автор сборки.
             </>
           }
         />
@@ -106,7 +106,7 @@ export function FinalScreen({ state, dispatch }: ScreenProps) {
 
             <div className="final__credits">
               <span>Иллюстрации: папка assets/</span>
-              <span>Музыка: процедурный чиптюн</span>
+              <span>Музыка: чиптюн кодом и твой трек</span>
               <span>Шрифты: Pixelify Sans, Press Start 2P, IBM Plex Mono</span>
             </div>
           </aside>

@@ -4,11 +4,32 @@ import { useAudio } from "../audio/AudioProvider";
 import { loadTrack, TRACK_CHANGED_EVENT } from "../audio/track-store";
 
 const base = import.meta.env.BASE_URL;
-const BUNDLED_CANDIDATES = [
-  { url: `${base}audio/old-save.mp3`, label: "old-save.mp3" },
-  { url: `${base}audio/old-save.m4a`, label: "old-save.m4a" },
-  { url: `${base}audio/old-save.ogg`, label: "old-save.ogg" },
-  { url: `${base}audio/old-save-demo.wav`, label: "old-save-demo.wav" },
+
+/** Название подарка. Оно же висит над плеером, независимо от имени файла. */
+export const TRACK_TITLE = "Илюха, с днём рождения";
+
+/** Файл, который надо положить в public/audio/. Можно любое из расширений. */
+export const TRACK_PATH = "public/audio/Илюха, с днём рождения.mp3";
+
+type Candidate = { url: string; placeholder?: boolean };
+
+/**
+ * Кириллицу и пробелы кодируем, а запятую оставляем как есть: некоторые
+ * статические серверы не находят файл по пути с %2C и отдают index.html.
+ */
+function audioPath(fileName: string): string {
+  return `${base}audio/${encodeURIComponent(fileName).replace(/%2C/gi, ",")}`;
+}
+
+const BUNDLED_CANDIDATES: Candidate[] = [
+  // Основной путь: файл с русским именем, как его и положили в папку.
+  { url: audioPath("Илюха, с днём рождения.mp3") },
+  { url: audioPath("Илюха, с днём рождения.m4a") },
+  // Запасной путь на случай, если файл переименуют латиницей.
+  { url: audioPath("ilyuha-happy-birthday.mp3") },
+  { url: audioPath("ilyuha-happy-birthday.m4a") },
+  // Пока настоящего трека нет, играет короткая демо-заготовка.
+  { url: audioPath("old-save-demo.wav"), placeholder: true },
 ];
 
 function formatTime(seconds: number): string {
@@ -26,7 +47,7 @@ function describeMediaError(err: MediaError | null): string {
     case MediaError.MEDIA_ERR_NETWORK:
       return "Файл не загрузился: проверь, что он лежит рядом с игрой.";
     case MediaError.MEDIA_ERR_DECODE:
-      return "Браузер не смог декодировать этот файл. Попробуй mp3, m4a, ogg или wav.";
+      return "Браузер не смог декодировать этот файл. Попробуй mp3, m4a или wav.";
     case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
       return "Формат не поддерживается этим браузером.";
     default:
@@ -35,18 +56,40 @@ function describeMediaError(err: MediaError | null): string {
 }
 
 export function FinalPlayer({ onPlayed }: { onPlayed: () => void }) {
-  const { duck } = useAudio();
+  const { setMusicEnabled, settings } = useAudio();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const objectUrl = useRef<string | null>(null);
 
-  const [trackName, setTrackName] = useState<string | null>(null);
-  const [trackKind, setTrackKind] = useState<"bundled" | "custom" | null>(null);
+  const [placeholder, setPlaceholder] = useState(false);
+  const [hasTrack, setHasTrack] = useState(false);
+  const [custom, setCustom] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [current, setCurrent] = useState(0);
   const [duration, setDuration] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [started, setStarted] = useState(false);
+
+  // Пока играет трек, фоновая музыка не приглушается, а выключается целиком.
+  const musicRef = useRef(settings.musicOn);
+  musicRef.current = settings.musicOn;
+  const musicWasOn = useRef(false);
+
+  const silenceMusic = useCallback(() => {
+    musicWasOn.current = musicRef.current;
+    if (musicRef.current) setMusicEnabled(false);
+  }, [setMusicEnabled]);
+
+  const restoreMusic = useCallback(() => {
+    if (musicWasOn.current) setMusicEnabled(true);
+    musicWasOn.current = false;
+  }, [setMusicEnabled]);
+
+  // Ушли с финального экрана во время песни — музыка должна вернуться.
+  // Эффект с пустыми зависимостями: иначе cleanup срабатывает на каждом ре-рендере.
+  const restoreRef = useRef(restoreMusic);
+  restoreRef.current = restoreMusic;
+  useEffect(() => () => restoreRef.current(), []);
 
   const releaseObjectUrl = useCallback(() => {
     if (objectUrl.current) {
@@ -57,7 +100,7 @@ export function FinalPlayer({ onPlayed }: { onPlayed: () => void }) {
 
   useEffect(() => releaseObjectUrl, [releaseObjectUrl]);
 
-  // A track added in the hidden admin panel wins; otherwise the bundled file.
+  // Трек из админки важнее файла в сборке.
   const loadSource = useCallback(async () => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -69,8 +112,9 @@ export function FinalPlayer({ onPlayed }: { onPlayed: () => void }) {
       const url = URL.createObjectURL(stored.blob);
       objectUrl.current = url;
       audio.src = url;
-      setTrackName(stored.name);
-      setTrackKind("custom");
+      setHasTrack(true);
+      setCustom(true);
+      setPlaceholder(false);
       setLoading(false);
       return;
     }
@@ -82,17 +126,18 @@ export function FinalPlayer({ onPlayed }: { onPlayed: () => void }) {
         const type = res.headers.get("content-type") ?? "";
         if (!/audio|ogg|mpeg|wav|mp4/.test(type)) continue;
         audio.src = candidate.url;
-        setTrackName(candidate.label);
-        setTrackKind("bundled");
+        setHasTrack(true);
+        setCustom(false);
+        setPlaceholder(Boolean(candidate.placeholder));
         setLoading(false);
         return;
       } catch {
-        /* try the next candidate */
+        /* пробуем следующий файл */
       }
     }
 
-    setTrackName(null);
-    setTrackKind(null);
+    setHasTrack(false);
+    setPlaceholder(false);
     setLoading(false);
   }, [releaseObjectUrl]);
 
@@ -107,7 +152,7 @@ export function FinalPlayer({ onPlayed }: { onPlayed: () => void }) {
 
   const toggle = async () => {
     const audio = audioRef.current;
-    if (!audio || !trackName) return;
+    if (!audio || !hasTrack) return;
     if (audio.paused) {
       try {
         setError(null);
@@ -130,42 +175,40 @@ export function FinalPlayer({ onPlayed }: { onPlayed: () => void }) {
   };
 
   return (
-    <div className="player" aria-label="Персональный трек «Старый сейв»">
+    <div className="player" aria-label={`Трек «${TRACK_TITLE}»`}>
       <div className="player__head">
         <span className="player__kicker">Музыкальный подарок</span>
-        <h2 className="player__title">Старый сейв</h2>
-        {trackKind === "bundled" ? (
-          <span className="player__badge">из сборки</span>
-        ) : trackKind === "custom" ? (
+        <h2 className="player__title">{TRACK_TITLE}</h2>
+        {custom ? (
           <span className="player__badge player__badge--local">тестовый трек · только этот браузер</span>
+        ) : placeholder ? (
+          <span className="player__badge player__badge--local">демо · ждёт твой файл</span>
+        ) : hasTrack ? (
+          <span className="player__badge">из сборки</span>
         ) : null}
       </div>
 
       {loading ? (
         <p className="player__empty">Ищу трек в сборке…</p>
-      ) : !trackName ? (
+      ) : !hasTrack ? (
         <div className="player__empty">
           <PixelIcon name="note" size={18} />
           <p>
-            <strong>Трек пока не загружен.</strong>
+            <strong>Трек ещё не в сборке.</strong>
             <span>
-              Положи mp3 в <code>public/audio/old-save.mp3</code> — и он заиграет здесь.
+              Положи файл <code>public/audio/Илюха, с днём рождения.mp3</code> — и он заиграет
+              здесь.
             </span>
           </p>
         </div>
       ) : (
         <>
-          <div className="player__file">
-            <PixelIcon name="note" size={14} />
-            <span title={trackName}>{trackName}</span>
-          </div>
-
           <div className="player__controls">
             <button
               type="button"
               className="player__play"
               onClick={toggle}
-              aria-label={playing ? "Пауза" : "Воспроизвести"}
+              aria-label={playing ? "Пауза" : `Включить трек «${TRACK_TITLE}»`}
             >
               <span aria-hidden="true">{playing ? "❚❚" : "▶"}</span>
             </button>
@@ -195,7 +238,7 @@ export function FinalPlayer({ onPlayed }: { onPlayed: () => void }) {
           ) : null}
 
           {started && !error ? (
-            <p className="player__hint">Фоновая музыка приглушена, пока играет трек.</p>
+            <p className="player__hint">Фоновая музыка выключена, пока играет трек.</p>
           ) : null}
         </>
       )}
@@ -205,15 +248,15 @@ export function FinalPlayer({ onPlayed }: { onPlayed: () => void }) {
         preload="metadata"
         onPlay={() => {
           setPlaying(true);
-          duck(true);
+          silenceMusic();
         }}
         onPause={() => {
           setPlaying(false);
-          duck(false);
+          restoreMusic();
         }}
         onEnded={() => {
           setPlaying(false);
-          duck(false);
+          restoreMusic();
         }}
         onTimeUpdate={(e) => setCurrent(e.currentTarget.currentTime)}
         onLoadedMetadata={(e) => {
@@ -222,7 +265,7 @@ export function FinalPlayer({ onPlayed }: { onPlayed: () => void }) {
         }}
         onError={(e) => {
           setPlaying(false);
-          duck(false);
+          restoreMusic();
           setError(describeMediaError(e.currentTarget.error));
         }}
       />

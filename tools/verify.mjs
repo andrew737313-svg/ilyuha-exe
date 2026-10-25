@@ -95,7 +95,7 @@ async function shot(page, name) {
   await page.screenshot({ path: path.join(shots, `${name}.png`), fullPage: false });
 }
 
-const EXPECTED_404 = /\/audio\/old-save\.(mp3|m4a|ogg)/;
+const EXPECTED_404 = /\/audio\/(ilyuha-happy-birthday|old-save)\.(mp3|m4a|ogg)/;
 
 const server = await preview({
   root,
@@ -373,7 +373,7 @@ try {
   await page.getByRole("button", { name: /глава 07/i }).click();
   await page.waitForSelector("h1:has-text('Пивной баф')");
   await imagesReady(page);
-  check("Чейнджлог отрисован", (await page.locator(".changelog li").count()) === 3);
+  check("Чейнджлог отрисован", (await page.locator(".changelog li").count()) >= 3);
   check(
     "Иллюстрация в патче загрузилась",
     await page.locator(".patch__art img").evaluate((i) => i.complete && i.naturalWidth > 0),
@@ -410,7 +410,13 @@ try {
     "Письмо содержит ключевые абзацы",
     /с днём рождения/i.test(letter) && /одной партой/i.test(letter) && /сосед по парте/i.test(letter),
   );
-  check("Плеер нашёл встроенный трек", (await page.locator(".player__file").innerText()).includes("old-save"));
+  const playerTitle = await page.locator(".player__title").innerText();
+  const playerBadge = await page.locator(".player__badge").first().innerText();
+  check(
+    "Плеер нашёл трек из сборки",
+    /Илюха, с днём рождения/i.test(playerTitle) && /из сборки/i.test(playerBadge),
+    `${playerTitle} | ${playerBadge}`,
+  );
 
   const play = page.locator(".player__play");
   await play.click();
@@ -423,6 +429,7 @@ try {
       duration: a.duration,
       ducked: window.__ILYUHA_AUDIO__?.debugState().ducked,
       musicPlaying: window.__ILYUHA_AUDIO__?.debugState().playing,
+      musicOn: window.__ILYUHA_AUDIO__?.debugState().musicOn,
     };
   });
   check(
@@ -430,17 +437,30 @@ try {
     audioState.paused === false && audioState.currentTime > 0.3,
     JSON.stringify(audioState),
   );
-  check("Чиптюн приглушён под трек", audioState.ducked === true);
+  check(
+    "Фоновая музыка выключена под трек",
+    audioState.musicOn === false && audioState.musicPlaying === false,
+    JSON.stringify(audioState),
+  );
   check("Длительность известна", Number.isFinite(audioState.duration) && audioState.duration > 10, `${audioState.duration}`);
 
   await play.click();
   await page.waitForTimeout(400);
   const paused = await page.evaluate(() => {
     const a = document.querySelector(".player audio");
-    return { paused: a.paused, ducked: window.__ILYUHA_AUDIO__?.debugState().ducked };
+    return {
+      paused: a.paused,
+      ducked: window.__ILYUHA_AUDIO__?.debugState().ducked,
+      musicPlaying: window.__ILYUHA_AUDIO__?.debugState().playing,
+      musicOn: window.__ILYUHA_AUDIO__?.debugState().musicOn,
+    };
   });
   check("Пауза работает", paused.paused === true);
-  check("Приглушение снимается на паузе", paused.ducked === false);
+  check(
+    "Фоновая музыка возвращается на паузе",
+    paused.musicOn === true && paused.musicPlaying === true,
+    JSON.stringify(paused),
+  );
 
   const seeked = await page.evaluate(async () => {
     const a = document.querySelector(".player audio");

@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ACHIEVEMENTS, SCREENS, SCREEN_INDEX, type ScreenId } from "../game/content";
 import type { GameState } from "../game/state";
 import { useAudio } from "../audio/AudioProvider";
@@ -245,9 +245,9 @@ export function SettingsDialog({
 
         <footer className="sheet__foot">
           <p>
-            Иллюстрации — из папки <code>assets/</code>, музыка — процедурный чиптюн
-            Web&nbsp;Audio. Шрифты Pixelify&nbsp;Sans, Press&nbsp;Start&nbsp;2P и IBM&nbsp;Plex&nbsp;Mono
-            распространяются по OFL.
+            Иллюстрации из папки <code>assets/</code>. Музыка: чиптюн на Web&nbsp;Audio
+            и финальный трек. Шрифты Pixelify&nbsp;Sans, Press&nbsp;Start&nbsp;2P
+            и IBM&nbsp;Plex&nbsp;Mono, по OFL.
           </p>
         </footer>
       </div>

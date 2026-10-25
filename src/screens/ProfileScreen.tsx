@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { ART } from "../game/art";
-import { PROFILE_BARS, PROFILE_STATS } from "../game/content";
+import { PROFILE_BARS, PROFILE_BARS_NOTE, PROFILE_STATS } from "../game/content";
 import { ArtImage } from "../components/ArtImage";
 import { ChapterHeader, PixelButton } from "../components/Ui";
 import { PixelIcon } from "../components/PixelIcon";
@@ -75,15 +75,17 @@ export function ProfileScreen({ dispatch, go }: ScreenProps) {
             {PROFILE_BARS.map((bar) => (
               <div key={bar.label} className="bars__item">
                 <span className="bars__label">{bar.label}</span>
-                <span className="bars__track">
+                <span className="bars__track" aria-hidden="true">
                   <span
                     className={`bars__fill bars__fill--${bar.tone}`}
                     style={{ width: `${bar.value}%` }}
                   />
                 </span>
                 <span className="bars__value">{bar.value}</span>
+                <span className="bars__note">{bar.note}</span>
               </div>
             ))}
+            <p className="bars__sum">{PROFILE_BARS_NOTE}</p>
           </div>
 
           <div className="perk">
@@ -94,7 +96,7 @@ export function ProfileScreen({ dispatch, go }: ScreenProps) {
               <span className="perk__kicker">Пассивная способность</span>
               <strong>Пивной баф</strong>
               <span className="perk__text">
-                +5 к уверенности, −2 к скорости. Достался после тридцати, сам. Отключению не подлежит.
+                Уверенность +5, скорость −2. Достался после тридцати, сам. Отключению не подлежит.
               </span>
             </span>
           </div>

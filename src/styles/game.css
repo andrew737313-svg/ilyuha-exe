@@ -470,12 +470,16 @@
 
 .bars__item {
   display: grid;
-  grid-template-columns: 118px minmax(0, 1fr) 30px;
+  grid-template-columns: minmax(76px, 118px) minmax(0, 1fr) 30px;
+  grid-template-areas:
+    "label track value"
+    "note note note";
   align-items: center;
-  gap: 10px;
+  gap: 4px 10px;
 }
 
 .bars__label {
+  grid-area: label;
   font-size: 10.5px;
   font-family: var(--font-mono);
   letter-spacing: 0.08em;
@@ -484,6 +488,7 @@
 }
 
 .bars__track {
+  grid-area: track;
   height: 12px;
   background: #0a1322;
   border: 2px solid var(--line-soft);
@@ -510,11 +515,28 @@
 }
 
 .bars__value {
+  grid-area: value;
   font-family: var(--font-mono);
   font-weight: 600;
   font-size: 10px;
   color: var(--text-dim);
   text-align: right;
+}
+
+.bars__note {
+  grid-area: note;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--text-dim);
+}
+
+.bars__sum {
+  margin: 4px 0 0;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-mute);
 }
 
 .perk {
@@ -839,6 +861,20 @@
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
+}
+
+.stack__auto {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  padding: 3px 7px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: #23160a;
+  background: var(--amber);
 }
 
 .stack__field.is-shake {
@@ -1863,6 +1899,27 @@
 
   .hud {
     position: sticky;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "brand tools"
+      "map map";
+    gap: 8px;
+    padding: 8px 12px;
+  }
+
+  .hud__brand {
+    grid-area: brand;
+  }
+
+  .hud__tools {
+    grid-area: tools;
+    justify-self: end;
+  }
+
+  .hud__map {
+    grid-area: map;
+    justify-content: stretch;
+    gap: 4px;
   }
 
   .hud__logo {
@@ -1874,9 +1931,10 @@
   }
 
   .hud__pip {
-    width: 34px;
-    height: 34px;
-    flex: none;
+    width: auto;
+    height: 36px;
+    flex: 1 1 0;
+    min-width: 0;
   }
 
   .boot__title-main {
@@ -1936,10 +1994,6 @@
     font-size: 19px;
   }
 
-  .night__quote {
-    min-height: 130px;
-  }
-
   .night__crt {
     padding: 14px;
   }
@@ -1981,9 +2035,20 @@
 }
 
 @media (max-width: 380px) {
+  .hud__progress {
+    display: none;
+  }
+
+  .hud__icon {
+    padding: 0 6px;
+  }
+
   .hud__pip {
-    width: 32px;
-    height: 32px;
+    height: 34px;
+  }
+
+  .bars__item {
+    grid-template-columns: 72px minmax(0, 1fr) 24px;
   }
 
   .boot__bar {

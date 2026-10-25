@@ -8,7 +8,7 @@ import { ChapterLayout, type ScreenProps } from "./types";
 
 const BOOT_LINES = [
   "Проверка жёсткого диска: жив. Держится.",
-  "Поиск сохранения „Детство“: найдено.",
+  "Поиск сохранения «Детство»: найдено.",
   "Проверка взрослости: зависла на семидесяти процентах.",
   "Илюха обнаружен. 32 года. Всё ещё заводной.",
 ];
@@ -84,7 +84,7 @@ export function BootScreen({ state, dispatch, go }: ScreenProps) {
         <div className="nav-row">
           <span className="nav-row__note">
             {phase === "idle"
-              ? "Звук включится после нажатия — так требуют браузеры."
+              ? "Звук включится после нажатия. Так требуют браузеры."
               : ready
                 ? "Проверка завершена. Заходи."
                 : "Идёт проверка системы…"}
@@ -134,7 +134,7 @@ export function BootScreen({ state, dispatch, go }: ScreenProps) {
 
             <div className="boot__title">
               <span className="boot__title-main">ИЛЮХА.EXE</span>
-              <span className="boot__title-sub">Патч 32.0 — вроде стабильная сборка</span>
+              <span className="boot__title-sub">Патч 32.0, вроде стабильная сборка</span>
             </div>
 
             <div className="boot__meta">

@@ -79,6 +79,9 @@ export function StackerGame({
   const phaseRef = useRef<Phase>("intro");
   const fieldRef = useRef<HTMLDivElement | null>(null);
   const [phase, setPhaseState] = useState<Phase>("intro");
+  const [auto, setAuto] = useState(AUTO);
+  const autoRef = useRef(AUTO);
+  autoRef.current = auto;
   const [, setTick] = useState(0);
   const render = () => setTick((n) => n + 1);
   const setPh = (p: Phase) => {
@@ -169,7 +172,7 @@ export function StackerGame({
         w.cur.x = 100 - w.cur.w;
         w.cur.dir = -1;
       }
-      if (AUTO) {
+      if (autoRef.current) {
         const top = w.stack[w.stack.length - 1];
         const tx = top ? top.x : BED.x;
         const tw = top ? top.w : BED.w;
@@ -194,24 +197,32 @@ export function StackerGame({
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== " " && event.key !== "Enter") return;
       event.preventDefault();
-      drop();
+      manualDrop();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
-  const start = () => {
+  const start = (autoMode = autoRef.current) => {
     Object.assign(worldRef.current!, makeWorld());
+    setAuto(autoMode);
+    autoRef.current = autoMode;
     sfx("select");
     setPh("run");
     render();
   };
 
+  /** Ручной бросок: пока идёт автопогрузка, тапы и пробел игнорируются. */
+  const manualDrop = () => {
+    if (autoRef.current) return;
+    drop();
+  };
+
   const w = worldRef.current!;
   const offsetY = Math.max(0, w.stack.length - VISIBLE) * BOX_H;
   const flashText = (f: NonNullable<World["flash"]>) =>
-    f.kind === "perfect" ? `РОВНО!${w.combo > 1 ? ` ×${w.combo}` : ""}` : f.kind === "ok" ? "легло" : "МИМО — минус ящик";
+    f.kind === "perfect" ? `РОВНО!${w.combo > 1 ? ` ×${w.combo}` : ""}` : f.kind === "ok" ? "легло" : "МИМО. Минус ящик";
 
   return (
     <div className="night__stage">
@@ -230,11 +241,14 @@ export function StackerGame({
               Ящик ездит туда-сюда — тапай вовремя, и он ложится на стопку. Свесился —
               край отваливается. Три ящика мимо — и фура ушла пустой.
             </p>
-            <PixelButton variant="primary" className="btn--big" icon="factory" onClick={start}>
+            <PixelButton variant="primary" className="btn--big" icon="factory" onClick={() => start(AUTO)}>
               Начать погрузку
             </PixelButton>
+            <PixelButton variant="ghost" className="btn--big" icon="disk" onClick={() => start(true)}>
+              Автопогрузка
+            </PixelButton>
             <p className="night__hint">
-              Тап по полю, кнопка внизу или пробел.
+              Тап по полю, кнопка внизу или пробел. Автопогрузка проведёт смену сама.
             </p>
             {savedResult ? (
               <p className="night__hint">
@@ -253,9 +267,14 @@ export function StackerGame({
               aria-label="Погрузка фуры: тапни, чтобы сбросить ящик"
               onPointerDown={(e) => {
                 e.preventDefault();
-                drop();
+                manualDrop();
               }}
             >
+              {auto ? (
+                <span className="stack__auto" aria-hidden="true">
+                  АВТО
+                </span>
+              ) : null}
               <div className="stack__pile" style={{ transform: `translateY(${offsetY}px)` }}>
                 {w.stack.map((b, i) => (
                   <div
@@ -300,9 +319,15 @@ export function StackerGame({
               </div>
             </div>
 
-            <PixelButton variant="primary" className="btn--big stack__drop" onClick={drop}>
-              Сбросить ящик
-            </PixelButton>
+            {auto ? (
+              <PixelButton variant="ghost" className="btn--big stack__drop" onClick={() => setAuto(false)}>
+                Взять в руки
+              </PixelButton>
+            ) : (
+              <PixelButton variant="primary" className="btn--big stack__drop" onClick={manualDrop}>
+                Сбросить ящик
+              </PixelButton>
+            )}
           </>
         ) : null}
 
@@ -312,7 +337,7 @@ export function StackerGame({
             <p className="night__tally">
               погружено {w.stack.length}/{GOAL} · потеряно {w.lost}
             </p>
-            <PixelButton variant="primary" className="btn--big" icon="factory" onClick={start}>
+            <PixelButton variant="primary" className="btn--big" icon="factory" onClick={() => start(autoRef.current)}>
               Ещё смена
             </PixelButton>
           </div>
@@ -329,7 +354,7 @@ export function StackerGame({
                 ? "Двенадцать ящиков, ни одной потери. Фура ушла, смена сдана."
                 : "Двенадцать ящиков в фуре. Сметаны жалко, но уехала."}
             </p>
-            <PixelButton variant="primary" className="btn--big" icon="factory" onClick={start}>
+            <PixelButton variant="primary" className="btn--big" icon="factory" onClick={() => start(autoRef.current)}>
               Ещё смена
             </PixelButton>
           </div>
